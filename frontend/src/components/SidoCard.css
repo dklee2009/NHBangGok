@@ -1,0 +1,98 @@
+.sido-card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  padding: 14px 6px 12px;
+  background: white;
+  border: 1.5px solid #e2e8f0;
+  border-radius: 16px;
+  cursor: pointer;
+  transition: all 0.18s ease;
+  min-width: 0;
+}
+
+.sido-card:hover {
+  border-color: #00843d;
+  box-shadow: 0 4px 16px rgba(0, 132, 61, 0.15);
+  transform: translateY(-2px);
+}
+
+.sido-card.visited {
+  background: linear-gradient(145deg, #e8f5e9, #f1f8e9);
+  border-color: #00843d;
+}
+
+.sido-check-badge {
+  position: absolute;
+  top: 6px;
+  right: 6px;
+  background: #00843d;
+  color: white;
+  border-radius: 50%;
+  width: 17px;
+  height: 17px;
+  font-size: 9px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 800;
+  border: 1.5px solid white;
+}
+
+.sido-logo-wrap {
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  overflow: hidden;
+  border: 1.5px solid #e2e8f0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #f8faff;
+  flex-shrink: 0;
+}
+
+.sido-card.visited .sido-logo-wrap {
+  border-color: #a5d6a7;
+  background: #f1f8e9;
+}
+
+.sido-logo-img {
+  width: 50px;
+  height: 50px;
+  object-fit: contain;
+}
+
+.sido-logo-initial {
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-size: 22px;
+  font-weight: 800;
+}
+
+.sido-name {
+  font-size: 12px;
+  font-weight: 700;
+  color: #334155;
+  text-align: center;
+}
+
+.sido-card.visited .sido-name {
+  color: #2e7d32;
+}
+
+.sido-count {
+  font-size: 10px;
+  font-weight: 700;
+  color: white;
+  background: #00843d;
+  border-radius: 10px;
+  padding: 2px 8px;
+}

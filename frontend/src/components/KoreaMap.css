@@ -1,0 +1,105 @@
+.korea-map-wrapper {
+  position: relative;
+  width: 100%;
+  max-width: 500px;
+  margin: 0 auto;
+}
+
+.korea-map-svg {
+  width: 100%;
+  height: auto;
+  filter: drop-shadow(0 6px 20px rgba(0, 0, 0, 0.10));
+}
+
+/* 기본 시/도 path */
+.sido-path {
+  stroke: #8faec8;
+  stroke-width: 0.8;
+  cursor: pointer;
+  transition: fill 0.2s ease, stroke-width 0.15s ease;
+}
+
+.sido-unvisited {
+  fill: #ffffff;
+}
+
+.sido-visited {
+  fill: #00843d;
+}
+
+.sido-hovered.sido-unvisited {
+  fill: #e3f2e9;
+  stroke: #00843d;
+  stroke-width: 1.5;
+}
+
+.sido-hovered.sido-visited {
+  fill: #006b31;
+  stroke: #003d1c;
+  stroke-width: 1.5;
+}
+
+/* 지역 이름 */
+.sido-label {
+  font-size: 10px;
+  font-weight: 700;
+  fill: #4a6080;
+  text-anchor: middle;
+  dominant-baseline: middle;
+  letter-spacing: -0.2px;
+}
+
+.sido-label-visited {
+  fill: #ffffff;
+}
+
+/* 방문 도장 수 */
+.sido-stamp-count {
+  font-size: 9px;
+  font-weight: 800;
+  fill: #ffe566;
+  text-anchor: middle;
+  dominant-baseline: middle;
+}
+
+/* 툴팁 */
+.map-tooltip {
+  position: absolute;
+  bottom: 8px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: rgba(20, 40, 60, 0.82);
+  color: white;
+  padding: 6px 16px;
+  border-radius: 20px;
+  font-size: 13px;
+  font-weight: 600;
+  pointer-events: none;
+  white-space: nowrap;
+  backdrop-filter: blur(4px);
+}
+
+/* 로딩 스켈레톤 */
+.map-skeleton {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 300px;
+  gap: 12px;
+  color: #888;
+  font-size: 14px;
+}
+
+.skeleton-spinner {
+  width: 32px;
+  height: 32px;
+  border: 3px solid #e0e0e0;
+  border-top-color: #00843d;
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}

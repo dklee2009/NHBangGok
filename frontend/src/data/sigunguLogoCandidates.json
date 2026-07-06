@@ -1,0 +1,1252 @@
+{
+  "11010": {
+    "name": "종로구",
+    "name_eng": "Jongno-gu",
+    "filename": "01-01-jongno-ko.svg"
+  },
+  "11020": {
+    "name": "중구",
+    "name_eng": "Jung-gu",
+    "filename": "01-02-jung-ko.svg"
+  },
+  "11030": {
+    "name": "용산구",
+    "name_eng": "Yongsan-gu",
+    "filename": "01-03-yongsan-ko.svg"
+  },
+  "11040": {
+    "name": "성동구",
+    "name_eng": "Seongdong-gu",
+    "filename": "01-04-seongdong-ko.svg"
+  },
+  "11050": {
+    "name": "광진구",
+    "name_eng": "Gwangjin-gu",
+    "filename": "01-05-gwangjin-ko.svg"
+  },
+  "11060": {
+    "name": "동대문구",
+    "name_eng": "Dongdaemun-gu",
+    "filename": "01-06-dongdaemun-ko.svg"
+  },
+  "11070": {
+    "name": "중랑구",
+    "name_eng": "Jungnang-gu",
+    "filename": "01-07-jungnang-ko.svg"
+  },
+  "11080": {
+    "name": "성북구",
+    "name_eng": "Seongbuk-gu",
+    "filename": "01-08-seongbuk-ko.svg"
+  },
+  "11090": {
+    "name": "강북구",
+    "name_eng": "Gangbuk-gu",
+    "filename": "01-09-gangbuk-ko.svg"
+  },
+  "11100": {
+    "name": "도봉구",
+    "name_eng": "Dobong-gu",
+    "filename": "01-10-dobong-ko.svg"
+  },
+  "11110": {
+    "name": "노원구",
+    "name_eng": "Nowon-gu",
+    "filename": "01-11-nowon-ko.svg"
+  },
+  "11120": {
+    "name": "은평구",
+    "name_eng": "Eunpyeong-gu",
+    "filename": "01-12-eunpyeong-ko.svg"
+  },
+  "11130": {
+    "name": "서대문구",
+    "name_eng": "Seodaemun-gu",
+    "filename": "01-13-seodaemun-ko.svg"
+  },
+  "11140": {
+    "name": "마포구",
+    "name_eng": "Mapo-gu",
+    "filename": "01-14-mapo-ko.svg"
+  },
+  "11150": {
+    "name": "양천구",
+    "name_eng": "Yangcheon-gu",
+    "filename": "01-15-yangcheon-ko.svg"
+  },
+  "11160": {
+    "name": "강서구",
+    "name_eng": "Gangseo-gu",
+    "filename": "01-16-gangseo-ko.svg"
+  },
+  "11170": {
+    "name": "구로구",
+    "name_eng": "Guro-gu",
+    "filename": "01-17-guro-ko.svg"
+  },
+  "11180": {
+    "name": "금천구",
+    "name_eng": "Geumcheon-gu",
+    "filename": "01-18-geumcheon-ko.svg"
+  },
+  "11190": {
+    "name": "영등포구",
+    "name_eng": "Yeongdeungpo-gu",
+    "filename": "01-19-yeongdeungpo-ko.svg"
+  },
+  "11200": {
+    "name": "동작구",
+    "name_eng": "Dongjak-gu",
+    "filename": "01-20-dongjak-ko.svg"
+  },
+  "11210": {
+    "name": "관악구",
+    "name_eng": "Gwanak-gu",
+    "filename": "01-21-gwanak-ko.svg"
+  },
+  "11220": {
+    "name": "서초구",
+    "name_eng": "Seocho-gu",
+    "filename": "01-22-seocho-ko.svg"
+  },
+  "11230": {
+    "name": "강남구",
+    "name_eng": "Gangnam-gu",
+    "filename": "01-23-gangnam-ko.svg"
+  },
+  "11240": {
+    "name": "송파구",
+    "name_eng": "Songpa-gu",
+    "filename": "01-24-songpa-ko.svg"
+  },
+  "11250": {
+    "name": "강동구",
+    "name_eng": "Gangdong-gu",
+    "filename": "01-25-gangdong-ko.svg"
+  },
+  "21010": {
+    "name": "중구",
+    "name_eng": "Jung-gu",
+    "filename": "02-01-jung-ko.svg"
+  },
+  "21020": {
+    "name": "서구",
+    "name_eng": "Seo-gu",
+    "filename": "02-02-seo-ko.svg"
+  },
+  "21030": {
+    "name": "동구",
+    "name_eng": "Dong-gu",
+    "filename": "02-03-dong-ko.svg"
+  },
+  "21040": {
+    "name": "영도구",
+    "name_eng": "Yeongdo-gu",
+    "filename": "02-04-yeongdo-ko.svg"
+  },
+  "21050": {
+    "name": "부산진구",
+    "name_eng": "Busanjin-gu",
+    "filename": "02-05-busanjin-ko.svg"
+  },
+  "21060": {
+    "name": "동래구",
+    "name_eng": "Dongnae-gu",
+    "filename": "02-06-dongnae-ko.svg"
+  },
+  "21070": {
+    "name": "남구",
+    "name_eng": "Nam-gu",
+    "filename": "02-07-nam-ko.svg"
+  },
+  "21080": {
+    "name": "북구",
+    "name_eng": "Buk-gu",
+    "filename": "02-08-buk-ko.svg"
+  },
+  "21090": {
+    "name": "해운대구",
+    "name_eng": "Haeundae-gu",
+    "filename": "02-09-haeundae-ko.svg"
+  },
+  "21100": {
+    "name": "사하구",
+    "name_eng": "Saha-gu",
+    "filename": "02-10-saha-ko.svg"
+  },
+  "21110": {
+    "name": "금정구",
+    "name_eng": "Geumjeong-gu",
+    "filename": "02-11-geumjeong-ko.svg"
+  },
+  "21120": {
+    "name": "강서구",
+    "name_eng": "Gangseo-gu",
+    "filename": "02-12-gangseo-ko.svg"
+  },
+  "21130": {
+    "name": "연제구",
+    "name_eng": "Yeonje-gu",
+    "filename": "02-13-yeonje-ko.svg"
+  },
+  "21140": {
+    "name": "수영구",
+    "name_eng": "Suyeong-gu",
+    "filename": "02-14-suyeong-ko.svg"
+  },
+  "21150": {
+    "name": "사상구",
+    "name_eng": "Sasang-gu",
+    "filename": "02-15-sasang-ko.svg"
+  },
+  "21310": {
+    "name": "기장군",
+    "name_eng": "Gijang-gun",
+    "filename": "02-31-gijangn-ko.svg"
+  },
+  "22010": {
+    "name": "중구",
+    "name_eng": "Jung-gu",
+    "filename": "03-01-jung-ko.svg"
+  },
+  "22020": {
+    "name": "동구",
+    "name_eng": "Dong-gu",
+    "filename": "03-02-dong-ko.svg"
+  },
+  "22030": {
+    "name": "서구",
+    "name_eng": "Seo-gu",
+    "filename": "03-03-seo-ko.svg"
+  },
+  "22040": {
+    "name": "남구",
+    "name_eng": "Nam-gu",
+    "filename": "03-04-nam-ko.svg"
+  },
+  "22050": {
+    "name": "북구",
+    "name_eng": "Buk-gu",
+    "filename": "03-05-buk-ko.svg"
+  },
+  "22060": {
+    "name": "수성구",
+    "name_eng": "Suseong-gu",
+    "filename": "03-06-suseong-ko.svg"
+  },
+  "22070": {
+    "name": "달서구",
+    "name_eng": "Dalseo-gu",
+    "filename": "03-07-dalseo-ko.svg"
+  },
+  "22310": {
+    "name": "달성군",
+    "name_eng": "Dalseong-gun",
+    "filename": "03-31-dalseongn-ko.svg"
+  },
+  "23010": {
+    "name": "중구",
+    "name_eng": "Jung-gu",
+    "filename": "04-01-jung-ko.svg"
+  },
+  "23020": {
+    "name": "동구",
+    "name_eng": "Dong-gu",
+    "filename": "04-02-dong-ko.svg"
+  },
+  "23030": {
+    "name": "남구",
+    "name_eng": "Nam-gu",
+    "filename": "04-03-nam-ko.svg"
+  },
+  "23040": {
+    "name": "연수구",
+    "name_eng": "Yeonsu-gu",
+    "filename": "04-04-yeonsu-ko.svg"
+  },
+  "23050": {
+    "name": "남동구",
+    "name_eng": "Namdong-gu",
+    "filename": "04-05-namdong-ko.svg"
+  },
+  "23060": {
+    "name": "부평구",
+    "name_eng": "Bupyeong-gu",
+    "filename": "04-06-bupyeong-ko.svg"
+  },
+  "23070": {
+    "name": "계양구",
+    "name_eng": "Gyeyang-gu",
+    "filename": "04-07-gyeyang-ko.svg"
+  },
+  "23080": {
+    "name": "서구",
+    "name_eng": "Seo-gu",
+    "filename": "04-08-seo-ko.svg"
+  },
+  "23310": {
+    "name": "강화군",
+    "name_eng": "Ganghwa-gun",
+    "filename": "04-31-ganghwan-ko.svg"
+  },
+  "23320": {
+    "name": "옹진군",
+    "name_eng": "Ongjin-gun",
+    "filename": "04-32-ongjinn-ko.svg"
+  },
+  "24010": {
+    "name": "동구",
+    "name_eng": "Dong-gu",
+    "filename": "05-01-dong-ko.svg"
+  },
+  "24020": {
+    "name": "서구",
+    "name_eng": "Seo-gu",
+    "filename": "05-02-seo-ko.svg"
+  },
+  "24030": {
+    "name": "남구",
+    "name_eng": "Nam-gu",
+    "filename": "05-03-nam-ko.svg"
+  },
+  "24040": {
+    "name": "북구",
+    "name_eng": "Buk-gu",
+    "filename": "05-04-buk-ko.svg"
+  },
+  "24050": {
+    "name": "광산구",
+    "name_eng": "Gwangsan-gu",
+    "filename": "05-05-gwangsan-ko.svg"
+  },
+  "25010": {
+    "name": "동구",
+    "name_eng": "Dong-gu",
+    "filename": "06-01-dong-ko.svg"
+  },
+  "25020": {
+    "name": "중구",
+    "name_eng": "Jung-gu",
+    "filename": "06-02-jung-ko.svg"
+  },
+  "25030": {
+    "name": "서구",
+    "name_eng": "Seo-gu",
+    "filename": "06-03-seo-ko.svg"
+  },
+  "25040": {
+    "name": "유성구",
+    "name_eng": "Yuseong-gu",
+    "filename": "06-04-yuseong-ko.svg"
+  },
+  "25050": {
+    "name": "대덕구",
+    "name_eng": "Daedeok-gu",
+    "filename": "06-05-daedeok-ko.svg"
+  },
+  "26010": {
+    "name": "중구",
+    "name_eng": "Jung-gu",
+    "filename": "07-01-jung-ko.svg"
+  },
+  "26020": {
+    "name": "남구",
+    "name_eng": "Nam-gu",
+    "filename": "07-02-nam-ko.svg"
+  },
+  "26030": {
+    "name": "동구",
+    "name_eng": "Dong-gu",
+    "filename": "07-03-dong-ko.svg"
+  },
+  "26040": {
+    "name": "북구",
+    "name_eng": "Buk-gu",
+    "filename": "07-04-buk-ko.svg"
+  },
+  "26310": {
+    "name": "울주군",
+    "name_eng": "Ulju-gun",
+    "filename": "07-31-uljun-ko.svg"
+  },
+  "29010": {
+    "name": "세종시",
+    "name_eng": "Sejongsi",
+    "filename": "08-01-sejongsi-ko.svg"
+  },
+  "31011": {
+    "name": "수원시장안구",
+    "name_eng": "Suwonsijangangu",
+    "filename": "09-01-suwonsijangangu-ko.svg"
+  },
+  "31012": {
+    "name": "수원시권선구",
+    "name_eng": "Suwonsigwonseongu",
+    "filename": "09-01-suwonsigwonseongu-ko.svg"
+  },
+  "31013": {
+    "name": "수원시팔달구",
+    "name_eng": "Suwonsipaldalgu",
+    "filename": "09-01-suwonsipaldalgu-ko.svg"
+  },
+  "31014": {
+    "name": "수원시영통구",
+    "name_eng": "Suwonsiyeongtonggu",
+    "filename": "09-01-suwonsiyeongtonggu-ko.svg"
+  },
+  "31021": {
+    "name": "성남시수정구",
+    "name_eng": "Seongnamsisujeonggu",
+    "filename": "09-02-seongnamsisujeonggu-ko.svg"
+  },
+  "31022": {
+    "name": "성남시중원구",
+    "name_eng": "Seongnamsijungwongu",
+    "filename": "09-02-seongnamsijungwongu-ko.svg"
+  },
+  "31023": {
+    "name": "성남시분당구",
+    "name_eng": "Seongnamsibundanggu",
+    "filename": "09-02-seongnamsibundanggu-ko.svg"
+  },
+  "31030": {
+    "name": "의정부시",
+    "name_eng": "Uijeongbu-si",
+    "filename": "09-03-uijeongbu-ko.svg"
+  },
+  "31041": {
+    "name": "안양시만안구",
+    "name_eng": "Anyangsimanangu",
+    "filename": "09-04-anyangsimanangu-ko.svg"
+  },
+  "31042": {
+    "name": "안양시동안구",
+    "name_eng": "Anyangsidongangu",
+    "filename": "09-04-anyangsidongangu-ko.svg"
+  },
+  "31050": {
+    "name": "부천시",
+    "name_eng": "Bucheon-si",
+    "filename": "09-05-bucheon-ko.svg"
+  },
+  "31060": {
+    "name": "광명시",
+    "name_eng": "Gwangmyeong-si",
+    "filename": "09-06-gwangmyeong-ko.svg"
+  },
+  "31070": {
+    "name": "평택시",
+    "name_eng": "Pyeongtaek-si",
+    "filename": "09-07-pyeongtaek-ko.svg"
+  },
+  "31080": {
+    "name": "동두천시",
+    "name_eng": "Dongducheon-si",
+    "filename": "09-08-dongducheon-ko.svg"
+  },
+  "31091": {
+    "name": "안산시상록구",
+    "name_eng": "Ansansisangnokgu",
+    "filename": "09-09-ansansisangnokgu-ko.svg"
+  },
+  "31092": {
+    "name": "안산시단원구",
+    "name_eng": "Ansansidanwongu",
+    "filename": "09-09-ansansidanwongu-ko.svg"
+  },
+  "31101": {
+    "name": "고양시덕양구",
+    "name_eng": "Goyangsideogyanggu",
+    "filename": "09-10-goyangsideogyanggu-ko.svg"
+  },
+  "31103": {
+    "name": "고양시일산동구",
+    "name_eng": "Goyangsiilsandonggu",
+    "filename": "09-10-goyangsiilsandonggu-ko.svg"
+  },
+  "31104": {
+    "name": "고양시일산서구",
+    "name_eng": "Goyangsiilsanseogu",
+    "filename": "09-10-goyangsiilsanseogu-ko.svg"
+  },
+  "31110": {
+    "name": "과천시",
+    "name_eng": "Gwacheon-si",
+    "filename": "09-11-gwacheon-ko.svg"
+  },
+  "31120": {
+    "name": "구리시",
+    "name_eng": "Guri-si",
+    "filename": "09-12-guri-ko.svg"
+  },
+  "31130": {
+    "name": "남양주시",
+    "name_eng": "Namyangju-si",
+    "filename": "09-13-namyangju-ko.svg"
+  },
+  "31140": {
+    "name": "오산시",
+    "name_eng": "Osan-si",
+    "filename": "09-14-osan-ko.svg"
+  },
+  "31150": {
+    "name": "시흥시",
+    "name_eng": "Siheung-si",
+    "filename": "09-15-siheung-ko.svg"
+  },
+  "31160": {
+    "name": "군포시",
+    "name_eng": "Gunpo-si",
+    "filename": "09-16-gunpo-ko.svg"
+  },
+  "31170": {
+    "name": "의왕시",
+    "name_eng": "Uiwang-si",
+    "filename": "09-17-uiwang-ko.svg"
+  },
+  "31180": {
+    "name": "하남시",
+    "name_eng": "Hanam-si",
+    "filename": "09-18-hanam-ko.svg"
+  },
+  "31191": {
+    "name": "용인시처인구",
+    "name_eng": "Yonginsicheoingu",
+    "filename": "09-19-yonginsicheoingu-ko.svg"
+  },
+  "31192": {
+    "name": "용인시기흥구",
+    "name_eng": "Yonginsigiheunggu",
+    "filename": "09-19-yonginsigiheunggu-ko.svg"
+  },
+  "31193": {
+    "name": "용인시수지구",
+    "name_eng": "Yonginsisujigu",
+    "filename": "09-19-yonginsisujigu-ko.svg"
+  },
+  "31200": {
+    "name": "파주시",
+    "name_eng": "Paju-si",
+    "filename": "09-20-paju-ko.svg"
+  },
+  "31210": {
+    "name": "이천시",
+    "name_eng": "Icheon-si",
+    "filename": "09-21-icheon-ko.svg"
+  },
+  "31220": {
+    "name": "안성시",
+    "name_eng": "Anseong-si",
+    "filename": "09-22-anseong-ko.svg"
+  },
+  "31230": {
+    "name": "김포시",
+    "name_eng": "Gimpo-si",
+    "filename": "09-23-gimpo-ko.svg"
+  },
+  "31240": {
+    "name": "화성시",
+    "name_eng": "Hwaseongsi",
+    "filename": "09-24-hwaseongsi-ko.svg"
+  },
+  "31250": {
+    "name": "광주시",
+    "name_eng": "Gwangju",
+    "filename": "09-25-gwangju-ko.svg"
+  },
+  "31260": {
+    "name": "양주시",
+    "name_eng": "Yangjusi",
+    "filename": "09-26-yangjusi-ko.svg"
+  },
+  "31270": {
+    "name": "포천시",
+    "name_eng": "Pocheonsi",
+    "filename": "09-27-pocheonsi-ko.svg"
+  },
+  "31280": {
+    "name": "여주시",
+    "name_eng": "Yeoju-si",
+    "filename": "09-28-yeoju-ko.svg"
+  },
+  "31350": {
+    "name": "연천군",
+    "name_eng": "Yeoncheon-gun",
+    "filename": "09-35-yeoncheonn-ko.svg"
+  },
+  "31370": {
+    "name": "가평군",
+    "name_eng": "Gapyeong-gun",
+    "filename": "09-37-gapyeongn-ko.svg"
+  },
+  "31380": {
+    "name": "양평군",
+    "name_eng": "Yangpyeong-gun",
+    "filename": "09-38-yangpyeongn-ko.svg"
+  },
+  "32010": {
+    "name": "춘천시",
+    "name_eng": "Chuncheon-si",
+    "filename": "10-01-chuncheon-ko.svg"
+  },
+  "32020": {
+    "name": "원주시",
+    "name_eng": "Wonju-si",
+    "filename": "10-02-wonju-ko.svg"
+  },
+  "32030": {
+    "name": "강릉시",
+    "name_eng": "Gangneung-si",
+    "filename": "10-03-gangneung-ko.svg"
+  },
+  "32040": {
+    "name": "동해시",
+    "name_eng": "Donghae-si",
+    "filename": "10-04-donghae-ko.svg"
+  },
+  "32050": {
+    "name": "태백시",
+    "name_eng": "Taebaek-si",
+    "filename": "10-05-taebaek-ko.svg"
+  },
+  "32060": {
+    "name": "속초시",
+    "name_eng": "Sokcho-si",
+    "filename": "10-06-sokcho-ko.svg"
+  },
+  "32070": {
+    "name": "삼척시",
+    "name_eng": "Samcheok-si",
+    "filename": "10-07-samcheok-ko.svg"
+  },
+  "32310": {
+    "name": "홍천군",
+    "name_eng": "Hongcheon-gun",
+    "filename": "10-31-hongcheonn-ko.svg"
+  },
+  "32320": {
+    "name": "횡성군",
+    "name_eng": "Hoengseong-gun",
+    "filename": "10-32-hoengseongn-ko.svg"
+  },
+  "32330": {
+    "name": "영월군",
+    "name_eng": "Yeongwol-gun",
+    "filename": "10-33-yeongwoln-ko.svg"
+  },
+  "32340": {
+    "name": "평창군",
+    "name_eng": "Pyeongchang-gun",
+    "filename": "10-34-pyeongchangn-ko.svg"
+  },
+  "32350": {
+    "name": "정선군",
+    "name_eng": "Jeongseon-gun",
+    "filename": "10-35-jeongseonn-ko.svg"
+  },
+  "32360": {
+    "name": "철원군",
+    "name_eng": "Gongju-si",
+    "filename": "10-36-gongju-ko.svg"
+  },
+  "32370": {
+    "name": "화천군",
+    "name_eng": "Hwacheon-gun",
+    "filename": "10-37-hwacheonn-ko.svg"
+  },
+  "32380": {
+    "name": "양구군",
+    "name_eng": "Yanggu-gun",
+    "filename": "10-38-yanggun-ko.svg"
+  },
+  "32390": {
+    "name": "인제군",
+    "name_eng": "Inje-gun",
+    "filename": "10-39-injen-ko.svg"
+  },
+  "32400": {
+    "name": "고성군",
+    "name_eng": "Goseong-gun",
+    "filename": "10-40-goseongn-ko.svg"
+  },
+  "32410": {
+    "name": "양양군",
+    "name_eng": "Yangyang-gun",
+    "filename": "10-41-yangyangn-ko.svg"
+  },
+  "33020": {
+    "name": "충주시",
+    "name_eng": "Chungju-si",
+    "filename": "11-02-chungju-ko.svg"
+  },
+  "33030": {
+    "name": "제천시",
+    "name_eng": "Jecheon-si",
+    "filename": "11-03-jecheon-ko.svg"
+  },
+  "33041": {
+    "name": "청주시상당구",
+    "name_eng": "Cheongjusisangdanggu",
+    "filename": "11-04-cheongjusisangdanggu-ko.svg"
+  },
+  "33042": {
+    "name": "청주시서원구",
+    "name_eng": "Cheongjusiseowongu",
+    "filename": "11-04-cheongjusiseowongu-ko.svg"
+  },
+  "33043": {
+    "name": "청주시흥덕구",
+    "name_eng": "Cheongjusiheungdeokgu",
+    "filename": "11-04-cheongjusiheungdeokgu-ko.svg"
+  },
+  "33044": {
+    "name": "청주시청원구",
+    "name_eng": "Cheongjusicheongwongu",
+    "filename": "11-04-cheongjusicheongwongu-ko.svg"
+  },
+  "33320": {
+    "name": "보은군",
+    "name_eng": "Boeun-gun",
+    "filename": "11-32-boeunn-ko.svg"
+  },
+  "33330": {
+    "name": "옥천군",
+    "name_eng": "Okcheon-gun",
+    "filename": "11-33-okcheonn-ko.svg"
+  },
+  "33340": {
+    "name": "영동군",
+    "name_eng": "Yeongdong-gun",
+    "filename": "11-34-yeongdongn-ko.svg"
+  },
+  "33350": {
+    "name": "진천군",
+    "name_eng": "Jincheon-gun",
+    "filename": "11-35-jincheonn-ko.svg"
+  },
+  "33360": {
+    "name": "괴산군",
+    "name_eng": "Goesan-gun",
+    "filename": "11-36-goesann-ko.svg"
+  },
+  "33370": {
+    "name": "음성군",
+    "name_eng": "Eumseong-gun",
+    "filename": "11-37-eumseongn-ko.svg"
+  },
+  "33380": {
+    "name": "단양군",
+    "name_eng": "Danyang-gun",
+    "filename": "11-38-danyangn-ko.svg"
+  },
+  "33390": {
+    "name": "증평군",
+    "name_eng": "Jeungpyeonggun",
+    "filename": "11-39-jeungpyeonggun-ko.svg"
+  },
+  "34011": {
+    "name": "천안시동남구",
+    "name_eng": "Cheonansidongnamgu",
+    "filename": "12-01-cheonansidongnamgu-ko.svg"
+  },
+  "34012": {
+    "name": "천안시서북구",
+    "name_eng": "Cheonansiseobukgu",
+    "filename": "12-01-cheonansiseobukgu-ko.svg"
+  },
+  "34020": {
+    "name": "공주시",
+    "name_eng": "Gongju-si",
+    "filename": "12-02-gongju-ko.svg"
+  },
+  "34030": {
+    "name": "보령시",
+    "name_eng": "Boryeong-si",
+    "filename": "12-03-boryeong-ko.svg"
+  },
+  "34040": {
+    "name": "아산시",
+    "name_eng": "Asan-si",
+    "filename": "12-04-asan-ko.svg"
+  },
+  "34050": {
+    "name": "서산시",
+    "name_eng": "Seosan-si",
+    "filename": "12-05-seosan-ko.svg"
+  },
+  "34060": {
+    "name": "논산시",
+    "name_eng": "Nonsan-si",
+    "filename": "12-06-nonsan-ko.svg"
+  },
+  "34070": {
+    "name": "계룡시",
+    "name_eng": "Gyeryongsi",
+    "filename": "12-07-gyeryongsi-ko.svg"
+  },
+  "34080": {
+    "name": "당진시",
+    "name_eng": "Dangjinsi",
+    "filename": "12-08-dangjinsi-ko.svg"
+  },
+  "34310": {
+    "name": "금산군",
+    "name_eng": "Geumsan-gun",
+    "filename": "12-31-geumsann-ko.svg"
+  },
+  "34330": {
+    "name": "부여군",
+    "name_eng": "Buyeo-gun",
+    "filename": "12-33-buyeon-ko.svg"
+  },
+  "34340": {
+    "name": "서천군",
+    "name_eng": "Seocheon-gun",
+    "filename": "12-34-seocheonn-ko.svg"
+  },
+  "34350": {
+    "name": "청양군",
+    "name_eng": "Cheongyang-gun",
+    "filename": "12-35-cheongyangn-ko.svg"
+  },
+  "34360": {
+    "name": "홍성군",
+    "name_eng": "Hongseong-gun",
+    "filename": "12-36-hongseongn-ko.svg"
+  },
+  "34370": {
+    "name": "예산군",
+    "name_eng": "Yesan-gun",
+    "filename": "12-37-yesann-ko.svg"
+  },
+  "34380": {
+    "name": "태안군",
+    "name_eng": "Taean-gun",
+    "filename": "12-38-taeann-ko.svg"
+  },
+  "35011": {
+    "name": "전주시완산구",
+    "name_eng": "Jeonjusiwansangu",
+    "filename": "13-01-jeonjusiwansangu-ko.svg"
+  },
+  "35012": {
+    "name": "전주시덕진구",
+    "name_eng": "Jeonjusideokjingu",
+    "filename": "13-01-jeonjusideokjingu-ko.svg"
+  },
+  "35020": {
+    "name": "군산시",
+    "name_eng": "Gunsan-si",
+    "filename": "13-02-gunsan-ko.svg"
+  },
+  "35030": {
+    "name": "익산시",
+    "name_eng": "Iksan-si",
+    "filename": "13-03-iksan-ko.svg"
+  },
+  "35040": {
+    "name": "정읍시",
+    "name_eng": "Jeongeup-si",
+    "filename": "13-04-jeongeup-ko.svg"
+  },
+  "35050": {
+    "name": "남원시",
+    "name_eng": "Namwon-si",
+    "filename": "13-05-namwon-ko.svg"
+  },
+  "35060": {
+    "name": "김제시",
+    "name_eng": "Gimje-si",
+    "filename": "13-06-gimje-ko.svg"
+  },
+  "35310": {
+    "name": "완주군",
+    "name_eng": "Wanju-gun",
+    "filename": "13-31-wanjun-ko.svg"
+  },
+  "35320": {
+    "name": "진안군",
+    "name_eng": "Jinan-gun",
+    "filename": "13-32-jinann-ko.svg"
+  },
+  "35330": {
+    "name": "무주군",
+    "name_eng": "Muju-gun",
+    "filename": "13-33-mujun-ko.svg"
+  },
+  "35340": {
+    "name": "장수군",
+    "name_eng": "Jangsu-gun",
+    "filename": "13-34-jangsun-ko.svg"
+  },
+  "35350": {
+    "name": "임실군",
+    "name_eng": "Imsil-gun",
+    "filename": "13-35-imsiln-ko.svg"
+  },
+  "35360": {
+    "name": "순창군",
+    "name_eng": "Sunchang-gun",
+    "filename": "13-36-sunchangn-ko.svg"
+  },
+  "35370": {
+    "name": "고창군",
+    "name_eng": "Gochang-gun",
+    "filename": "13-37-gochangn-ko.svg"
+  },
+  "35380": {
+    "name": "부안군",
+    "name_eng": "Buan-gun",
+    "filename": "13-38-buann-ko.svg"
+  },
+  "36010": {
+    "name": "목포시",
+    "name_eng": "Mokpo-si",
+    "filename": "14-01-mokpo-ko.svg"
+  },
+  "36020": {
+    "name": "여수시",
+    "name_eng": "Yeosu-si",
+    "filename": "14-02-yeosu-ko.svg"
+  },
+  "36030": {
+    "name": "순천시",
+    "name_eng": "Suncheon-si",
+    "filename": "14-03-suncheon-ko.svg"
+  },
+  "36040": {
+    "name": "나주시",
+    "name_eng": "Naju-si",
+    "filename": "14-04-naju-ko.svg"
+  },
+  "36060": {
+    "name": "광양시",
+    "name_eng": "Gwangyang-si",
+    "filename": "14-06-gwangyang-ko.svg"
+  },
+  "36310": {
+    "name": "담양군",
+    "name_eng": "Damyang-gun",
+    "filename": "14-31-damyangn-ko.svg"
+  },
+  "36320": {
+    "name": "곡성군",
+    "name_eng": "Gokseong-gun",
+    "filename": "14-32-gokseongn-ko.svg"
+  },
+  "36330": {
+    "name": "구례군",
+    "name_eng": "Gurye-gun",
+    "filename": "14-33-guryen-ko.svg"
+  },
+  "36350": {
+    "name": "고흥군",
+    "name_eng": "Goheung-gun",
+    "filename": "14-35-goheungn-ko.svg"
+  },
+  "36360": {
+    "name": "보성군",
+    "name_eng": "Boseong-gun",
+    "filename": "14-36-boseongn-ko.svg"
+  },
+  "36370": {
+    "name": "화순군",
+    "name_eng": "Hwasun-gun",
+    "filename": "14-37-hwasunn-ko.svg"
+  },
+  "36380": {
+    "name": "장흥군",
+    "name_eng": "Jangheung-gun",
+    "filename": "14-38-jangheungn-ko.svg"
+  },
+  "36390": {
+    "name": "강진군",
+    "name_eng": "Gangjin-gun",
+    "filename": "14-39-gangjinn-ko.svg"
+  },
+  "36400": {
+    "name": "해남군",
+    "name_eng": "Haenam-gun",
+    "filename": "14-40-haenamn-ko.svg"
+  },
+  "36410": {
+    "name": "영암군",
+    "name_eng": "Yeongam-gun",
+    "filename": "14-41-yeongamn-ko.svg"
+  },
+  "36420": {
+    "name": "무안군",
+    "name_eng": "Muan-gun",
+    "filename": "14-42-muann-ko.svg"
+  },
+  "36430": {
+    "name": "함평군",
+    "name_eng": "Hampyeong-gun",
+    "filename": "14-43-hampyeongn-ko.svg"
+  },
+  "36440": {
+    "name": "영광군",
+    "name_eng": "Yeonggwang-gun",
+    "filename": "14-44-yeonggwangn-ko.svg"
+  },
+  "36450": {
+    "name": "장성군",
+    "name_eng": "Jangseong-gun",
+    "filename": "14-45-jangseongn-ko.svg"
+  },
+  "36460": {
+    "name": "완도군",
+    "name_eng": "Wando-gun",
+    "filename": "14-46-wandon-ko.svg"
+  },
+  "36470": {
+    "name": "진도군",
+    "name_eng": "Jindo-gun",
+    "filename": "14-47-jindon-ko.svg"
+  },
+  "36480": {
+    "name": "신안군",
+    "name_eng": "Sinan-gun",
+    "filename": "14-48-sinann-ko.svg"
+  },
+  "37011": {
+    "name": "포항시남구",
+    "name_eng": "Nam-gu",
+    "filename": "15-01-nam-ko.svg"
+  },
+  "37012": {
+    "name": "포항시북구",
+    "name_eng": "Buk-gu",
+    "filename": "15-01-buk-ko.svg"
+  },
+  "37020": {
+    "name": "경주시",
+    "name_eng": "Gyeongju-si",
+    "filename": "15-02-gyeongju-ko.svg"
+  },
+  "37030": {
+    "name": "김천시",
+    "name_eng": "Gimcheon-si",
+    "filename": "15-03-gimcheon-ko.svg"
+  },
+  "37040": {
+    "name": "안동시",
+    "name_eng": "Andong-si",
+    "filename": "15-04-andong-ko.svg"
+  },
+  "37050": {
+    "name": "구미시",
+    "name_eng": "Gumi-si",
+    "filename": "15-05-gumi-ko.svg"
+  },
+  "37060": {
+    "name": "영주시",
+    "name_eng": "Yeongju-si",
+    "filename": "15-06-yeongju-ko.svg"
+  },
+  "37070": {
+    "name": "영천시",
+    "name_eng": "Yeongcheon-si",
+    "filename": "15-07-yeongcheon-ko.svg"
+  },
+  "37080": {
+    "name": "상주시",
+    "name_eng": "Sangju-si",
+    "filename": "15-08-sangju-ko.svg"
+  },
+  "37090": {
+    "name": "문경시",
+    "name_eng": "Mungyeong-si",
+    "filename": "15-09-mungyeong-ko.svg"
+  },
+  "37100": {
+    "name": "경산시",
+    "name_eng": "Gyeongsan-si",
+    "filename": "15-10-gyeongsan-ko.svg"
+  },
+  "37310": {
+    "name": "군위군",
+    "name_eng": "Gunwi-gun",
+    "filename": "15-31-gunwin-ko.svg"
+  },
+  "37320": {
+    "name": "의성군",
+    "name_eng": "Uiseong-gun",
+    "filename": "15-32-uiseongn-ko.svg"
+  },
+  "37330": {
+    "name": "청송군",
+    "name_eng": "Cheongsong-gun",
+    "filename": "15-33-cheongsongn-ko.svg"
+  },
+  "37340": {
+    "name": "영양군",
+    "name_eng": "Yeongyang-gun",
+    "filename": "15-34-yeongyangn-ko.svg"
+  },
+  "37350": {
+    "name": "영덕군",
+    "name_eng": "Yeongdeok-gun",
+    "filename": "15-35-yeongdeokn-ko.svg"
+  },
+  "37360": {
+    "name": "청도군",
+    "name_eng": "Cheongdo-gun",
+    "filename": "15-36-cheongdon-ko.svg"
+  },
+  "37370": {
+    "name": "고령군",
+    "name_eng": "Goryeong-gun",
+    "filename": "15-37-goryeongn-ko.svg"
+  },
+  "37380": {
+    "name": "성주군",
+    "name_eng": "Seongju-gun",
+    "filename": "15-38-seongjun-ko.svg"
+  },
+  "37390": {
+    "name": "칠곡군",
+    "name_eng": "Chilgok-gun",
+    "filename": "15-39-chilgokn-ko.svg"
+  },
+  "37400": {
+    "name": "예천군",
+    "name_eng": "Yecheon-gun",
+    "filename": "15-40-yecheonn-ko.svg"
+  },
+  "37410": {
+    "name": "봉화군",
+    "name_eng": "Bonghwa-gun",
+    "filename": "15-41-bonghwan-ko.svg"
+  },
+  "37420": {
+    "name": "울진군",
+    "name_eng": "Uljin-gun",
+    "filename": "15-42-uljinn-ko.svg"
+  },
+  "37430": {
+    "name": "울릉군",
+    "name_eng": "Ulleung-gun",
+    "filename": "15-43-ulleungn-ko.svg"
+  },
+  "38030": {
+    "name": "진주시",
+    "name_eng": "Jinju-si",
+    "filename": "16-03-jinju-ko.svg"
+  },
+  "38050": {
+    "name": "통영시",
+    "name_eng": "Tongyeong-si",
+    "filename": "16-05-tongyeong-ko.svg"
+  },
+  "38060": {
+    "name": "사천시",
+    "name_eng": "Sacheon-si",
+    "filename": "16-06-sacheon-ko.svg"
+  },
+  "38070": {
+    "name": "김해시",
+    "name_eng": "Gimhae-si",
+    "filename": "16-07-gimhae-ko.svg"
+  },
+  "38080": {
+    "name": "밀양시",
+    "name_eng": "Miryang-si",
+    "filename": "16-08-miryang-ko.svg"
+  },
+  "38090": {
+    "name": "거제시",
+    "name_eng": "Geoje-si",
+    "filename": "16-09-geoje-ko.svg"
+  },
+  "38100": {
+    "name": "양산시",
+    "name_eng": "Yangsan-si",
+    "filename": "16-10-yangsan-ko.svg"
+  },
+  "38111": {
+    "name": "창원시의창구",
+    "name_eng": "Uichanggu",
+    "filename": "16-11-uichanggu-ko.svg"
+  },
+  "38112": {
+    "name": "창원시성산구",
+    "name_eng": "Seongsangu",
+    "filename": "16-11-seongsangu-ko.svg"
+  },
+  "38113": {
+    "name": "창원시마산합포구",
+    "name_eng": "Masanhappogu",
+    "filename": "16-11-masanhappogu-ko.svg"
+  },
+  "38114": {
+    "name": "창원시마산회원구",
+    "name_eng": "Masanhoewongu",
+    "filename": "16-11-masanhoewongu-ko.svg"
+  },
+  "38115": {
+    "name": "창원시진해구",
+    "name_eng": "Jinhaegu",
+    "filename": "16-11-jinhaegu-ko.svg"
+  },
+  "38310": {
+    "name": "의령군",
+    "name_eng": "Uiryeong-gun",
+    "filename": "16-31-uiryeongn-ko.svg"
+  },
+  "38320": {
+    "name": "함안군",
+    "name_eng": "Haman-gun",
+    "filename": "16-32-hamann-ko.svg"
+  },
+  "38330": {
+    "name": "창녕군",
+    "name_eng": "Changnyeong-gun",
+    "filename": "16-33-changnyeongn-ko.svg"
+  },
+  "38340": {
+    "name": "고성군",
+    "name_eng": "Goseong-gun",
+    "filename": "16-34-goseongn-ko.svg"
+  },
+  "38350": {
+    "name": "남해군",
+    "name_eng": "Namhae-gun",
+    "filename": "16-35-namhaen-ko.svg"
+  },
+  "38360": {
+    "name": "하동군",
+    "name_eng": "Hadong-gun",
+    "filename": "16-36-hadongn-ko.svg"
+  },
+  "38370": {
+    "name": "산청군",
+    "name_eng": "Sancheong-gun",
+    "filename": "16-37-sancheongn-ko.svg"
+  },
+  "38380": {
+    "name": "함양군",
+    "name_eng": "Hamyang-gun",
+    "filename": "16-38-hamyangn-ko.svg"
+  },
+  "38390": {
+    "name": "거창군",
+    "name_eng": "Geochang-gun",
+    "filename": "16-39-geochangn-ko.svg"
+  },
+  "38400": {
+    "name": "합천군",
+    "name_eng": "Hapcheon-gun",
+    "filename": "16-40-hapcheonn-ko.svg"
+  },
+  "39010": {
+    "name": "제주시",
+    "name_eng": "Jeju-si",
+    "filename": "17-01-jeju-ko.svg"
+  },
+  "39020": {
+    "name": "서귀포시",
+    "name_eng": "Seogwipo-si",
+    "filename": "17-02-seogwipo-ko.svg"
+  }
+}

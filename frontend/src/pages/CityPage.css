@@ -1,0 +1,142 @@
+.city-page {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  background: #f0f4f8;
+}
+
+.city-header {
+  background: linear-gradient(135deg, #00843d, #005a2b);
+  color: white;
+  padding: 14px 16px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.2);
+  flex-shrink: 0;
+}
+
+.back-btn {
+  background: rgba(255, 255, 255, 0.2);
+  color: white;
+  border: none;
+  border-radius: 8px;
+  padding: 8px 14px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: background 0.2s;
+}
+
+.back-btn:hover {
+  background: rgba(255, 255, 255, 0.35);
+}
+
+.city-title-area {
+  flex: 1;
+}
+
+.city-title {
+  font-size: 18px;
+  font-weight: 800;
+}
+
+.city-count {
+  font-size: 12px;
+  opacity: 0.8;
+}
+
+.stamp-badge {
+  background: rgba(255, 255, 255, 0.2);
+  border-radius: 20px;
+  padding: 4px 12px;
+  font-size: 13px;
+  font-weight: 700;
+  white-space: nowrap;
+}
+
+.map-container {
+  flex: 1;
+  position: relative;
+  min-height: 0;
+}
+
+.map-loading,
+.map-error {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  color: #555;
+  font-size: 15px;
+}
+
+.loading-spinner {
+  width: 36px;
+  height: 36px;
+  border: 3px solid #e0e0e0;
+  border-top-color: #00843d;
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+.map-error button {
+  background: #00843d;
+  color: white;
+  padding: 8px 20px;
+  border-radius: 8px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.bottom-panel {
+  background: white;
+  padding: 16px;
+  border-radius: 20px 20px 0 0;
+  box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.1);
+  flex-shrink: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.geo-status {
+  font-size: 12px;
+  color: #2979ff;
+  text-align: center;
+}
+
+.geo-error {
+  font-size: 12px;
+  color: #e53935;
+  text-align: center;
+}
+
+.selected-branch-info {
+  display: flex;
+  flex-direction: column;
+  background: #f8f9fa;
+  border-radius: 10px;
+  padding: 10px 14px;
+}
+
+.branch-name {
+  font-size: 15px;
+  font-weight: 700;
+  color: #00843d;
+}
+
+.branch-addr {
+  font-size: 12px;
+  color: #888;
+  margin-top: 2px;
+}

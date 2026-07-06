@@ -1,0 +1,102 @@
+.sigungu-map-wrapper {
+  position: relative;
+  width: 100%;
+  max-width: 500px;
+  margin: 0 auto;
+}
+
+.sigungu-map-svg {
+  width: 100%;
+  height: auto;
+  filter: drop-shadow(0 4px 16px rgba(0, 0, 0, 0.10));
+}
+
+.sigungu-path {
+  stroke: #8faec8;
+  stroke-width: 0.7;
+  cursor: pointer;
+  transition: fill 0.18s ease, stroke-width 0.12s ease;
+}
+
+.sigungu-unvisited {
+  fill: #f8fbff;
+}
+
+.sigungu-visited {
+  fill: #00843d;
+}
+
+.sigungu-hovered.sigungu-unvisited {
+  fill: #dceeff;
+  stroke: #2979ff;
+  stroke-width: 1.5;
+}
+
+.sigungu-hovered.sigungu-visited {
+  fill: #006b31;
+  stroke: #003d1c;
+  stroke-width: 1.5;
+}
+
+.sigungu-label {
+  font-size: 9px;
+  font-weight: 700;
+  fill: #4a6080;
+  text-anchor: middle;
+  dominant-baseline: middle;
+  letter-spacing: -0.3px;
+  pointer-events: none;
+}
+
+.sigungu-label-visited {
+  fill: #ffffff;
+}
+
+.sigungu-stamp-count {
+  font-size: 8px;
+  font-weight: 800;
+  fill: #ffe566;
+  text-anchor: middle;
+  dominant-baseline: middle;
+  pointer-events: none;
+}
+
+.sigungu-tooltip {
+  position: absolute;
+  bottom: 8px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: rgba(20, 40, 60, 0.82);
+  color: white;
+  padding: 6px 16px;
+  border-radius: 20px;
+  font-size: 13px;
+  font-weight: 600;
+  pointer-events: none;
+  white-space: nowrap;
+  backdrop-filter: blur(4px);
+}
+
+.sigungu-loading {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 300px;
+  gap: 12px;
+  color: #888;
+  font-size: 14px;
+}
+
+.skeleton-spinner {
+  width: 32px;
+  height: 32px;
+  border: 3px solid #e0e0e0;
+  border-top-color: #00843d;
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
