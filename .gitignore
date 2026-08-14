@@ -24,5 +24,12 @@ frontend/.vite/
 *.DS_Store
 Thumbs.db
 
+# 데이터베이스 (유저 데이터 포함 - 커밋 금지)
+*.db
+*.sqlite
+
+# 백업 파일
+*.backup.json
+
 # Claude Code
 .claude/settings.local.json

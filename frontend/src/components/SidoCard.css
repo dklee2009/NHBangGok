@@ -4,95 +4,90 @@
   flex-direction: column;
   align-items: center;
   gap: 6px;
-  padding: 14px 6px 12px;
+  padding: 14px 4px 12px;
   background: white;
-  border: 1.5px solid #e2e8f0;
-  border-radius: 16px;
+  border: 1.5px solid #e4ede4;
+  border-radius: 18px;
   cursor: pointer;
-  transition: all 0.18s ease;
+  transition: all 0.2s ease;
   min-width: 0;
 }
 
 .sido-card:hover {
-  border-color: #00843d;
-  box-shadow: 0 4px 16px rgba(0, 132, 61, 0.15);
-  transform: translateY(-2px);
+  transform: translateY(-3px);
+  box-shadow: 0 6px 20px rgba(0, 133, 66, 0.18);
+  border-color: #008542;
 }
 
 .sido-card.visited {
-  background: linear-gradient(145deg, #e8f5e9, #f1f8e9);
-  border-color: #00843d;
+  background: linear-gradient(160deg, #f5fbf6 0%, #edf7ef 100%);
 }
 
 .sido-check-badge {
   position: absolute;
   top: 6px;
   right: 6px;
-  background: #00843d;
   color: white;
   border-radius: 50%;
-  width: 17px;
-  height: 17px;
-  font-size: 9px;
+  width: 16px;
+  height: 16px;
+  font-size: 8px;
   display: flex;
   align-items: center;
   justify-content: center;
-  font-weight: 800;
+  font-weight: 900;
   border: 1.5px solid white;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.2);
 }
 
 .sido-logo-wrap {
-  width: 56px;
-  height: 56px;
+  width: 54px;
+  height: 54px;
   border-radius: 50%;
-  overflow: hidden;
-  border: 1.5px solid #e2e8f0;
   display: flex;
   align-items: center;
-  justify-content: center;
-  background: #f8faff;
+  justify-content: flex-start;
+  flex-shrink: 0;
+  overflow: hidden;
+  border: 1.5px solid rgba(0, 0, 0, 0.05);
+  transition: transform 0.2s;
+}
+
+.sido-card:hover .sido-logo-wrap {
+  transform: scale(1.06);
+}
+
+/* 3포즈 이미지에서 첫 번째 포즈(왼쪽)만 크롭해서 표시 */
+.sido-char-img {
+  height: 100%;
+  width: auto;
   flex-shrink: 0;
 }
 
-.sido-card.visited .sido-logo-wrap {
-  border-color: #a5d6a7;
-  background: #f1f8e9;
-}
-
-.sido-logo-img {
-  width: 50px;
-  height: 50px;
-  object-fit: contain;
-}
-
 .sido-logo-initial {
-  width: 56px;
-  height: 56px;
+  width: 54px;
+  height: 54px;
   border-radius: 50%;
   display: flex;
   align-items: center;
   justify-content: center;
   color: white;
-  font-size: 22px;
+  font-size: 20px;
   font-weight: 800;
 }
 
 .sido-name {
-  font-size: 12px;
+  font-size: 11px;
   font-weight: 700;
-  color: #334155;
+  color: #3d5c3a;
   text-align: center;
-}
-
-.sido-card.visited .sido-name {
-  color: #2e7d32;
+  letter-spacing: -0.2px;
 }
 
 .sido-count {
   font-size: 10px;
   font-weight: 700;
   color: white;
-  background: #00843d;
   border-radius: 10px;
   padding: 2px 8px;
 }
