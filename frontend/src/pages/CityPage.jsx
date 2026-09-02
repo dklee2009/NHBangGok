@@ -4,6 +4,7 @@ import NaverMap from "../components/NaverMap";
 import StampButton from "../components/StampButton";
 import { useStamps } from "../hooks/useStamps";
 import { useGeolocation } from "../hooks/useGeolocation";
+import { API_BASE } from "../config";
 import "./CityPage.css";
 
 export default function CityPage() {
@@ -31,7 +32,7 @@ export default function CityPage() {
       setLoading(true);
       setError(null);
       try {
-        const url = `/api/banks/${encodeURIComponent(decodedSido)}?sigungu=${encodeURIComponent(decodedSigungu)}`;
+        const url = `${API_BASE}/api/banks/${encodeURIComponent(decodedSido)}?sigungu=${encodeURIComponent(decodedSigungu)}`;
         const res = await fetch(url);
         if (!res.ok) throw new Error("지점 정보를 불러올 수 없습니다.");
         const data = await res.json();

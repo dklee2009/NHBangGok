@@ -1,7 +1,8 @@
 import { useState, useEffect, useCallback } from "react";
 import { useAuth } from "../contexts/AuthContext";
+import { API_BASE } from "../config";
 
-const API = "http://localhost:8000";
+const API = API_BASE;
 
 // 시/도별 전체 시·군·구(권역) 수 — korea-sigungu.json 기준.
 // "권역 달성률 = 방문한 시·군·구 수 / 전체 시·군·구 수" 계산에 사용.

@@ -18,9 +18,11 @@ Base.metadata.create_all(bind=engine)
 
 app = FastAPI(title="NH Bank Stamp Tour API")
 
+# 배포 시 CORS_ORIGINS 환경변수(쉼표 구분)로 프론트 도메인 추가
+_extra_origins = [o.strip() for o in os.getenv("CORS_ORIGINS", "").split(",") if o.strip()]
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["http://localhost:5173", "http://localhost:3000"],
+    allow_origins=["http://localhost:5173", "http://localhost:3000", *_extra_origins],
     allow_methods=["*"],
     allow_headers=["*"],
 )

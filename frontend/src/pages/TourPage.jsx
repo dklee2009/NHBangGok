@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
+import { API_BASE } from "../config";
 import "./TourPage.css";
 
 const CAT_ICON = {
@@ -31,7 +32,7 @@ export default function TourPage() {
   useEffect(() => {
     let cancelled = false;
     setState({ loading: true, error: null, data: null });
-    fetch(`/api/tour/${encodeURIComponent(decodedSido)}`)
+    fetch(`${API_BASE}/api/tour/${encodeURIComponent(decodedSido)}`)
       .then((r) => {
         if (!r.ok) throw new Error("추천 정보를 불러오지 못했어요.");
         return r.json();

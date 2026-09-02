@@ -1,7 +1,8 @@
 import React, { createContext, useContext, useState, useCallback } from "react";
+import { API_BASE } from "../config";
 
 const AuthContext = createContext(null);
-const API = "http://localhost:8000";
+const API = API_BASE;
 const TOKEN_KEY = "nh_auth_token";
 const USER_KEY = "nh_auth_user";
 
