@@ -55,6 +55,12 @@ export default function CityPage() {
 
   const stampCount = getSigunguStampCount(decodedSido, decodedSigungu);
 
+  const openRecruitment = () => {
+    const searchName = decodedSigungu.replace(/(시|군|구)$/, "");
+    const url = `https://with.nonghyup.com/jbnf/jbnfLst.do?srcJbnfTinm=${encodeURIComponent(searchName)}`;
+    window.open(url, "_blank", "noopener,noreferrer");
+  };
+
   return (
     <div className="city-page">
       <header className="city-header">
@@ -122,6 +128,12 @@ export default function CityPage() {
           onStamp={handleStamp}
           alreadyStamped={alreadyStamped}
         />
+
+        <button className="recruit-cta-banner" onClick={openRecruitment}>
+          <span className="recruit-cta-emoji">🤝</span>
+          <span className="recruit-cta-text">NH농협의 가족이 되어보시겠어요?</span>
+          <span className="recruit-cta-arrow">›</span>
+        </button>
       </div>
     </div>
   );
