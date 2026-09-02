@@ -3,13 +3,15 @@ from fastapi.middleware.cors import CORSMiddleware
 import os
 from dotenv import load_dotenv
 
+# 라우터/모듈이 import 시점에 os.getenv 로 키를 읽으므로 먼저 로드
+load_dotenv()
+
 from database import engine, Base
 from mock_data import MOCK_BRANCHES, get_branches_by_sigungu, get_all_branches_flat
 from naver_search import search_nh_branches
 from routers.auth_router import router as auth_router
 from routers.stamps_router import router as stamps_router
-
-load_dotenv()
+from routers.tour_router import router as tour_router
 
 # DB 테이블 생성
 Base.metadata.create_all(bind=engine)
@@ -25,6 +27,7 @@ app.add_middleware(
 
 app.include_router(auth_router)
 app.include_router(stamps_router)
+app.include_router(tour_router)
 
 USE_MOCK = os.getenv("USE_MOCK", "true").lower() == "true"
 NAVER_CLIENT_ID = os.getenv("NAVER_CLIENT_ID", "")

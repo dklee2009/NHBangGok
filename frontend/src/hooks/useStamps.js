@@ -3,6 +3,28 @@ import { useAuth } from "../contexts/AuthContext";
 
 const API = "http://localhost:8000";
 
+// 시/도별 전체 시·군·구(권역) 수 — korea-sigungu.json 기준.
+// "권역 달성률 = 방문한 시·군·구 수 / 전체 시·군·구 수" 계산에 사용.
+export const SIDO_TOTAL_SIGUNGU = {
+  "서울특별시": 25,
+  "부산광역시": 16,
+  "대구광역시": 8,
+  "인천광역시": 10,
+  "광주광역시": 5,
+  "대전광역시": 5,
+  "울산광역시": 5,
+  "세종특별자치시": 1,
+  "경기도": 42,
+  "강원특별자치도": 18,
+  "충청북도": 14,
+  "충청남도": 16,
+  "전북특별자치도": 15,
+  "전라남도": 22,
+  "경상북도": 24,
+  "경상남도": 22,
+  "제주특별자치도": 2,
+};
+
 export function useStamps() {
   const { token } = useAuth();
   const [visited, setVisited] = useState({});
@@ -84,6 +106,20 @@ export function useStamps() {
     return Object.keys(sido).filter((k) => sido[k].length > 0);
   };
 
+  // 시/도 권역 달성률 (0 ~ 1). 방문한 시·군·구 수 / 전체 시·군·구 수.
+  const getSidoProgress = (sidoName) => {
+    const total = SIDO_TOTAL_SIGUNGU[sidoName] || 1;
+    const done = getVisitedSigungus(sidoName).length;
+    return Math.max(0, Math.min(1, done / total));
+  };
+
+  // 시/도별 권역 진행 정보 { done, total, ratio }
+  const getSidoProgressInfo = (sidoName) => {
+    const total = SIDO_TOTAL_SIGUNGU[sidoName] || 1;
+    const done = getVisitedSigungus(sidoName).length;
+    return { done, total, ratio: Math.max(0, Math.min(1, done / total)) };
+  };
+
   const getTotalStamps = () =>
     Object.values(visited).reduce((sum, sido) =>
       sum + Object.values(sido).reduce((s2, arr) => s2 + arr.length, 0), 0);
@@ -99,6 +135,8 @@ export function useStamps() {
     getSigunguStampCount,
     getVisitedSidos,
     getVisitedSigungus,
+    getSidoProgress,
+    getSidoProgressInfo,
     getTotalStamps,
   };
 }

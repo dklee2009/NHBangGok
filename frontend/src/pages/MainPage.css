@@ -214,6 +214,60 @@
   text-align: center;
 }
 
+/* ── 보상 티저 ── */
+.reward-teaser {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  width: calc(100% - 32px);
+  margin: 12px 16px 0;
+  background: #fff;
+  border: 1px solid #e0efe4;
+  border-radius: 16px;
+  padding: 13px 14px;
+  box-shadow: 0 2px 10px rgba(0, 100, 50, 0.07);
+  text-align: left;
+}
+
+.reward-teaser.hot {
+  border-color: #ffcf5c;
+  background: linear-gradient(#fffdf3, #ffffff);
+}
+
+.reward-teaser .rt-ico { font-size: 20px; flex-shrink: 0; }
+
+.reward-teaser .rt-txt {
+  flex: 1;
+  font-size: 13px;
+  color: #3d5c3a;
+  font-weight: 500;
+  letter-spacing: -0.2px;
+}
+
+.reward-teaser .rt-txt b { color: #00843d; font-weight: 800; }
+
+.reward-teaser .rt-points {
+  font-size: 12px;
+  font-weight: 800;
+  color: #00843d;
+  background: #eaf6ee;
+  border-radius: 20px;
+  padding: 3px 9px;
+  flex-shrink: 0;
+}
+
+.reward-teaser .rt-arrow {
+  font-size: 20px;
+  color: #b0c8b0;
+  font-weight: 700;
+  flex-shrink: 0;
+}
+
+/* ── 보상 뷰 ── */
+.reward-section {
+  padding: 18px 16px 0;
+}
+
 /* ── 뷰 토글 ── */
 .main-view-toggle {
   display: flex;
@@ -230,12 +284,13 @@
   border: none;
   background: transparent;
   border-radius: 10px;
-  font-size: 14px;
+  font-size: 13px;
   font-weight: 700;
   color: #7aaa88;
   cursor: pointer;
   transition: all 0.2s ease;
-  letter-spacing: -0.2px;
+  letter-spacing: -0.3px;
+  white-space: nowrap;
 }
 
 .main-toggle-btn.active {
@@ -263,26 +318,29 @@
 .legend {
   display: flex;
   justify-content: center;
-  gap: 20px;
-}
-
-.legend-item {
-  display: flex;
   align-items: center;
-  gap: 6px;
-  font-size: 13px;
+  gap: 8px;
+}
+
+.legend-grad {
+  width: 120px;
+  height: 12px;
+  border-radius: 8px;
+  border: 1px solid #ccd9cc;
+  background: linear-gradient(90deg, #ffffff, #7bbf98 45%, #00843d);
+}
+
+.legend-grad-label {
+  font-size: 12px;
   color: #666;
+  font-weight: 700;
 }
 
-.legend-box {
-  width: 14px;
-  height: 14px;
-  border-radius: 3px;
-  border: 1.5px solid #ccc;
+.legend-grad-caption {
+  font-size: 12px;
+  color: #88aa88;
+  margin-left: 6px;
 }
-
-.legend-box.unvisited { background: #fff; }
-.legend-box.visited   { background: #008542; border-color: #005c2e; }
 
 .visited-list {
   margin: 8px 16px 0;

@@ -2,7 +2,9 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import KoreaMap from "../components/KoreaMap";
 import SidoCard from "../components/SidoCard";
+import RewardRoad from "../components/RewardRoad";
 import { useStamps } from "../hooks/useStamps";
+import { useRewards } from "../hooks/useRewards";
 import { useAuth } from "../contexts/AuthContext";
 import "./MainPage.css";
 
@@ -40,12 +42,20 @@ export default function MainPage() {
   const [view, setView] = useState("map");
   const navigate = useNavigate();
   const { user, logout } = useAuth();
-  const { hasSidoVisited, getSidoStampCount, getTotalStamps, getVisitedSidos } = useStamps();
+  const {
+    hasSidoVisited,
+    getSidoStampCount,
+    getSidoProgress,
+    getTotalStamps,
+    getVisitedSidos,
+  } = useStamps();
 
   const totalStamps  = getTotalStamps();
   const visitedSidos = getVisitedSidos();
   const visitedCount = visitedSidos.length;
   const progressPct  = Math.round((visitedCount / 17) * 100);
+
+  const rewards = useRewards(totalStamps, user?.username);
 
   const handleSidoClick = (sido) => {
     navigate(`/sido/${encodeURIComponent(sido.name)}`);
@@ -108,6 +118,32 @@ export default function MainPage() {
         </p>
       </div>
 
+      {/* ── 보상 티저 ── */}
+      <button
+        className={`reward-teaser ${rewards.claimableCount > 0 ? "hot" : ""}`}
+        onClick={() => setView("reward")}
+      >
+        <span className="rt-ico">🎁</span>
+        <span className="rt-txt">
+          {rewards.claimableCount > 0 ? (
+            <>
+              <b>{rewards.claimableCount}개</b>의 보상이 기다리고 있어요
+            </>
+          ) : rewards.nextNode ? (
+            <>
+              다음 보상까지 스탬프{" "}
+              <b>{Math.max(0, rewards.nextNode.need - totalStamps)}개</b>
+            </>
+          ) : (
+            <>전국 보상을 모두 획득했어요 🎉</>
+          )}
+        </span>
+        {rewards.points > 0 && (
+          <span className="rt-points">{rewards.points.toLocaleString()}P</span>
+        )}
+        <span className="rt-arrow">›</span>
+      </button>
+
       {/* ── 뷰 토글 ── */}
       <div className="main-view-toggle">
         <button className={`main-toggle-btn ${view === "map" ? "active" : ""}`} onClick={() => setView("map")}>
@@ -116,19 +152,40 @@ export default function MainPage() {
         <button className={`main-toggle-btn ${view === "grid" ? "active" : ""}`} onClick={() => setView("grid")}>
           ☰ 목록
         </button>
+        <button className={`main-toggle-btn ${view === "reward" ? "active" : ""}`} onClick={() => setView("reward")}>
+          🎁 보상{rewards.claimableCount > 0 ? ` (${rewards.claimableCount})` : ""}
+        </button>
       </div>
+
+      {/* ── 보상 뷰 ── */}
+      {view === "reward" && (
+        <div className="reward-section">
+          <RewardRoad
+            rewards={rewards}
+            totalStamps={totalStamps}
+            onGoCollect={() => setView("map")}
+          />
+        </div>
+      )}
 
       {/* ── 지도 뷰 ── */}
       {view === "map" && (
         <>
           <div className="map-section">
-            <KoreaMap visited={hasSidoVisited} getStampCount={getSidoStampCount} />
+            <KoreaMap
+              getStampCount={getSidoStampCount}
+              getProgress={getSidoProgress}
+            />
           </div>
           <div className="guide-section">
-            <p className="guide-text">지도에서 시/도를 클릭해 시/군/구를 선택하세요</p>
+            <p className="guide-text">
+              시/도를 클릭해 시/군/구를 선택하세요 · 권역을 모을수록 색이 진해져요
+            </p>
             <div className="legend">
-              <span className="legend-item"><span className="legend-box unvisited" /> 미방문</span>
-              <span className="legend-item"><span className="legend-box visited" /> 방문 완료</span>
+              <span className="legend-grad-label">0%</span>
+              <span className="legend-grad" />
+              <span className="legend-grad-label">100%</span>
+              <span className="legend-grad-caption">권역 달성률</span>
             </div>
           </div>
           {visitedSidos.length > 0 && (

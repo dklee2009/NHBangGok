@@ -21,6 +21,29 @@ export default function SigunguPage() {
 
   const [view, setView] = useState("map");
   const [sigungus, setSigungus] = useState([]); // [{ name, code, name_eng }, ...]
+  const [showTourPrompt, setShowTourPrompt] = useState(false);
+
+  const shortSido = decodedSido
+    .replace("특별시", "")
+    .replace("광역시", "")
+    .replace("특별자치시", "")
+    .replace("특별자치도", "")
+    .replace("도", "");
+
+  const goTour = () => navigate(`/tour/${encodeURIComponent(decodedSido)}`);
+
+  // 권역 지도에 처음 들어오면(세션당 1회) 여행지 추천 팝업
+  useEffect(() => {
+    const key = `tourPromptSeen:${decodedSido}`;
+    if (sessionStorage.getItem(key)) return;
+    const t = setTimeout(() => setShowTourPrompt(true), 450);
+    return () => clearTimeout(t);
+  }, [decodedSido]);
+
+  const dismissTourPrompt = () => {
+    sessionStorage.setItem(`tourPromptSeen:${decodedSido}`, "1");
+    setShowTourPrompt(false);
+  };
 
   const {
     hasSigunguVisited,
@@ -90,6 +113,15 @@ export default function SigunguPage() {
         </button>
       </div>
 
+      {/* 여행지 추천 배너 */}
+      <button className="tour-cta-banner" onClick={goTour}>
+        <span className="tour-cta-emoji">🧭</span>
+        <span className="tour-cta-text">
+          <b>{shortSido}</b> 인기 여행지 추천받기
+        </span>
+        <span className="tour-cta-arrow">›</span>
+      </button>
+
       {/* 지도 뷰 */}
       {view === "map" && (
         <div className="map-section">
@@ -116,6 +148,35 @@ export default function SigunguPage() {
                 onClick={() => handleClick(sg)}
               />
             ))}
+          </div>
+        </div>
+      )}
+
+      {/* 여행지 추천 팝업 */}
+      {showTourPrompt && (
+        <div className="tour-modal-overlay" onClick={dismissTourPrompt}>
+          <div className="tour-modal" onClick={(e) => e.stopPropagation()}>
+            <div className="tour-modal-icon">🧳</div>
+            <h2 className="tour-modal-title">
+              {shortSido} 여행지를<br />추천해드릴까요?
+            </h2>
+            <p className="tour-modal-desc">
+              한국관광공사 데이터로 뽑은<br />이 지역 인기 여행지를 보여드려요
+            </p>
+            <div className="tour-modal-actions">
+              <button className="tour-modal-btn ghost" onClick={dismissTourPrompt}>
+                다음에
+              </button>
+              <button
+                className="tour-modal-btn primary"
+                onClick={() => {
+                  dismissTourPrompt();
+                  goTour();
+                }}
+              >
+                여행지 추천받기
+              </button>
+            </div>
           </div>
         </div>
       )}

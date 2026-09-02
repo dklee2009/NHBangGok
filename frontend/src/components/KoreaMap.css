@@ -16,7 +16,7 @@
   stroke: #8faec8;
   stroke-width: 0.8;
   cursor: pointer;
-  transition: fill 0.2s ease, stroke-width 0.15s ease;
+  transition: fill 0.2s ease, fill-opacity 0.45s ease, stroke-width 0.15s ease;
 }
 
 .sido-unvisited {
@@ -53,13 +53,18 @@
   fill: #ffffff;
 }
 
-/* 방문 도장 수 */
+/* 권역 달성률 배지 */
 .sido-stamp-count {
   font-size: 9px;
   font-weight: 800;
-  fill: #ffe566;
+  fill: #1f7a49;
   text-anchor: middle;
   dominant-baseline: middle;
+}
+
+/* 채움이 진해진 지역은 흰색 글씨로 */
+.sido-stamp-count.on-fill {
+  fill: #ffe566;
 }
 
 /* 툴팁 */

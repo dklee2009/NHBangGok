@@ -48,7 +48,20 @@ const SHORT_NAME = {
 const WIDTH = 500;
 const HEIGHT = 580;
 
-export default function KoreaMap({ visited, getStampCount }) {
+// 수도권은 시/도 중심점이 서로 겹쳐 라벨이 뭉친다 → 수동 보정 오프셋(px, viewBox 기준)
+const LABEL_OFFSET = {
+  "서울특별시": { dx: -1, dy: -9 },
+  "경기도":     { dx: 12, dy: 20 },
+  "인천광역시": { dx: -13, dy: -2 },
+  "세종특별자치시": { dx: -2, dy: -8 },
+  "대전광역시": { dx: 3, dy: 7 },
+  "광주광역시": { dx: -3, dy: 2 },
+};
+
+// 권역 달성률(0~1) → 채움 불투명도. 1권역만 찍어도 옅게 보이도록 하한(0.28)을 둔다.
+const ratioToOpacity = (ratio) => (ratio > 0 ? 0.28 + 0.72 * ratio : 0);
+
+export default function KoreaMap({ getStampCount, getProgress = () => 0 }) {
   const navigate = useNavigate();
   const [geoData, setGeoData] = useState(null);
   const [hovered, setHovered] = useState(null);
@@ -111,10 +124,17 @@ export default function KoreaMap({ visited, getStampCount }) {
         </defs>
 
         {paths.map((sido) => {
-          const isVisited = visited(sido.name);
+          const ratio = Math.max(0, Math.min(1, getProgress(sido.name)));
+          const isVisited = ratio > 0;
           const isHovered = hovered === sido.id;
-          const count = getStampCount(sido.name);
-          const [cx, cy] = sido.centroid;
+          const off = LABEL_OFFSET[sido.name] || { dx: 0, dy: 0 };
+          const cx = sido.centroid[0] + off.dx;
+          const cy = sido.centroid[1] + off.dy;
+
+          const baseOpacity = ratioToOpacity(ratio);
+          const fillOpacity = isHovered
+            ? Math.min(1, baseOpacity + 0.12)
+            : baseOpacity;
 
           return (
             <g
@@ -131,25 +151,26 @@ export default function KoreaMap({ visited, getStampCount }) {
                   isVisited ? "sido-visited" : "sido-unvisited",
                   isHovered ? "sido-hovered" : "",
                 ].join(" ")}
+                style={isVisited ? { fill: "#00843d", fillOpacity } : undefined}
               />
               {/* 지역 이름 */}
               <text
                 x={cx}
                 y={cy}
-                className={`sido-label ${isVisited ? "sido-label-visited" : ""}`}
+                className={`sido-label ${ratio >= 0.5 ? "sido-label-visited" : ""}`}
                 pointerEvents="none"
               >
                 {SHORT_NAME[sido.name] || sido.name}
               </text>
-              {/* 방문 횟수 배지 */}
-              {isVisited && count > 0 && (
+              {/* 권역 달성률 배지 */}
+              {isVisited && (
                 <text
                   x={cx}
                   y={cy + 13}
-                  className="sido-stamp-count"
+                  className={`sido-stamp-count ${ratio >= 0.5 ? "on-fill" : ""}`}
                   pointerEvents="none"
                 >
-                  {count}개
+                  {Math.round(ratio * 100)}%
                 </text>
               )}
             </g>
@@ -157,14 +178,19 @@ export default function KoreaMap({ visited, getStampCount }) {
         })}
       </svg>
 
-      {hovered && (
-        <div className="map-tooltip">
-          {paths.find((p) => p.id === hovered)?.name}
-          {visited(paths.find((p) => p.id === hovered)?.name || "")
-            ? ` ✓ (${getStampCount(paths.find((p) => p.id === hovered)?.name || "")}개)`
-            : " — 클릭해서 방문"}
-        </div>
-      )}
+      {hovered && (() => {
+        const name = paths.find((p) => p.id === hovered)?.name || "";
+        const ratio = Math.max(0, Math.min(1, getProgress(name)));
+        const count = getStampCount(name);
+        return (
+          <div className="map-tooltip">
+            {name}
+            {ratio > 0
+              ? ` · 권역 ${Math.round(ratio * 100)}% (스탬프 ${count}개)`
+              : " — 클릭해서 방문"}
+          </div>
+        );
+      })()}
     </div>
   );
 }
