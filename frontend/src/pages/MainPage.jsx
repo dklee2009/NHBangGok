@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import * as d3 from "d3";
 import KoreaMap from "../components/KoreaMap";
 import SidoCard from "../components/SidoCard";
 import RewardRoad from "../components/RewardRoad";
@@ -38,8 +39,17 @@ const SIDO_LIST = [
 
 const PARADE = ["lami", "dori", "olly", "nari", "coco"];
 
+const SIDO_CODE_TO_NAME = {
+  "11": "서울특별시", "21": "부산광역시", "22": "대구광역시", "23": "인천광역시",
+  "24": "광주광역시", "25": "대전광역시", "26": "울산광역시", "29": "세종특별자치시",
+  "31": "경기도", "32": "강원특별자치도", "33": "충청북도", "34": "충청남도",
+  "35": "전북특별자치도", "36": "전라남도", "37": "경상북도", "38": "경상남도",
+  "39": "제주특별자치도",
+};
+
 export default function MainPage() {
   const [view, setView] = useState("map");
+  const [locating, setLocating] = useState(false);
   const navigate = useNavigate();
   const { user, logout } = useAuth();
   const {
@@ -59,6 +69,39 @@ export default function MainPage() {
 
   const handleSidoClick = (sido) => {
     navigate(`/sido/${encodeURIComponent(sido.name)}`);
+  };
+
+  const findMyLocation = () => {
+    if (!navigator.geolocation) {
+      alert("이 브라우저는 위치 서비스를 지원하지 않습니다.");
+      return;
+    }
+    setLocating(true);
+    navigator.geolocation.getCurrentPosition(
+      async (pos) => {
+        try {
+          const point = [pos.coords.longitude, pos.coords.latitude];
+          const res = await fetch("/korea-sigungu.json");
+          const data = await res.json();
+          const found = data.features.find((f) => d3.geoContains(f.geometry, point));
+          const sidoName = found && SIDO_CODE_TO_NAME[found.properties.sido_code];
+          if (!found || !sidoName) {
+            alert("현재 위치가 속한 지역을 찾지 못했어요.");
+            return;
+          }
+          navigate(`/city/${encodeURIComponent(sidoName)}/${encodeURIComponent(found.properties.name)}`);
+        } catch {
+          alert("위치 정보를 처리하는 중 오류가 발생했어요.");
+        } finally {
+          setLocating(false);
+        }
+      },
+      (err) => {
+        setLocating(false);
+        alert(`위치를 가져올 수 없어요: ${err.message}`);
+      },
+      { enableHighAccuracy: true, timeout: 10000 }
+    );
   };
 
   return (
@@ -178,6 +221,9 @@ export default function MainPage() {
             />
           </div>
           <div className="guide-section">
+            <button className="locate-me-btn" onClick={findMyLocation} disabled={locating}>
+              {locating ? "위치 찾는 중..." : "📍 나의 위치 찾기"}
+            </button>
             <p className="guide-text">
               시/도를 클릭해 시/군/구를 선택하세요 · 권역을 모을수록 색이 진해져요
             </p>
@@ -270,6 +316,16 @@ export default function MainPage() {
 
         </div>
       )}
+
+      {/* ── NH농협은행 배너 ── */}
+      <a
+        className="nh-main-banner"
+        href="https://www.nhbank.com/"
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        <img src="/nh-main-banner.png" alt="사랑받는 일등 민족은행 - NH농협은행" />
+      </a>
     </div>
   );
 }

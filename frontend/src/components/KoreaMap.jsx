@@ -61,6 +61,10 @@ const LABEL_OFFSET = {
 // 권역 달성률(0~1) → 채움 불투명도. 1권역만 찍어도 옅게 보이도록 하한(0.28)을 둔다.
 const ratioToOpacity = (ratio) => (ratio > 0 ? 0.28 + 0.72 * ratio : 0);
 
+// 서울/세종/대전은 주변 넓은 시/도(경기·충청)에 시각적으로 가려지므로
+// SVG 렌더링 순서상 맨 뒤(= 맨 위)로 그려서 항상 보이게 한다.
+const BRING_TO_FRONT = new Set(["서울특별시", "세종특별자치시", "대전광역시"]);
+
 export default function KoreaMap({ getStampCount, getProgress = () => 0 }) {
   const navigate = useNavigate();
   const [geoData, setGeoData] = useState(null);
@@ -93,6 +97,7 @@ export default function KoreaMap({ getStampCount, getProgress = () => 0 }) {
       };
     });
 
+    computed.sort((a, b) => (BRING_TO_FRONT.has(a.name) ? 1 : 0) - (BRING_TO_FRONT.has(b.name) ? 1 : 0));
     setPaths(computed);
 
     const c = {};

@@ -4,6 +4,27 @@
   padding-bottom: 40px;
 }
 
+/* ── NH농협은행 배너 ── */
+.nh-main-banner {
+  display: block;
+  margin: 20px 16px 0;
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+  transition: transform 0.12s ease, box-shadow 0.12s ease;
+}
+.nh-main-banner:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 22px rgba(0, 0, 0, 0.15);
+}
+.nh-main-banner:active { transform: translateY(0); }
+.nh-main-banner img {
+  display: block;
+  width: 30%;
+  height: auto;
+  margin: 0 auto;
+}
+
 /* ── 히어로 헤더 ── */
 .main-header {
   background: linear-gradient(145deg, #004d24 0%, #007a3d 60%, #009e52 100%);
@@ -309,10 +330,35 @@
   padding: 14px 16px;
 }
 
+.locate-me-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: white;
+  color: #008542;
+  border: 1px solid #b7ddc4;
+  border-radius: 20px;
+  padding: 8px 16px;
+  font-size: 13px;
+  font-weight: 700;
+  cursor: pointer;
+  margin-bottom: 10px;
+  box-shadow: 0 2px 8px rgba(0, 100, 50, 0.08);
+  transition: background 0.15s, transform 0.12s;
+}
+.locate-me-btn:hover:not(:disabled) { background: #eafaf0; }
+.locate-me-btn:active:not(:disabled) { transform: translateY(1px); }
+.locate-me-btn:disabled {
+  color: #9db8a5;
+  border-color: #dcece1;
+  cursor: default;
+}
+
 .guide-text {
   font-size: 13px;
   color: #88aa88;
   margin-bottom: 10px;
+  letter-spacing: -0.4px;
 }
 
 .legend {
