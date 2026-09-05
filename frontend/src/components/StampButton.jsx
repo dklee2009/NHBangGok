@@ -9,11 +9,12 @@ export default function StampButton({ nearbyBranch, sidoName, onStamp, alreadySt
     if (!nearbyBranch || stamping) return;
     setStamping(true);
     setShowEffect(true);
-    onStamp(sidoName, nearbyBranch.id, nearbyBranch.name);
-    setTimeout(() => {
-      setStamping(false);
-      setShowEffect(false);
-    }, 1500);
+    const ok = await onStamp(sidoName, nearbyBranch.id, nearbyBranch.name);
+    if (!ok) {
+      alert("스탬프 저장에 실패했어요. 네트워크 상태를 확인하고 다시 시도해주세요.");
+    }
+    setStamping(false);
+    setShowEffect(false);
   };
 
   if (!nearbyBranch) {

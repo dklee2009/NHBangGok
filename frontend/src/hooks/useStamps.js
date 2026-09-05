@@ -52,9 +52,9 @@ export function useStamps() {
 
   useEffect(() => { fetchStamps(); }, [fetchStamps]);
 
-  // 스탬프 추가
+  // 스탬프 추가. 성공(또는 이미 찍힌 경우) true, 실패 시 false 반환.
   const addStamp = useCallback(async (sidoName, sigunguName, branchId, branchName) => {
-    if (!token) return;
+    if (!token) return false;
     try {
       const res = await fetch(`${API}/stamps`, {
         method: "POST",
@@ -78,11 +78,16 @@ export function useStamps() {
             },
           };
         });
-      } else if (res.status !== 409) {
+        return true;
+      } else if (res.status === 409) {
+        return true;
+      } else {
         console.error("스탬프 추가 실패", await res.text());
+        return false;
       }
     } catch (e) {
       console.error("스탬프 추가 실패", e);
+      return false;
     }
   }, [token]);
 

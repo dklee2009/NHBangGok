@@ -51,7 +51,7 @@ export default function CityPage() {
   }, []);
 
   const handleStamp = (sido, branchId, branchName) => {
-    addStamp(sido, decodedSigungu, branchId, branchName);
+    return addStamp(sido, decodedSigungu, branchId, branchName);
   };
 
   const stampCount = getSigunguStampCount(decodedSido, decodedSigungu);
