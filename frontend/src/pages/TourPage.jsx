@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { API_BASE } from "../config";
+import { shortSido } from "../utils/sido";
 import "./TourPage.css";
 
 const CAT_ICON = {
@@ -13,14 +14,6 @@ const CAT_ICON = {
   숙박: "🏨",
   음식: "🍽️",
 };
-
-const shortSido = (s) =>
-  s
-    .replace("특별시", "")
-    .replace("광역시", "")
-    .replace("특별자치시", "")
-    .replace("특별자치도", "")
-    .replace("도", "");
 
 export default function TourPage() {
   const { sidoName } = useParams();

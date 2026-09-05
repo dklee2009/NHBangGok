@@ -3,6 +3,7 @@ import { useParams, useNavigate } from "react-router-dom";
 import SigunguMap from "../components/SigunguMap";
 import SigunguCard from "../components/SigunguCard";
 import { useStamps } from "../hooks/useStamps";
+import { shortSido } from "../utils/sido";
 import "./SigunguPage.css";
 
 const SIDO_CODE = {
@@ -23,12 +24,7 @@ export default function SigunguPage() {
   const [sigungus, setSigungus] = useState([]); // [{ name, code, name_eng }, ...]
   const [showTourPrompt, setShowTourPrompt] = useState(false);
 
-  const shortSido = decodedSido
-    .replace("특별시", "")
-    .replace("광역시", "")
-    .replace("특별자치시", "")
-    .replace("특별자치도", "")
-    .replace("도", "");
+  const shortSidoName = shortSido(decodedSido);
 
   const goTour = () => navigate(`/tour/${encodeURIComponent(decodedSido)}`);
 
@@ -117,7 +113,7 @@ export default function SigunguPage() {
       <button className="tour-cta-banner" onClick={goTour}>
         <span className="tour-cta-emoji">🧭</span>
         <span className="tour-cta-text">
-          <b>{shortSido}</b> 인기 여행지 추천받기
+          <b>{shortSidoName}</b> 인기 여행지 추천받기
         </span>
         <span className="tour-cta-arrow">›</span>
       </button>
@@ -158,7 +154,7 @@ export default function SigunguPage() {
           <div className="tour-modal" onClick={(e) => e.stopPropagation()}>
             <div className="tour-modal-icon">🧳</div>
             <h2 className="tour-modal-title">
-              {shortSido} 여행지를<br />추천해드릴까요?
+              {shortSidoName} 여행지를<br />추천해드릴까요?
             </h2>
             <p className="tour-modal-desc">
               한국관광공사 데이터로 뽑은<br />이 지역 인기 여행지를 보여드려요

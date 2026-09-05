@@ -5,6 +5,7 @@ import StampButton from "../components/StampButton";
 import { useStamps } from "../hooks/useStamps";
 import { useGeolocation } from "../hooks/useGeolocation";
 import { API_BASE } from "../config";
+import { shortSido } from "../utils/sido";
 import "./CityPage.css";
 
 export default function CityPage() {
@@ -69,7 +70,7 @@ export default function CityPage() {
           className="back-btn"
           onClick={() => navigate(`/sido/${encodeURIComponent(decodedSido)}`)}
         >
-          ← {decodedSido.replace("특별시","").replace("광역시","").replace("특별자치시","").replace("특별자치도","").replace("도","")}
+          ← {shortSido(decodedSido)}
         </button>
         <div className="city-title-area">
           <h1 className="city-title">{decodedSigungu}</h1>
