@@ -162,8 +162,8 @@
 
 .progress-stats {
   display: flex;
-  align-items: center;
-  gap: 0;
+  align-items: stretch;
+  gap: 10px;
   margin-bottom: 16px;
 }
 
@@ -172,7 +172,17 @@
   display: flex;
   flex-direction: column;
   align-items: center;
+  justify-content: center;
   gap: 2px;
+  padding: 0 8px;
+}
+
+.stat-row {
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  gap: 4px;
+  line-height: 1;
 }
 
 .stat-num {
@@ -187,18 +197,7 @@
   font-size: 13px;
   font-weight: 700;
   color: #008542;
-  margin-left: 1px;
-  align-self: flex-end;
-  margin-bottom: 2px;
-}
-
-.stat-item {
-  flex: 1;
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  align-items: flex-end;
-  gap: 0 2px;
+  margin-bottom: 5px;
 }
 
 .stat-desc {

@@ -6,6 +6,7 @@ import SigunguPage from "./pages/SigunguPage";
 import CityPage from "./pages/CityPage";
 import TourPage from "./pages/TourPage";
 import LoginPage from "./pages/LoginPage";
+import StampTestPage from "./pages/StampTestPage";
 
 function ProtectedRoute({ children }) {
   const { isLoggedIn } = useAuth();
@@ -16,6 +17,7 @@ function AppRoutes() {
   const { isLoggedIn } = useAuth();
   return (
     <Routes>
+      <Route path="/stamp-test" element={<StampTestPage />} />
       <Route path="/login" element={isLoggedIn ? <Navigate to="/" replace /> : <LoginPage />} />
       <Route path="/" element={<ProtectedRoute><MainPage /></ProtectedRoute>} />
       <Route path="/sido/:sidoName" element={<ProtectedRoute><SigunguPage /></ProtectedRoute>} />

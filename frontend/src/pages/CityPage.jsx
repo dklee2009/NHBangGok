@@ -2,6 +2,7 @@ import React, { useEffect, useState, useCallback } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import NaverMap from "../components/NaverMap";
 import StampButton from "../components/StampButton";
+import StampSuccessEffect from "../components/StampSuccessEffect";
 import { useStamps } from "../hooks/useStamps";
 import { useGeolocation } from "../hooks/useGeolocation";
 import { API_BASE } from "../config";
@@ -18,6 +19,7 @@ export default function CityPage() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [selectedBranch, setSelectedBranch] = useState(null);
+  const [showStampEffect, setShowStampEffect] = useState(false);
 
   const { addStamp, hasSigunguVisited, getSigunguStampCount, visited } = useStamps();
   const { position, error: geoError, getNearbyBranch } = useGeolocation();
@@ -55,6 +57,11 @@ export default function CityPage() {
     return addStamp(sido, decodedSigungu, branchId, branchName);
   };
 
+  const handleStampEffect = () => {
+    setShowStampEffect(true);
+    window.setTimeout(() => setShowStampEffect(false), 1000);
+  };
+
   const stampCount = getSigunguStampCount(decodedSido, decodedSigungu);
 
   const openRecruitment = () => {
@@ -84,6 +91,7 @@ export default function CityPage() {
       </header>
 
       <div className="map-container">
+        {showStampEffect && <StampSuccessEffect />}
         {loading && (
           <div className="map-loading">
             <div className="loading-spinner" />
@@ -128,6 +136,7 @@ export default function CityPage() {
           nearbyBranch={nearbyBranch}
           sidoName={decodedSido}
           onStamp={handleStamp}
+          onStampEffect={handleStampEffect}
           alreadyStamped={alreadyStamped}
         />
 
