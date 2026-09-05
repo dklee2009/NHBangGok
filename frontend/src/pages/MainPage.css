@@ -55,7 +55,7 @@
 .hero-brand {
   display: flex;
   flex-direction: column;
-  gap: 6px;
+  gap: 8px;
 }
 
 .hero-badge {
@@ -435,7 +435,7 @@
   margin-bottom: 16px;
   display: flex;
   align-items: center;
-  gap: 16px;
+  gap: 20px;
   overflow: hidden;
   position: relative;
 }
@@ -454,15 +454,16 @@
 
 .char-banner-imgs {
   flex-shrink: 0;
-  height: 80px;
-  width: 110px;
+  height: 90px;
+  width: 148px;
   overflow: hidden;
 }
 
 /* 단체 이미지: 전체 표시 */
 .banner-group-img {
+  display: block;
+  width: 100%;
   height: 100%;
-  width: auto;
   object-fit: contain;
   filter: drop-shadow(0 2px 6px rgba(0, 0, 0, 0.25));
 }
@@ -525,10 +526,16 @@
 }
 
 .parade-item {
+  appearance: none;
+  border: 0;
+  background: transparent;
+  padding: 0;
+  font: inherit;
   display: flex;
   flex-direction: column;
   align-items: center;
   gap: 6px;
+  cursor: pointer;
 }
 
 .parade-circle {
@@ -543,7 +550,8 @@
   transition: transform 0.2s;
 }
 
-.parade-circle:hover { transform: scale(1.08); }
+.parade-item:hover .parade-circle,
+.parade-item.selected .parade-circle { transform: scale(1.08); }
 
 /* 퍼레이드: 첫 번째 포즈(왼쪽)만 크롭 */
 .parade-circle img {
@@ -566,4 +574,65 @@
   font-weight: 600;
   color: #88aa88;
   text-align: center;
+}
+
+.character-detail {
+  position: relative;
+  margin-top: 18px;
+  padding: 16px 18px;
+  border-left: 4px solid var(--character-accent);
+  border-radius: 14px;
+  background: #f8fbf8;
+  text-align: left;
+  animation: character-detail-in 0.22s ease-out;
+}
+
+.character-detail-heading {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.character-detail-kicker {
+  margin: 0 0 4px;
+  color: var(--character-accent);
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: 0.12em;
+}
+
+.character-detail h3 {
+  margin: 0;
+  color: #203b2c;
+  font-size: 16px;
+  line-height: 1.35;
+}
+
+.character-detail-close {
+  border: 0;
+  background: transparent;
+  color: #78907d;
+  font-size: 24px;
+  line-height: 1;
+  padding: 0 2px;
+  cursor: pointer;
+}
+
+.character-detail-meaning,
+.character-detail-description {
+  margin: 10px 0 0;
+  color: #587060;
+  font-size: 12px;
+  line-height: 1.65;
+}
+
+.character-detail-meaning {
+  color: #355a42;
+  font-weight: 700;
+}
+
+@keyframes character-detail-in {
+  from { opacity: 0; transform: translateY(-4px); }
+  to { opacity: 1; transform: translateY(0); }
 }

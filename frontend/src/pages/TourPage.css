@@ -81,6 +81,37 @@
   transition: transform 0.12s ease, box-shadow 0.12s ease, border-color 0.12s ease;
 }
 
+.tour-card-image {
+  position: relative;
+  flex: 0 0 88px;
+  width: 88px;
+  height: 56px;
+  overflow: hidden;
+  border-radius: 11px;
+  display: grid;
+  place-items: center;
+  background: linear-gradient(135deg, #d8eee0, #b4d8c0);
+}
+
+.tour-card-image-nature { background: linear-gradient(135deg, #b8dfc4, #6fb28a); }
+.tour-card-image-문화관광 { background: linear-gradient(135deg, #d9c8ec, #9a79bd); }
+.tour-card-image-역사관광 { background: linear-gradient(135deg, #ead8b5, #bd8c54); }
+.tour-card-image-레저스포츠 { background: linear-gradient(135deg, #b8dff0, #4c9bc0); }
+.tour-card-image-체험관광 { background: linear-gradient(135deg, #f5d3a9, #df9665); }
+
+.tour-card-image-fallback {
+  font-size: 29px;
+  filter: drop-shadow(0 2px 3px rgba(0, 0, 0, 0.15));
+}
+
+.tour-card-image img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
 .tour-card:hover {
   transform: translateY(-1px);
   box-shadow: 0 6px 18px rgba(0, 100, 50, 0.1);

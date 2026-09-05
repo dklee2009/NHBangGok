@@ -106,6 +106,19 @@ export default function TourPage() {
             <ul className="tour-list">
               {spots.map((s, i) => (
                 <li key={s.id} className="tour-card" onClick={() => openMap(s.name)}>
+                  <div className={`tour-card-image tour-card-image-${s.categorySub || "default"}`}>
+                    <span className="tour-card-image-fallback" aria-hidden="true">
+                      {CAT_ICON[s.categorySub] || "📍"}
+                    </span>
+                    {s.image && (
+                      <img
+                        src={s.image}
+                        alt=""
+                        loading="lazy"
+                        onError={(e) => { e.currentTarget.style.display = "none"; }}
+                      />
+                    )}
+                  </div>
                   <span className="tour-rank">{i + 1}</span>
                   <div className="tour-card-body">
                     <span className="tour-name">{s.name}</span>

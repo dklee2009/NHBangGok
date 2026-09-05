@@ -166,6 +166,12 @@ async def get_recommendations(sido_name: str, limit: int = 24) -> dict:
                     "_score": rank + cat_penalty.get(sub, 0),
                     "mapX": it.get("mapX"),
                     "mapY": it.get("mapY"),
+                    "image": (
+                        it.get("firstimage")
+                        or it.get("firstimage2")
+                        or it.get("hubTatsImg")
+                        or ""
+                    ),
                 }
             )
 
