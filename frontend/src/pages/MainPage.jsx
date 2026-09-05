@@ -37,7 +37,53 @@ const SIDO_LIST = [
   { name: "제주특별자치도", code: "39", short: "제주",  char: "nari" },
 ];
 
-const PARADE = ["lami", "dori", "olly", "nari", "coco"];
+const NH_CHARACTERS = [
+  {
+    key: "olly",
+    name: "올리",
+    image: "/chars/character1.png",
+    accent: "#8ca900",
+    title: "귀여운 아기공룡 올리",
+    meaning: "올(All)+리(이로운, 利) 모두에게 이로움을 주다. 모바일 뱅크의 효익 상징",
+    description: "한적한 시골 마을 밭에서 할머니가 무를 뽑았더니 올리가 쏘~옥 나왔어요. 초식공룡이지만 잡식성을 가진 대식가 올리는 미래식량을 연구합니다.",
+  },
+  {
+    key: "woni",
+    name: "원이",
+    image: "/chars/character2.png",
+    accent: "#d99c00",
+    title: "오리인 듯 아닌 듯 새 원이",
+    meaning: "원(One)+이(이동할, 移) 금융 서비스를 하나로! 모바일 뱅크의 간편함 상징",
+    description: "요리사 원이는 집안 대대로 내려오는 미강 가루로 요리를 해요. 배추 밭에서 뽑힌 원이는 마음이 하늘만큼 넓은 어미 새입니다.",
+  },
+  {
+    key: "danji",
+    name: "단지",
+    image: "/chars/character3.png",
+    accent: "#c85b78",
+    title: "단지 널 사랑해 단지",
+    meaning: "수줍음 많지만 재테크에는 누구보다 진심인 단지",
+    description: "앵두나무에서 떨어진 단지는 수줍음 많은 볼 빨간 사춘기 돼지입니다. 달리 오빠에게 애정공세를 펼쳐요. 동전을 모아 어마어마한 부자가 된 재테크 전문가입니다.",
+  },
+  {
+    key: "dalli",
+    name: "달리",
+    image: "/chars/character4.png",
+    accent: "#a76628",
+    title: "5늘도 내일도 달리고 달리는 달리",
+    meaning: "여행과 도전을 좋아하는 NH 5인방의 에너지 담당",
+    description: "감자 캐다 딸려 나온 달리는 배낭여행을 즐기는 대학생 강아지입니다. 데굴데굴 감자처럼 달리기를 잘하고, 잘생기고 노래를 잘해서 인기가 많아요.",
+  },
+  {
+    key: "kori",
+    name: "코리",
+    image: "/chars/character5.png",
+    accent: "#3d82a8",
+    title: "1+1 놀라운 암산능력 코리",
+    meaning: "친구들의 이야기를 잘 듣고 마을을 지키는 든든한 코리",
+    description: "큰 귀로 친구들의 말을 잘 들어주는 코리는 까도 까도 나오는 양파 같은 무한 매력의 소유자입니다. 안경을 쓰면 놀라운 암산 능력을 발휘하고 자연재해로부터 마을을 지켜줘요.",
+  },
+];
 
 const SIDO_CODE_TO_NAME = {
   "11": "서울특별시", "21": "부산광역시", "22": "대구광역시", "23": "인천광역시",
@@ -50,6 +96,7 @@ const SIDO_CODE_TO_NAME = {
 export default function MainPage() {
   const [view, setView] = useState("map");
   const [locating, setLocating] = useState(false);
+  const [selectedCharacter, setSelectedCharacter] = useState(null);
   const navigate = useNavigate();
   const { user, logout } = useAuth();
   const {
@@ -293,31 +340,54 @@ export default function MainPage() {
           {/* 캐릭터 퍼레이드 */}
           <div className="char-parade">
             <p className="parade-label">NH 5인방이 함께해요!</p>
-            <div className="parade-row">
-              {PARADE.map((key) => {
-                const c = CHARS[key];
+            <div className="parade-row" role="list" aria-label="NH 5인방 캐릭터 선택">
+              {NH_CHARACTERS.map((character) => {
+                const isSelected = selectedCharacter?.key === character.key;
                 return (
-                  <div key={key} className={`parade-item ${key === "olly" ? "main" : ""}`}>
-                    <div
-                      className={`parade-circle ${key === "olly" ? "main" : ""}`}
-                      style={{ background: c.bg, borderColor: key === "olly" ? c.accent : "#ddd" }}
+                  <button
+                    key={character.key}
+                    type="button"
+                    className={`parade-item ${isSelected ? "selected" : ""}`}
+                    onClick={() => setSelectedCharacter(isSelected ? null : character)}
+                    aria-pressed={isSelected}
+                  >
+                    <span
+                      className={`parade-circle ${character.key === "olly" ? "main" : ""}`}
+                      style={{ background: `${character.accent}18`, borderColor: isSelected ? character.accent : "#ddd" }}
                     >
                       <img
-                        src={c.src}
-                        alt={c.name}
+                        src={character.image}
+                        alt={`${character.name} 캐릭터`}
                         onError={(e) => { e.target.style.display = "none"; }}
                       />
-                    </div>
-                    <span
-                      className="parade-name"
-                      style={key === "olly" ? { color: c.accent, fontWeight: 800 } : {}}
-                    >
-                      {c.name}
                     </span>
-                  </div>
+                    <span className="parade-name" style={isSelected ? { color: character.accent } : {}}>
+                      {character.name}
+                    </span>
+                  </button>
                 );
               })}
             </div>
+            {selectedCharacter && (
+              <article className="character-detail" style={{ "--character-accent": selectedCharacter.accent }}>
+                <div className="character-detail-heading">
+                  <div>
+                    <p className="character-detail-kicker">NH CHARACTER</p>
+                    <h3>{selectedCharacter.title}</h3>
+                  </div>
+                  <button
+                    type="button"
+                    className="character-detail-close"
+                    onClick={() => setSelectedCharacter(null)}
+                    aria-label="캐릭터 설명 닫기"
+                  >
+                    ×
+                  </button>
+                </div>
+                <p className="character-detail-meaning">{selectedCharacter.meaning}</p>
+                <p className="character-detail-description">{selectedCharacter.description}</p>
+              </article>
+            )}
           </div>
 
         </div>
