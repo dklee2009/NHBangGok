@@ -18,7 +18,7 @@ export default function StampTestPage() {
 
   const handleStampEffect = () => {
     setShowStampEffect(true);
-    window.setTimeout(() => setShowStampEffect(false), 1000);
+    window.setTimeout(() => setShowStampEffect(false), 2000);
   };
 
   return (
