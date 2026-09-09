@@ -9,6 +9,14 @@ import { useRewards } from "../hooks/useRewards";
 import { useAuth } from "../contexts/AuthContext";
 import "./MainPage.css";
 
+let sigunguGeoPromise = null;
+function loadSigunguGeo() {
+  if (!sigunguGeoPromise) {
+    sigunguGeoPromise = fetch("/korea-sigungu.json").then((res) => res.json());
+  }
+  return sigunguGeoPromise;
+}
+
 export const CHARS = {
   olly: { src: "/chars/olly.png", bg: "#E8F5EE", accent: "#008542", name: "올리" },
   nari: { src: "/chars/nari.png", bg: "#FFFDE7", accent: "#E6960A", name: "나리" },
@@ -128,8 +136,7 @@ export default function MainPage() {
       async (pos) => {
         try {
           const point = [pos.coords.longitude, pos.coords.latitude];
-          const res = await fetch("/korea-sigungu.json");
-          const data = await res.json();
+          const data = await loadSigunguGeo();
           const found = data.features.find((f) => d3.geoContains(f.geometry, point));
           const sidoName = found && SIDO_CODE_TO_NAME[found.properties.sido_code];
           if (!found || !sidoName) {
@@ -147,7 +154,7 @@ export default function MainPage() {
         setLocating(false);
         alert(`위치를 가져올 수 없어요: ${err.message}`);
       },
-      { enableHighAccuracy: true, timeout: 10000 }
+      { enableHighAccuracy: false, timeout: 10000 }
     );
   };
 

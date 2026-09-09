@@ -3,6 +3,7 @@ NCP API Hub 지역검색 API를 이용한 농협은행 지점 조회
 엔드포인트: https://naverapihub.apigw.ntruss.com/search/v1/local
 헤더: X-NCP-APIGW-API-KEY-ID / X-NCP-APIGW-API-KEY
 """
+import asyncio
 import os
 import httpx
 
@@ -37,26 +38,27 @@ async def search_nh_branches(sigungu: str, sido: str) -> list:
     branches = []
     seen = set()
 
+    async def fetch_page(client, start):
+        params = {
+            "query":   query,
+            "display": 5,
+            "start":   start,
+            "sort":    "random",
+            "format":  "json",
+        }
+        try:
+            resp = await client.get(SEARCH_URL, headers=get_headers(), params=params)
+            resp.raise_for_status()
+            return resp.json().get("items", [])
+        except Exception as e:
+            print(f"[NaverSearch] 오류 (start={start}): {e}")
+            return []
+
     async with httpx.AsyncClient(timeout=10.0) as client:
-        for start in range(1, 26, 5):   # 1, 6, 11, 16, 21
-            params = {
-                "query":   query,
-                "display": 5,
-                "start":   start,
-                "sort":    "random",
-                "format":  "json",
-            }
-            try:
-                resp = await client.get(SEARCH_URL, headers=get_headers(), params=params)
-                resp.raise_for_status()
-                items = resp.json().get("items", [])
-            except Exception as e:
-                print(f"[NaverSearch] 오류 (start={start}): {e}")
-                break
+        # 페이지 간 의존성이 없으므로(순차 대기 대신) 동시에 요청
+        pages = await asyncio.gather(*(fetch_page(client, start) for start in range(1, 26, 5)))
 
-            if not items:
-                break
-
+        for items in pages:
             for item in items:
                 title    = clean_html(item.get("title", ""))
                 category = item.get("category", "")

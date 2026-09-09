@@ -1,6 +1,7 @@
 from fastapi import FastAPI, HTTPException, Query
 from fastapi.middleware.cors import CORSMiddleware
 import os
+import time
 from dotenv import load_dotenv
 
 # 라우터/모듈이 import 시점에 os.getenv 로 키를 읽으므로 먼저 로드
@@ -36,6 +37,11 @@ NAVER_CLIENT_ID = os.getenv("NAVER_CLIENT_ID", "")
 
 SIDO_LIST = list(MOCK_BRANCHES.keys())
 
+# (sido, sigungu) → (조회 시각, 응답) 캐시. 지점 위치는 자주 바뀌지 않으므로
+# 클릭할 때마다 네이버 API를 다시 호출하지 않도록 TTL 동안 재사용한다.
+_BANKS_CACHE_TTL = 60 * 60  # 1시간
+_banks_cache: dict[tuple[str, str], tuple[float, list]] = {}
+
 
 @app.get("/api/banks/{sido_name}")
 async def get_banks_by_sido(
@@ -46,9 +52,15 @@ async def get_banks_by_sido(
         raise HTTPException(status_code=404, detail=f"'{sido_name}' 시/도를 찾을 수 없습니다.")
 
     if not USE_MOCK and NAVER_CLIENT_ID and sigungu:
+        cache_key = (sido_name, sigungu)
+        cached = _banks_cache.get(cache_key)
+        if cached and time.time() - cached[0] < _BANKS_CACHE_TTL:
+            branches = cached[1]
+            return {"sido": sido_name, "sigungu": sigungu, "total": len(branches), "branches": branches, "source": "naver-cache"}
         try:
             branches = await search_nh_branches(sigungu, sido_name)
             if branches:
+                _banks_cache[cache_key] = (time.time(), branches)
                 return {"sido": sido_name, "sigungu": sigungu, "total": len(branches), "branches": branches, "source": "naver"}
         except Exception:
             pass
