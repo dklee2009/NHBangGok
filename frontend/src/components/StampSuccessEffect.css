@@ -5,7 +5,7 @@
   display: grid;
   place-items: center;
   pointer-events: none;
-  animation: stamp-success-enter 0.95s cubic-bezier(0.2, 0.9, 0.2, 1) forwards;
+  animation: stamp-success-enter 2s cubic-bezier(0.2, 0.9, 0.2, 1) forwards;
 }
 
 .stamp-success-image {
