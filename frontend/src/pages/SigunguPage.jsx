@@ -135,10 +135,12 @@ export default function SigunguPage() {
         <div className="grid-section">
           <p className="grid-hint">가나다순 · {sigungus.length}개 {unitLabel}</p>
           <div className="sigungu-grid">
-            {sigungus.map((sg) => (
+            {sigungus.map((sg, i) => (
               <SigunguCard
                 key={sg.code}
                 sigungu={sg}
+                sidoName={decodedSido}
+                index={i}
                 isVisited={hasSigunguVisited(decodedSido, sg.name)}
                 stampCount={getSigunguStampCount(decodedSido, sg.name)}
                 onClick={() => handleClick(sg)}
