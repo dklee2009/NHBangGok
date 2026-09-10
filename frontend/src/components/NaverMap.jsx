@@ -1,4 +1,5 @@
 import React, { useEffect, useRef } from "react";
+import { MASCOT_LIST } from "../utils/koreaSigungu";
 
 function getMapCenter(branches) {
   if (!branches.length) return { lat: 36.5, lng: 127.5, zoom: 13 };
@@ -7,42 +8,49 @@ function getMapCenter(branches) {
   return { lat, lng, zoom: 14 };
 }
 
-function branchIconHtml(isSelected, isNearby, branchName) {
-  const bgColor = isNearby ? "#e8a000" : "#008542";
-  const borderColor = isNearby ? "#ffb700" : "#005c2e";
-  const circleSize = isSelected ? 42 : 34;
-  const imgSize = Math.round(circleSize * 0.7);
+function branchDotSize(isSelected, isNearby) {
+  return isSelected ? 40 : isNearby ? 32 : 26;
+}
+
+function mascotFor(index) {
+  return MASCOT_LIST[index % MASCOT_LIST.length];
+}
+
+function branchIconHtml(isSelected, isNearby, branchName, mascotSrc) {
+  const accent = isNearby ? "#e8a000" : "#008542";
+  const size = branchDotSize(isSelected, isNearby);
+
+  const badge = `<div style="
+    width:${size}px;height:${size}px;
+    border-radius:50%;
+    background:white;
+    border:1.5px solid ${accent};
+    overflow:hidden;
+    display:flex;align-items:center;justify-content:center;
+    cursor:pointer;
+    ${isSelected
+      ? "box-shadow:0 0 0 3px rgba(255,255,255,0.95),0 2px 6px rgba(0,0,0,0.3);"
+      : "box-shadow:0 1px 4px rgba(0,0,0,0.25);"}
+  "><img src="${mascotSrc}" style="width:92%;height:92%;object-fit:contain;" /></div>`;
+
+  if (!isSelected) return badge;
 
   const shortName = branchName
     .replace("NH농협은행 ", "")
     .replace("농협은행 ", "");
 
   return `
-    <div style="display:flex;align-items:center;gap:5px;cursor:pointer;">
-      <div style="
-        width:${circleSize}px;height:${circleSize}px;
-        background:${bgColor};
-        border-radius:50%;
-        border:2.5px solid ${borderColor};
-        box-shadow:0 2px 8px rgba(0,0,0,0.35);
-        display:flex;align-items:center;justify-content:center;
-        flex-shrink:0;
-      ">
-        <img src="/cyber_symbol.gif"
-          width="${imgSize}" height="${imgSize}"
-          style="object-fit:contain;filter:brightness(0) invert(1);"
-        />
-      </div>
+    <div style="display:flex;flex-direction:column;align-items:center;gap:4px;cursor:pointer;">
+      ${badge}
       <div style="
         background:white;
         color:#1a1a1a;
         font-size:11px;
         font-weight:700;
-        padding:3px 7px;
-        border-radius:8px;
+        padding:2px 6px;
+        border-radius:6px;
         white-space:nowrap;
-        box-shadow:0 1px 4px rgba(0,0,0,0.2);
-        line-height:1.4;
+        box-shadow:0 1px 3px rgba(0,0,0,0.15);
       ">${shortName}</div>
     </div>
   `;
@@ -97,17 +105,17 @@ export default function NaverMap({
     markersRef.current.forEach((m) => m.setMap(null));
     markersRef.current = [];
 
-    branches.forEach((branch) => {
+    branches.forEach((branch, index) => {
       const isSelected = selectedBranch?.id === branch.id;
       const isNearby = nearbyBranch?.id === branch.id;
-      const circleSize = isSelected ? 42 : 34;
+      const dotSize = branchDotSize(isSelected, isNearby);
 
       const marker = new naver.maps.Marker({
         position: new naver.maps.LatLng(branch.lat, branch.lng),
         map: mapInstance.current,
         icon: {
-          content: branchIconHtml(isSelected, isNearby, branch.name),
-          anchor: new naver.maps.Point(circleSize / 2, circleSize / 2),
+          content: branchIconHtml(isSelected, isNearby, branch.name, mascotFor(index)),
+          anchor: new naver.maps.Point(dotSize / 2, dotSize / 2),
         },
         title: branch.name,
         zIndex: isSelected ? 1000 : 0,

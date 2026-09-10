@@ -4,16 +4,8 @@ import SigunguMap from "../components/SigunguMap";
 import SigunguCard from "../components/SigunguCard";
 import { useStamps } from "../hooks/useStamps";
 import { shortSido } from "../utils/sido";
+import { getSigunguList } from "../utils/koreaSigungu";
 import "./SigunguPage.css";
-
-const SIDO_CODE = {
-  "서울특별시":"11","부산광역시":"21","대구광역시":"22","인천광역시":"23",
-  "광주광역시":"24","대전광역시":"25","울산광역시":"26","세종특별자치시":"29",
-  "경기도":"31","강원특별자치도":"32","충청북도":"33","충청남도":"34",
-  "전북특별자치도":"35","전라남도":"36","경상북도":"37","경상남도":"38","제주특별자치도":"39",
-};
-
-let cachedSigunguData = null;
 
 export default function SigunguPage() {
   const { sidoName } = useParams();
@@ -50,20 +42,7 @@ export default function SigunguPage() {
 
   useEffect(() => {
     async function load() {
-      if (!cachedSigunguData) {
-        const res = await fetch("/korea-sigungu.json");
-        cachedSigunguData = await res.json();
-      }
-      const sidoCode = SIDO_CODE[decodedSido];
-      const list = cachedSigunguData.features
-        .filter((f) => f.properties.sido_code === sidoCode)
-        .map((f) => ({
-          name: f.properties.name,
-          code: f.properties.code,
-          name_eng: f.properties.name_eng,
-        }))
-        .sort((a, b) => a.name.localeCompare(b.name, "ko"));
-      setSigungus(list);
+      setSigungus(await getSigunguList(decodedSido));
     }
     load();
   }, [decodedSido]);
@@ -139,7 +118,6 @@ export default function SigunguPage() {
               <SigunguCard
                 key={sg.code}
                 sigungu={sg}
-                sidoName={decodedSido}
                 index={i}
                 isVisited={hasSigunguVisited(decodedSido, sg.name)}
                 stampCount={getSigunguStampCount(decodedSido, sg.name)}
