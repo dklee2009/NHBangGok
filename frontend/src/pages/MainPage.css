@@ -31,8 +31,9 @@
 
 /* ── 히어로 헤더 ── */
 .main-header {
-  background: linear-gradient(145deg, #004d24 0%, #007a3d 60%, #009e52 100%);
-  padding: 52px 22px 28px;
+  min-height: 238px;
+  background: #237b56;
+  padding: 42px 22px 32px;
   display: flex;
   align-items: flex-end;
   justify-content: space-between;
@@ -43,16 +44,17 @@
 .main-header::before {
   content: "";
   position: absolute;
-  top: -40px;
-  right: -40px;
-  width: 180px;
-  height: 180px;
-  background: rgba(255, 255, 255, 0.05);
-  border-radius: 50%;
+  inset: 0;
+  background:
+    linear-gradient(90deg, rgba(10, 45, 31, 0.82) 0%, rgba(10, 45, 31, 0.52) 37%, rgba(10, 45, 31, 0.08) 76%),
+    linear-gradient(0deg, rgba(10, 45, 31, 0.48) 0%, transparent 42%),
+    url("/단체서울이미지.jpeg") center 58% / cover no-repeat;
   pointer-events: none;
 }
 
 .hero-brand {
+  position: relative;
+  z-index: 1;
   display: flex;
   flex-direction: column;
   gap: 8px;
@@ -129,16 +131,6 @@
 }
 
 /* 3포즈 이미지에서 첫 번째 포즈(손 흔들기)만 크롭 */
-.header-olly {
-  height: 100px;
-  width: 100px;
-  object-fit: cover;
-  object-position: 0% center;
-  margin-bottom: -6px;
-  filter: drop-shadow(0 4px 12px rgba(0, 0, 0, 0.25));
-  flex-shrink: 0;
-}
-
 /* ── 진행 카드 ── */
 .progress-card {
   background: white;
@@ -236,6 +228,115 @@
   font-weight: 500;
   margin-top: 8px;
   text-align: center;
+}
+
+/* ── 오늘의 여행 메이트 ── */
+.companion-card {
+  display: flex;
+  align-items: center;
+  min-height: 148px;
+  margin: 14px 16px 0;
+  padding: 18px 18px 16px 20px;
+  border: 1px solid color-mix(in srgb, var(--companion-accent) 18%, white);
+  border-radius: 20px;
+  background:
+    radial-gradient(circle at 90% 18%, color-mix(in srgb, var(--companion-accent) 18%, transparent) 0 34px, transparent 35px),
+    linear-gradient(135deg, #fff 0%, #fffdf8 100%);
+  box-shadow: 0 4px 18px rgba(67, 93, 56, 0.08);
+  overflow: hidden;
+  position: relative;
+}
+
+.companion-copy {
+  position: relative;
+  z-index: 1;
+  flex: 1;
+  min-width: 0;
+}
+
+.companion-kicker {
+  color: var(--companion-accent);
+  font-size: 10px;
+  font-weight: 900;
+  letter-spacing: 0.11em;
+  margin-bottom: 6px;
+}
+
+.companion-card h2 {
+  color: #233b2a;
+  font-size: 17px;
+  font-weight: 900;
+  letter-spacing: -0.6px;
+  line-height: 1.25;
+}
+
+.companion-message {
+  color: #6c806f;
+  font-size: 12px;
+  font-weight: 600;
+  line-height: 1.45;
+  margin-top: 4px;
+}
+
+.companion-action {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  margin-top: 10px;
+  padding: 0;
+  color: var(--companion-accent);
+  background: transparent;
+  font-size: 12px;
+  font-weight: 800;
+}
+
+.companion-action span {
+  font-size: 18px;
+  line-height: 0.7;
+  transition: transform 0.15s ease;
+}
+
+.companion-action:hover span { transform: translateX(3px); }
+.companion-action:disabled { opacity: 0.55; cursor: wait; }
+
+.companion-art {
+  align-self: stretch;
+  width: 112px;
+  min-width: 112px;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  position: relative;
+}
+
+.companion-art img {
+  display: block;
+  width: 110px;
+  height: 128px;
+  object-fit: cover;
+  object-position: left center;
+  filter: drop-shadow(0 5px 5px rgba(53, 64, 46, 0.18));
+  animation: companion-float 3.2s ease-in-out infinite;
+}
+
+.companion-spark {
+  position: absolute;
+  color: var(--companion-accent);
+  font-size: 16px;
+  animation: companion-twinkle 2.2s ease-in-out infinite;
+}
+
+.companion-spark-one { top: 12px; right: 10px; }
+.companion-spark-two { top: 38px; left: 2px; font-size: 10px; animation-delay: 0.6s; }
+
+@keyframes companion-float {
+  0%, 100% { transform: translateY(2px); }
+  50% { transform: translateY(-5px); }
+}
+
+@keyframes companion-twinkle {
+  0%, 100% { opacity: 0.35; transform: scale(0.8); }
+  50% { opacity: 1; transform: scale(1.1); }
 }
 
 /* ── 보상 티저 ── */
@@ -466,6 +567,72 @@
   height: 100%;
   object-fit: contain;
   filter: drop-shadow(0 2px 6px rgba(0, 0, 0, 0.25));
+}
+
+.travel-transition {
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
+  display: grid;
+  place-items: center;
+  overflow: hidden;
+  pointer-events: none;
+  background: rgba(244, 248, 244, 0.78);
+  animation: travel-wash 0.85s ease both;
+}
+
+.travel-transition-track {
+  width: min(540px, 100%);
+  position: relative;
+  transform: translateX(110vw);
+  animation: travel-run 0.85s cubic-bezier(0.72, 0.02, 0.25, 1) both;
+}
+
+.travel-transition-track::after {
+  content: "";
+  position: absolute;
+  left: -15%;
+  right: 0;
+  bottom: 18px;
+  height: 4px;
+  border-radius: 99px;
+  background: repeating-linear-gradient(90deg, #d4a13b 0 12px, transparent 12px 22px);
+  opacity: 0.55;
+}
+
+.travel-transition-track img {
+  display: block;
+  width: 390px;
+  max-width: 72vw;
+  height: auto;
+  margin: 0 auto;
+  filter: drop-shadow(0 12px 12px rgba(30, 75, 46, 0.2));
+}
+
+.travel-transition-label {
+  display: block;
+  width: fit-content;
+  margin: 0 auto 8px;
+  padding: 8px 14px;
+  border-radius: 99px;
+  background: #fff;
+  color: #008542;
+  font-size: 14px;
+  font-weight: 900;
+  box-shadow: 0 4px 18px rgba(0, 80, 40, 0.15);
+}
+
+@keyframes travel-run {
+  0% { transform: translateX(110vw); }
+  16% { transform: translateX(35vw); }
+  78% { transform: translateX(-8vw); }
+  100% { transform: translateX(-120vw); }
+}
+
+@keyframes travel-wash {
+  0% { opacity: 0; }
+  14%, 84% { opacity: 1; }
+  100% { opacity: 0; }
 }
 
 .char-banner-body {

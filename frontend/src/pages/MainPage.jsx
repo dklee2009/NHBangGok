@@ -50,6 +50,7 @@ const NH_CHARACTERS = [
     key: "olly",
     name: "올리",
     image: "/chars/character1.png",
+    hanbokImage: "/chars/올리한복.png",
     accent: "#8ca900",
     title: "귀여운 아기공룡 올리",
     meaning: "올(All)+리(이로운, 利) 모두에게 이로움을 주다. 모바일 뱅크의 효익 상징",
@@ -59,6 +60,7 @@ const NH_CHARACTERS = [
     key: "woni",
     name: "원이",
     image: "/chars/character2.png",
+    hanbokImage: "/chars/원이한복.png",
     accent: "#d99c00",
     title: "오리인 듯 아닌 듯 새 원이",
     meaning: "원(One)+이(이동할, 移) 금융 서비스를 하나로! 모바일 뱅크의 간편함 상징",
@@ -68,6 +70,7 @@ const NH_CHARACTERS = [
     key: "danji",
     name: "단지",
     image: "/chars/character3.png",
+    hanbokImage: "/chars/단지한복.png",
     accent: "#c85b78",
     title: "단지 널 사랑해 단지",
     meaning: "수줍음 많지만 재테크에는 누구보다 진심인 단지",
@@ -77,6 +80,7 @@ const NH_CHARACTERS = [
     key: "dalli",
     name: "달리",
     image: "/chars/character4.png",
+    hanbokImage: "/chars/달리한복.png",
     accent: "#a76628",
     title: "5늘도 내일도 달리고 달리는 달리",
     meaning: "여행과 도전을 좋아하는 NH 5인방의 에너지 담당",
@@ -86,10 +90,21 @@ const NH_CHARACTERS = [
     key: "kori",
     name: "코리",
     image: "/chars/character5.png",
+    hanbokImage: "/chars/코리한복.png",
     accent: "#3d82a8",
     title: "1+1 놀라운 암산능력 코리",
     meaning: "친구들의 이야기를 잘 듣고 마을을 지키는 든든한 코리",
     description: "큰 귀로 친구들의 말을 잘 들어주는 코리는 까도 까도 나오는 양파 같은 무한 매력의 소유자입니다. 안경을 쓰면 놀라운 암산 능력을 발휘하고 자연재해로부터 마을을 지켜줘요.",
+  },
+];
+
+const COMPANION_OPTIONS = [
+  ...NH_CHARACTERS,
+  {
+    key: "all",
+    name: "NH 5인방",
+    image: "/chars/단체한복.png",
+    accent: "#008542",
   },
 ];
 
@@ -105,6 +120,7 @@ export default function MainPage() {
   const [view, setView] = useState("map");
   const [locating, setLocating] = useState(false);
   const [selectedCharacter, setSelectedCharacter] = useState(null);
+  const [traveling, setTraveling] = useState(false);
   const navigate = useNavigate();
   const { user, logout } = useAuth();
   const {
@@ -122,8 +138,37 @@ export default function MainPage() {
 
   const rewards = useRewards(totalStamps, user?.username);
 
+  const companionBase = COMPANION_OPTIONS[visitedCount % COMPANION_OPTIONS.length];
+  const companion = {
+    ...companionBase,
+    image: companionBase.hanbokImage || companionBase.image,
+    message: rewards.claimableCount > 0
+      ? "받을 수 있는 보상이 있어요!"
+      : visitedCount >= 17
+      ? "전국 완주를 축하해요!"
+      : visitedCount === 0
+      ? "첫번째 여행지를 함께 찾아볼까요?"
+      : `${17 - visitedCount}개 지역만 더 달리면 돼요!`,
+  };
+
   const handleSidoClick = (sido) => {
     navigate(`/sido/${encodeURIComponent(sido.name)}`);
+  };
+
+  const handleCompanionAction = () => {
+    if (rewards.claimableCount > 0) {
+      setView("reward");
+      return;
+    }
+
+    setTraveling(true);
+    window.setTimeout(() => {
+      setView("map");
+      setTraveling(false);
+      window.setTimeout(() => {
+        document.querySelector(".map-section")?.scrollIntoView({ behavior: "smooth", block: "start" });
+      }, 80);
+    }, 850);
   };
 
   const findMyLocation = () => {
@@ -175,12 +220,6 @@ export default function MainPage() {
             <button className="hero-logout" onClick={logout}>로그아웃</button>
           </div>
         </div>
-        <img
-          src={CHARS.olly.src}
-          alt="올리"
-          className="header-olly"
-          onError={(e) => { e.target.style.display = "none"; }}
-        />
       </header>
 
       {/* ── 진행 카드 ── */}
@@ -220,6 +259,29 @@ export default function MainPage() {
             : `${17 - visitedCount}개 지역이 남았어요`}
         </p>
       </div>
+
+      {/* ── 오늘의 여행 메이트 ── */}
+      <section className="companion-card" style={{ "--companion-accent": companion.accent }}>
+        <div className="companion-copy">
+          <p className="companion-kicker">TODAY'S TRAVEL MATE</p>
+          <h2>{companion.name}가 함께할게요</h2>
+          <p className="companion-message">{companion.message}</p>
+          <button
+            type="button"
+            className="companion-action"
+            onClick={handleCompanionAction}
+            disabled={traveling}
+          >
+            {rewards.claimableCount > 0 ? "보상 확인하기" : visitedCount === 0 ? "여행 시작하기" : "지도에서 계속하기"}
+            <span aria-hidden="true">›</span>
+          </button>
+        </div>
+        <div className="companion-art" aria-hidden="true">
+          <span className="companion-spark companion-spark-one">✦</span>
+          <span className="companion-spark companion-spark-two">✦</span>
+          <img src={companion.image} alt="" />
+        </div>
+      </section>
 
       {/* ── 보상 티저 ── */}
       <button
@@ -317,7 +379,7 @@ export default function MainPage() {
           <div className="char-banner">
             <div className="char-banner-imgs">
               <img
-                src="/chars/group.png"
+                src="/chars/character_all.png"
                 alt="NH 5인방"
                 className="banner-group-img"
                 onError={(e) => { e.target.style.display = "none"; }}
@@ -409,6 +471,15 @@ export default function MainPage() {
       >
         <img src="/nh-main-banner.png" alt="사랑받는 일등 민족은행 - NH농협은행" />
       </a>
+
+      {traveling && (
+        <div className="travel-transition" role="status" aria-live="polite">
+          <div className="travel-transition-track">
+            <span className="travel-transition-label">여행을 시작해요</span>
+            <img src="/chars/단체한복.png" alt="NH 5인방이 여행을 시작하는 모습" />
+          </div>
+        </div>
+      )}
     </div>
   );
 }
