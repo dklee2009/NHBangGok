@@ -17,32 +17,24 @@ function loadSigunguGeo() {
   return sigunguGeoPromise;
 }
 
-export const CHARS = {
-  olly: { src: "/chars/olly.png", bg: "#E8F5EE", accent: "#008542", name: "올리" },
-  nari: { src: "/chars/nari.png", bg: "#FFFDE7", accent: "#E6960A", name: "나리" },
-  lami: { src: "/chars/lami.png", bg: "#FCE4EC", accent: "#D6336C", name: "라미" },
-  dori: { src: "/chars/dori.png", bg: "#FFF3E0", accent: "#8D6E63", name: "돌이" },
-  coco: { src: "/chars/coco.png", bg: "#E8EAF6", accent: "#5C6BC0", name: "코코" },
-};
-
 const SIDO_LIST = [
-  { name: "서울특별시",     code: "11", short: "서울",  char: "lami" },
-  { name: "부산광역시",     code: "21", short: "부산",  char: "lami" },
-  { name: "대구광역시",     code: "22", short: "대구",  char: "coco" },
-  { name: "인천광역시",     code: "23", short: "인천",  char: "dori" },
-  { name: "광주광역시",     code: "24", short: "광주",  char: "nari" },
-  { name: "대전광역시",     code: "25", short: "대전",  char: "dori" },
-  { name: "울산광역시",     code: "26", short: "울산",  char: "coco" },
-  { name: "세종특별자치시", code: "29", short: "세종",  char: "dori" },
-  { name: "경기도",         code: "31", short: "경기",  char: "olly" },
-  { name: "강원특별자치도", code: "32", short: "강원",  char: "olly" },
-  { name: "충청북도",       code: "33", short: "충북",  char: "dori" },
-  { name: "충청남도",       code: "34", short: "충남",  char: "dori" },
-  { name: "전북특별자치도", code: "35", short: "전북",  char: "nari" },
-  { name: "전라남도",       code: "36", short: "전남",  char: "nari" },
-  { name: "경상북도",       code: "37", short: "경북",  char: "coco" },
-  { name: "경상남도",       code: "38", short: "경남",  char: "coco" },
-  { name: "제주특별자치도", code: "39", short: "제주",  char: "nari" },
+  { name: "서울특별시",     code: "11", short: "서울" },
+  { name: "부산광역시",     code: "21", short: "부산" },
+  { name: "대구광역시",     code: "22", short: "대구" },
+  { name: "인천광역시",     code: "23", short: "인천" },
+  { name: "광주광역시",     code: "24", short: "광주" },
+  { name: "대전광역시",     code: "25", short: "대전" },
+  { name: "울산광역시",     code: "26", short: "울산" },
+  { name: "세종특별자치시", code: "29", short: "세종" },
+  { name: "경기도",         code: "31", short: "경기" },
+  { name: "강원특별자치도", code: "32", short: "강원" },
+  { name: "충청북도",       code: "33", short: "충북" },
+  { name: "충청남도",       code: "34", short: "충남" },
+  { name: "전북특별자치도", code: "35", short: "전북" },
+  { name: "전라남도",       code: "36", short: "전남" },
+  { name: "경상북도",       code: "37", short: "경북" },
+  { name: "경상남도",       code: "38", short: "경남" },
+  { name: "제주특별자치도", code: "39", short: "제주" },
 ];
 
 const NH_CHARACTERS = [
@@ -394,11 +386,11 @@ export default function MainPage() {
           {/* 시/도 그리드 */}
           <p className="grid-hint">지역을 선택하세요</p>
           <div className="sido-grid">
-            {SIDO_LIST.map((sido) => (
+            {SIDO_LIST.map((sido, index) => (
               <SidoCard
                 key={sido.code}
                 sido={sido}
-                charKey={sido.char}
+                index={index}
                 isVisited={hasSidoVisited(sido.name)}
                 stampCount={getSidoStampCount(sido.name)}
                 onClick={() => handleSidoClick(sido)}
