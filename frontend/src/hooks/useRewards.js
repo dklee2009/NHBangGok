@@ -1,14 +1,14 @@
 import { useState, useEffect, useCallback, useMemo } from "react";
 
 // 전국 스탬프 로드맵 마일스톤.
-// need: 달성에 필요한 총 스탬프 수 / points: 지급 NH포인트 / mult: 부스트 배지
+// need: 달성에 필요한 총 스탬프 수 / points: 지급 NH포인트(상품권 등 비포인트 보상은 0) / mult: 부스트 배지
 export const MILESTONES = [
-  { id: "m1", need: 1,  reward: "웰컴 배지",        icon: "🎫", mult: null, points: 0 },
-  { id: "m2", need: 3,  reward: "100 P",           icon: "🪙", mult: null, points: 100 },
-  { id: "m3", need: 6,  reward: "포인트 부스트",    icon: "⚡", mult: "X2", points: 0 },
-  { id: "m4", need: 10, reward: "300 P",           icon: "💰", mult: null, points: 300 },
-  { id: "m5", need: 15, reward: "메가 부스트",      icon: "🔥", mult: "X3", points: 0 },
-  { id: "m6", need: 25, reward: "완주 트로피 +1000P", icon: "🏆", mult: null, points: 1000 },
+  { id: "m1", need: 1,  reward: "NH Point 100P",        icon: "🪙", mult: null, points: 100 },
+  { id: "m2", need: 3,  reward: "NH Point 300P",        icon: "💰", mult: null, points: 300 },
+  { id: "m3", need: 6,  reward: "환율 수수료 면제",      icon: "💱", mult: null, points: 0 },
+  { id: "m4", need: 10, reward: "농촌사랑상품권 1000원", icon: "🌾", mult: null, points: 0 },
+  { id: "m5", need: 15, reward: "지역사랑상품권 5000원", icon: "🏘️", mult: null, points: 0 },
+  { id: "m6", need: 25, reward: "온누리상품권 10000원",  icon: "🏪", mult: null, points: 0 },
 ];
 
 const storageKey = (username) => `nh_rewards_${username || "guest"}`;
