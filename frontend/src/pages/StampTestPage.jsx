@@ -13,7 +13,7 @@ export default function StampTestPage() {
 
   const handleStamp = async () => {
     await new Promise((resolve) => window.setTimeout(resolve, 260));
-    return true;
+    return { ok: true };
   };
 
   const handleStampEffect = () => {

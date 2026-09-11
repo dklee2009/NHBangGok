@@ -52,9 +52,10 @@ export function useStamps() {
 
   useEffect(() => { fetchStamps(); }, [fetchStamps]);
 
-  // 스탬프 추가. 성공(또는 이미 찍힌 경우) true, 실패 시 false 반환.
+  // 스탬프 추가. { ok: true } 또는 { ok: false, message, status } 반환.
+  // message는 실패 원인을 구체적으로 설명하는 문자열로, 사용자에게 그대로 보여줄 수 있다.
   const addStamp = useCallback(async (sidoName, sigunguName, branchId, branchName) => {
-    if (!token) return false;
+    if (!token) return { ok: false, message: "로그인이 필요합니다. 다시 로그인해주세요.", status: null };
     try {
       const res = await fetch(`${API}/stamps`, {
         method: "POST",
@@ -78,16 +79,31 @@ export function useStamps() {
             },
           };
         });
-        return true;
+        return { ok: true };
       } else if (res.status === 409) {
-        return true;
+        return { ok: true };
       } else {
-        console.error("스탬프 추가 실패", await res.text());
-        return false;
+        let detail = "";
+        try {
+          const data = await res.json();
+          detail = data.detail || "";
+        } catch {
+          detail = await res.text().catch(() => "");
+        }
+        const message =
+          res.status === 401
+            ? "로그인이 만료되었습니다. 다시 로그인해주세요."
+            : `스탬프 저장 실패 (서버 응답 ${res.status})${detail ? `: ${detail}` : ""}`;
+        console.error("스탬프 추가 실패", res.status, detail);
+        return { ok: false, message, status: res.status };
       }
     } catch (e) {
       console.error("스탬프 추가 실패", e);
-      return false;
+      return {
+        ok: false,
+        message: `서버에 연결할 수 없습니다 (${e.message || "알 수 없는 오류"}). 인터넷 연결 또는 서버 상태를 확인해주세요.`,
+        status: null,
+      };
     }
   }, [token]);
 

@@ -8,9 +8,9 @@ export default function StampButton({ nearbyBranch, sidoName, onStamp, onStampEf
     if (!nearbyBranch || stamping) return;
     setStamping(true);
 
-    const ok = await onStamp(sidoName, nearbyBranch.id, nearbyBranch.name);
-    if (!ok) {
-      alert("스탬프 저장에 실패했어요. 네트워크 상태를 확인하고 다시 시도해주세요.");
+    const result = await onStamp(sidoName, nearbyBranch.id, nearbyBranch.name);
+    if (!result?.ok) {
+      alert(result?.message || "스탬프 저장에 실패했어요. 네트워크 상태를 확인하고 다시 시도해주세요.");
     } else {
       onStampEffect?.();
     }
@@ -24,7 +24,7 @@ export default function StampButton({ nearbyBranch, sidoName, onStamp, onStampEf
     return (
       <div className="stamp-area inactive">
         <div className="stamp-btn disabled">
-          <span>100m 이내 농협은행 없음</span>
+          <span>10km 이내 농협은행 없음</span>
         </div>
         <p className="stamp-hint">지점 마커를 확인하고 가까이 다가가세요</p>
       </div>
