@@ -1,3 +1,7 @@
+databases:
+  - name: nh-stamp-db
+    plan: free
+
 services:
   - type: web
     name: nh-stamp-backend
@@ -6,13 +10,11 @@ services:
     buildCommand: pip install -r requirements.txt
     startCommand: uvicorn main:app --host 0.0.0.0 --port $PORT
     healthCheckPath: /health
-    disk:
-      name: nh-stamp-data
-      mountPath: /var/data
-      sizeGB: 1
     envVars:
       - key: DATABASE_URL
-        value: sqlite:////var/data/stamps.db
+        fromDatabase:
+          name: nh-stamp-db
+          property: connectionString
       - key: JWT_SECRET
         generateValue: true
       - key: TOUR_API_KEY
