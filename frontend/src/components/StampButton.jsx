@@ -1,14 +1,14 @@
 import React, { useState } from "react";
 import "./StampButton.css";
 
-export default function StampButton({ nearbyBranch, sidoName, onStamp, onStampEffect, alreadyStamped }) {
+export default function StampButton({ branch, canStamp, sidoName, onStamp, onStampEffect, alreadyStamped }) {
   const [stamping, setStamping] = useState(false);
 
   const handleStamp = async () => {
-    if (!nearbyBranch || stamping) return;
+    if (!branch || !canStamp || stamping) return;
     setStamping(true);
 
-    const result = await onStamp(sidoName, nearbyBranch.id, nearbyBranch.name);
+    const result = await onStamp(sidoName, branch.id, branch.name);
     if (!result?.ok) {
       alert(result?.message || "스탬프 저장에 실패했어요. 네트워크 상태를 확인하고 다시 시도해주세요.");
     } else {
@@ -20,7 +20,7 @@ export default function StampButton({ nearbyBranch, sidoName, onStamp, onStampEf
     }, 700);
   };
 
-  if (!nearbyBranch) {
+  if (!branch) {
     return (
       <div className="stamp-area inactive">
         <div className="stamp-btn disabled">
@@ -35,8 +35,19 @@ export default function StampButton({ nearbyBranch, sidoName, onStamp, onStampEf
     return (
       <div className="stamp-area stamped">
         <div className="stamp-btn stamped-btn glass-card">
-          <span>{nearbyBranch.name} 방문 완료!</span>
+          <span>{branch.name} 방문 완료!</span>
         </div>
+      </div>
+    );
+  }
+
+  if (!canStamp) {
+    return (
+      <div className="stamp-area inactive">
+        <div className="stamp-btn disabled">
+          <span>{branch.name}</span>
+        </div>
+        <p className="stamp-hint">10km 이내로 가까이 가면 도장을 찍을 수 있어요</p>
       </div>
     );
   }
@@ -45,7 +56,7 @@ export default function StampButton({ nearbyBranch, sidoName, onStamp, onStampEf
     <div className="stamp-area active">
       <div className="nearby-info">
         <span className="nearby-label">근처 지점</span>
-        <span className="nearby-name">{nearbyBranch.name}</span>
+        <span className="nearby-name">{branch.name}</span>
       </div>
 
       <button className="stamp-btn ready glass-card" onClick={handleStamp} disabled={stamping}>

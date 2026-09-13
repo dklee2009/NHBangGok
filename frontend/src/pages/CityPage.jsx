@@ -26,11 +26,17 @@ export default function CityPage() {
 
   const nearbyBranch = getNearbyBranch(branches, 10000);
   const sigunguStamps = visited[decodedSido]?.[decodedSigungu] || [];
-  const alreadyStamped = nearbyBranch
-    ? sigunguStamps.some((s) => s.branchId === nearbyBranch.id)
+
+  // 도장 패널은 실제 GPS 근접 지점이 아니라, 지도에서 클릭해 선택한 지점을 기준으로 표시한다.
+  // 단, 실제 도장 찍기(위치 인증)는 선택한 지점이 GPS 근접 지점과 같을 때만 허용한다.
+  const displayBranch = selectedBranch || nearbyBranch;
+  const canStamp = !!(displayBranch && nearbyBranch && displayBranch.id === nearbyBranch.id);
+  const alreadyStamped = displayBranch
+    ? sigunguStamps.some((s) => s.branchId === displayBranch.id)
     : false;
 
   useEffect(() => {
+    setSelectedBranch(null);
     async function fetchBranches() {
       setLoading(true);
       setError(null);
@@ -133,7 +139,8 @@ export default function CityPage() {
         )}
 
         <StampButton
-          nearbyBranch={nearbyBranch}
+          branch={displayBranch}
+          canStamp={canStamp}
           sidoName={decodedSido}
           onStamp={handleStamp}
           onStampEffect={handleStampEffect}
