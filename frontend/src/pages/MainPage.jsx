@@ -160,7 +160,7 @@ export default function MainPage() {
       window.setTimeout(() => {
         document.querySelector(".map-section")?.scrollIntoView({ behavior: "smooth", block: "start" });
       }, 80);
-    }, 850);
+    }, 1300);
   };
 
   const findMyLocation = () => {

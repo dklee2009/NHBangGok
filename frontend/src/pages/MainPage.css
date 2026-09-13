@@ -578,14 +578,14 @@
   overflow: hidden;
   pointer-events: none;
   background: rgba(244, 248, 244, 0.78);
-  animation: travel-wash 0.85s ease both;
+  animation: travel-wash 1.3s ease both;
 }
 
 .travel-transition-track {
   width: min(540px, 100%);
   position: relative;
   transform: translateX(110vw);
-  animation: travel-run 0.85s cubic-bezier(0.72, 0.02, 0.25, 1) both;
+  animation: travel-run 1.3s cubic-bezier(0.72, 0.02, 0.25, 1) both;
 }
 
 .travel-transition-track img {
