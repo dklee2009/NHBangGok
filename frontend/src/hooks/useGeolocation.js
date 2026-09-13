@@ -53,5 +53,10 @@ export function useGeolocation() {
     }) || null;
   };
 
-  return { position, error, getNearbyBranch };
+  const getDistanceToBranch = (branch) => {
+    if (!position || !branch) return null;
+    return getDistanceMeters(position.lat, position.lng, branch.lat, branch.lng);
+  };
+
+  return { position, error, getNearbyBranch, getDistanceToBranch };
 }

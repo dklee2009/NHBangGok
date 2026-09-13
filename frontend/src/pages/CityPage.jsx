@@ -22,15 +22,17 @@ export default function CityPage() {
   const [showStampEffect, setShowStampEffect] = useState(false);
 
   const { addStamp, hasSigunguVisited, getSigunguStampCount, visited } = useStamps();
-  const { position, error: geoError, getNearbyBranch } = useGeolocation();
+  const { position, error: geoError, getNearbyBranch, getDistanceToBranch } = useGeolocation();
 
-  const nearbyBranch = getNearbyBranch(branches, 10000);
+  const STAMP_RADIUS_METERS = 10000;
+  const nearbyBranch = getNearbyBranch(branches, STAMP_RADIUS_METERS);
   const sigunguStamps = visited[decodedSido]?.[decodedSigungu] || [];
 
   // 도장 패널은 실제 GPS 근접 지점이 아니라, 지도에서 클릭해 선택한 지점을 기준으로 표시한다.
-  // 단, 실제 도장 찍기(위치 인증)는 선택한 지점이 GPS 근접 지점과 같을 때만 허용한다.
+  // 단, 실제 도장 찍기(위치 인증)는 선택한 지점이 실제로 GPS 반경 이내에 있을 때만 허용한다.
   const displayBranch = selectedBranch || nearbyBranch;
-  const canStamp = !!(displayBranch && nearbyBranch && displayBranch.id === nearbyBranch.id);
+  const displayDistance = getDistanceToBranch(displayBranch);
+  const canStamp = displayDistance != null && displayDistance <= STAMP_RADIUS_METERS;
   const alreadyStamped = displayBranch
     ? sigunguStamps.some((s) => s.branchId === displayBranch.id)
     : false;
