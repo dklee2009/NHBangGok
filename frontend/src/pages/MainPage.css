@@ -588,18 +588,6 @@
   animation: travel-run 0.85s cubic-bezier(0.72, 0.02, 0.25, 1) both;
 }
 
-.travel-transition-track::after {
-  content: "";
-  position: absolute;
-  left: -15%;
-  right: 0;
-  bottom: 18px;
-  height: 4px;
-  border-radius: 99px;
-  background: repeating-linear-gradient(90deg, #d4a13b 0 12px, transparent 12px 22px);
-  opacity: 0.55;
-}
-
 .travel-transition-track img {
   display: block;
   width: 390px;
