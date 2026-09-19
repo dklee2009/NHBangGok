@@ -37,13 +37,10 @@ export default function LoginPage() {
 
   return (
     <div className="login-page">
-      <div className="login-card">
+      <div className="login-wrap">
+        <div className="login-card">
         {/* 헤더 */}
-        <div className="login-header">
-          <img src="/cyber_symbol.gif" alt="NH" className="login-logo" />
-          <h1 className="login-title">NH 스탬프 투어</h1>
-          <p className="login-sub">전국 농협은행을 방문하고 스탬프를 모아보세요</p>
-        </div>
+        <img src="/login-header-banner.jpg" alt="NH 스탬프 투어 - 전국 농협은행을 방문하고 스탬프를 모아보세요" className="login-header-img" />
 
         {/* 탭 */}
         <div className="login-tabs">
@@ -93,6 +90,7 @@ export default function LoginPage() {
             {loading ? "처리 중..." : mode === "login" ? "로그인" : "회원가입"}
           </button>
         </form>
+        </div>
       </div>
     </div>
   );

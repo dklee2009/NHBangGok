@@ -1,47 +1,32 @@
 .login-page {
   min-height: 100vh;
-  background: linear-gradient(160deg, #004d24 0%, #007a3d 50%, #009e52 100%);
+  background: url("/login-bg-full.jpg") center top / cover no-repeat, #076341;
   display: flex;
-  align-items: center;
   justify-content: center;
-  padding: 24px 16px;
+  padding: 0 16px 32px;
+}
+
+.login-wrap {
+  width: 100%;
+  max-width: 420px;
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
 }
 
 .login-card {
-  width: 100%;
-  max-width: 360px;
+  margin-top: 38vh;
   background: white;
+  border: 6px solid #ffffff;
   border-radius: 28px;
   overflow: hidden;
-  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.25);
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
 }
 
-.login-header {
-  background: linear-gradient(145deg, #004d24 0%, #008542 100%);
-  padding: 36px 24px 28px;
-  text-align: center;
-}
-
-.login-logo {
-  width: 48px;
-  height: 48px;
-  object-fit: contain;
-  filter: brightness(0) invert(1);
-  margin-bottom: 12px;
-}
-
-.login-title {
-  font-size: 22px;
-  font-weight: 900;
-  color: white;
-  letter-spacing: -0.5px;
-  margin: 0 0 6px;
-}
-
-.login-sub {
-  font-size: 12px;
-  color: rgba(255, 255, 255, 0.72);
-  margin: 0;
+.login-header-img {
+  display: block;
+  width: 100%;
+  height: auto;
 }
 
 .login-tabs {
