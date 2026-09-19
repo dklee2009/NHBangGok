@@ -34,7 +34,9 @@ async def search_nh_branches(sigungu: str, sido: str) -> list:
     시/군/구 기준으로 NH농협은행 지점을 검색해 반환
     display 최대 5, start 1~21 → 최대 25건
     """
-    query = f"NH농협은행 {sigungu}"
+    # 서구/중구/북구처럼 여러 시/도에 동시에 존재하는 지역명이 있어 시/도명을 함께 붙여야
+    # 엉뚱한 지역(예: 대구 서구 대신 인천 서구)의 지점이 섞여 나오는 것을 막을 수 있다.
+    query = f"NH농협은행 {sido} {sigungu}"
     branches = []
     seen = set()
 
