@@ -24,7 +24,7 @@ export default function StampButton({ branch, canStamp, sidoName, onStamp, onSta
     return (
       <div className="stamp-area inactive">
         <div className="stamp-btn disabled">
-          <span>10km 이내 농협은행 없음</span>
+          <span>1km 이내 농협은행 없음</span>
         </div>
         <p className="stamp-hint">지점 마커를 확인하고 가까이 다가가세요</p>
       </div>
@@ -47,7 +47,7 @@ export default function StampButton({ branch, canStamp, sidoName, onStamp, onSta
         <div className="stamp-btn disabled">
           <span>{branch.name}</span>
         </div>
-        <p className="stamp-hint">10km 이내로 가까이 가면 도장을 찍을 수 있어요</p>
+        <p className="stamp-hint">1km 이내로 가까이 가면 도장을 찍을 수 있어요</p>
       </div>
     );
   }

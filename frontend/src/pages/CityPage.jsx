@@ -24,7 +24,7 @@ export default function CityPage() {
   const { addStamp, hasSigunguVisited, getSigunguStampCount, visited } = useStamps();
   const { position, error: geoError, getNearbyBranch, getDistanceToBranch } = useGeolocation();
 
-  const STAMP_RADIUS_METERS = 10000;
+  const STAMP_RADIUS_METERS = 1000;
   const nearbyBranch = getNearbyBranch(branches, STAMP_RADIUS_METERS);
   const sigunguStamps = visited[decodedSido]?.[decodedSigungu] || [];
 
