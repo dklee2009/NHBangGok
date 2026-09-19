@@ -46,9 +46,8 @@
   position: absolute;
   inset: 0;
   background:
-    linear-gradient(90deg, rgba(10, 45, 31, 0.82) 0%, rgba(10, 45, 31, 0.52) 37%, rgba(10, 45, 31, 0.08) 76%),
-    linear-gradient(0deg, rgba(10, 45, 31, 0.48) 0%, transparent 42%),
-    url("/단체서울이미지.jpeg") center 58% / cover no-repeat;
+    linear-gradient(0deg, rgba(10, 45, 31, 0.35) 0%, transparent 38%),
+    url("/main-hero-banner.jpg") 30% center / cover no-repeat;
   pointer-events: none;
 }
 
@@ -652,8 +651,8 @@
 }
 
 .sido-grid {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
+  display: flex;
+  flex-direction: column;
   gap: 10px;
 }
 

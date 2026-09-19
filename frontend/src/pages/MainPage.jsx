@@ -201,12 +201,6 @@ export default function MainPage() {
       {/* ── 히어로 헤더 ── */}
       <header className="main-header">
         <div className="hero-brand">
-          <div className="hero-badge">
-            <img src="/cyber_symbol.gif" alt="NH" className="header-nh-mark" />
-            <span>NH농협은행</span>
-          </div>
-          <h1 className="hero-title">스탬프 투어</h1>
-          <p className="hero-sub">스탬프를 모으며 전국을 여행해요</p>
           <div className="hero-user">
             <span className="hero-username">{user?.username}</span>
             <button className="hero-logout" onClick={logout}>로그아웃</button>
@@ -386,11 +380,10 @@ export default function MainPage() {
           {/* 시/도 그리드 */}
           <p className="grid-hint">지역을 선택하세요</p>
           <div className="sido-grid">
-            {SIDO_LIST.map((sido, index) => (
+            {SIDO_LIST.map((sido) => (
               <SidoCard
                 key={sido.code}
                 sido={sido}
-                index={index}
                 isVisited={hasSidoVisited(sido.name)}
                 stampCount={getSidoStampCount(sido.name)}
                 onClick={() => handleSidoClick(sido)}
