@@ -20,6 +20,7 @@ export default function CityPage() {
   const [error, setError] = useState(null);
   const [selectedBranch, setSelectedBranch] = useState(null);
   const [showStampEffect, setShowStampEffect] = useState(false);
+  const [showTourPrompt, setShowTourPrompt] = useState(false);
 
   const { addStamp, hasSigunguVisited, getSigunguStampCount, visited } = useStamps();
   const { position, error: geoError, getNearbyBranch, getDistanceToBranch } = useGeolocation();
@@ -68,7 +69,12 @@ export default function CityPage() {
   const handleStampEffect = () => {
     setShowStampEffect(true);
     window.setTimeout(() => setShowStampEffect(false), 2000);
+    setShowTourPrompt(true);
   };
+
+  const dismissTourPrompt = () => setShowTourPrompt(false);
+
+  const goTour = () => navigate(`/tour/${encodeURIComponent(decodedSido)}`);
 
   const stampCount = getSigunguStampCount(decodedSido, decodedSigungu);
 
@@ -155,6 +161,34 @@ export default function CityPage() {
           <span className="recruit-cta-arrow">›</span>
         </button>
       </div>
+
+      {showTourPrompt && (
+        <div className="tour-modal-overlay" onClick={dismissTourPrompt}>
+          <div className="tour-modal" onClick={(event) => event.stopPropagation()}>
+            <div className="tour-modal-icon">🧳</div>
+            <h2 className="tour-modal-title">
+              {shortSido(decodedSido)} 여행지를<br />추천해드릴까요?
+            </h2>
+            <p className="tour-modal-desc">
+              한국관광공사 데이터로 뽑은<br />이 지역 인기 여행지를 보여드려요
+            </p>
+            <div className="tour-modal-actions">
+              <button className="tour-modal-btn ghost" onClick={dismissTourPrompt}>
+                다음에
+              </button>
+              <button
+                className="tour-modal-btn primary"
+                onClick={() => {
+                  dismissTourPrompt();
+                  goTour();
+                }}
+              >
+                여행지 추천받기
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 }
