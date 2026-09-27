@@ -72,7 +72,7 @@ export default function CityPage() {
 
   const handleStampEffectComplete = () => {
     setShowStampEffect(false);
-    setShowTourPrompt(true);
+    window.setTimeout(() => setShowTourPrompt(true), 500);
   };
 
   const dismissTourPrompt = () => setShowTourPrompt(false);
