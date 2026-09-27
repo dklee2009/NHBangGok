@@ -68,7 +68,10 @@ export default function CityPage() {
 
   const handleStampEffect = () => {
     setShowStampEffect(true);
-    window.setTimeout(() => setShowStampEffect(false), 2000);
+  };
+
+  const handleStampEffectComplete = () => {
+    setShowStampEffect(false);
     setShowTourPrompt(true);
   };
 
@@ -105,7 +108,7 @@ export default function CityPage() {
       </header>
 
       <div className="map-container">
-        {showStampEffect && <StampSuccessEffect />}
+        {showStampEffect && <StampSuccessEffect onComplete={handleStampEffectComplete} />}
         {loading && (
           <div className="map-loading">
             <div className="loading-spinner" />
