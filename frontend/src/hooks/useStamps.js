@@ -54,7 +54,7 @@ export function useStamps() {
 
   // 스탬프 추가. { ok: true } 또는 { ok: false, message, status } 반환.
   // message는 실패 원인을 구체적으로 설명하는 문자열로, 사용자에게 그대로 보여줄 수 있다.
-  const addStamp = useCallback(async (sidoName, sigunguName, branchId, branchName) => {
+  const addStamp = useCallback(async (sidoName, sigunguName, branchId, branchName, category = "bank") => {
     if (!token) return { ok: false, message: "로그인이 필요합니다. 다시 로그인해주세요.", status: null };
     try {
       const res = await fetch(`${API}/stamps`, {
@@ -63,19 +63,19 @@ export function useStamps() {
           "Content-Type": "application/json",
           Authorization: `Bearer ${token}`,
         },
-        body: JSON.stringify({ sido_name: sidoName, sigungu_name: sigunguName, branch_id: branchId, branch_name: branchName }),
+        body: JSON.stringify({ sido_name: sidoName, sigungu_name: sigunguName, branch_id: branchId, branch_name: branchName, category }),
       });
       if (res.ok) {
         // 로컬 상태 즉시 업데이트 (재요청 없이)
         setVisited((prev) => {
           const sido = prev[sidoName] || {};
           const sigungu = sido[sigunguName] || [];
-          if (sigungu.some((s) => s.branchId === branchId)) return prev;
+          if (sigungu.some((s) => s.branchId === branchId && s.category === category)) return prev;
           return {
             ...prev,
             [sidoName]: {
               ...sido,
-              [sigunguName]: [...sigungu, { branchId, branchName, visitedAt: new Date().toISOString() }],
+              [sigunguName]: [...sigungu, { branchId, branchName, category, visitedAt: new Date().toISOString() }],
             },
           };
         });
@@ -116,8 +116,10 @@ export function useStamps() {
   const getSidoStampCount = (sidoName) =>
     Object.values(visited[sidoName] || {}).reduce((s, arr) => s + arr.length, 0);
 
-  const getSigunguStampCount = (sidoName, sigunguName) =>
-    visited[sidoName]?.[sigunguName]?.length || 0;
+  const getSigunguStampCount = (sidoName, sigunguName, category) => {
+    const stamps = visited[sidoName]?.[sigunguName] || [];
+    return category ? stamps.filter((s) => s.category === category).length : stamps.length;
+  };
 
   const getVisitedSidos = () =>
     Object.keys(visited).filter((k) => hasSidoVisited(k));

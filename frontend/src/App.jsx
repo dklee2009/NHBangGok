@@ -22,6 +22,7 @@ function AppRoutes() {
       <Route path="/" element={<ProtectedRoute><MainPage /></ProtectedRoute>} />
       <Route path="/sido/:sidoName" element={<ProtectedRoute><SigunguPage /></ProtectedRoute>} />
       <Route path="/tour/:sidoName" element={<ProtectedRoute><TourPage /></ProtectedRoute>} />
+      <Route path="/tour/:sidoName/:sigunguName" element={<ProtectedRoute><TourPage /></ProtectedRoute>} />
       <Route path="/city/:sidoName/:sigunguName" element={<ProtectedRoute><CityPage /></ProtectedRoute>} />
     </Routes>
   );

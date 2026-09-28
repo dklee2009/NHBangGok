@@ -381,14 +381,52 @@ MOCK_BRANCHES = {
 }
 
 
-def get_all_branches_flat(sido):
+def _derive_mock(name_prefix, id_prefix, lat_offset, lng_offset):
+    """하나로마트/주유소 목업 데이터가 따로 없을 때, 은행 목업의 첫 지점을 기준으로
+    시/군/구당 1곳씩 데모용 데이터를 만들어낸다. (실제 서비스에서는 USE_MOCK=false로
+    네이버 지역검색 API를 사용하므로 이 함수는 로컬 개발/데모 전용)"""
+    derived = {}
+    for sido, sigungus in MOCK_BRANCHES.items():
+        derived[sido] = {}
+        for sigungu, branches in sigungus.items():
+            anchor = branches[0]
+            name = (
+                anchor["name"]
+                .replace("NH농협은행", name_prefix)
+                .replace("농협은행", name_prefix)
+                .replace("지점", "점")
+            )
+            derived[sido][sigungu] = [{
+                "id": f"{id_prefix}-{anchor['id']}",
+                "name": name,
+                "address": anchor["address"],
+                "lat": round(anchor["lat"] + lat_offset, 6),
+                "lng": round(anchor["lng"] + lng_offset, 6),
+                "phone": anchor["phone"],
+            }]
+    return derived
+
+
+MOCK_MARTS = _derive_mock("NH하나로마트", "mart", 0.0015, 0.0012)
+MOCK_GAS_STATIONS = _derive_mock("NH농협주유소", "gas", -0.0015, 0.0015)
+
+MOCK_DATA_BY_CATEGORY = {
+    "bank": MOCK_BRANCHES,
+    "mart": MOCK_MARTS,
+    "gas": MOCK_GAS_STATIONS,
+}
+
+
+def get_all_branches_flat(sido, category="bank"):
     """시/도의 모든 지점 반환 (시군구 구분 없이)"""
     result = []
-    for sigungu_branches in MOCK_BRANCHES.get(sido, {}).values():
+    data = MOCK_DATA_BY_CATEGORY.get(category, MOCK_BRANCHES)
+    for sigungu_branches in data.get(sido, {}).values():
         result.extend(sigungu_branches)
     return result
 
 
-def get_branches_by_sigungu(sido, sigungu):
+def get_branches_by_sigungu(sido, sigungu, category="bank"):
     """특정 시/도+시/군/구의 지점만 반환"""
-    return MOCK_BRANCHES.get(sido, {}).get(sigungu, [])
+    data = MOCK_DATA_BY_CATEGORY.get(category, MOCK_BRANCHES)
+    return data.get(sido, {}).get(sigungu, [])

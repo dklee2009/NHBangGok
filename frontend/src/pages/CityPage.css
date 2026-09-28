@@ -56,6 +56,42 @@
   white-space: nowrap;
 }
 
+.category-tabs {
+  display: flex;
+  gap: 8px;
+  padding: 10px 16px;
+  background: white;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+  flex-shrink: 0;
+}
+
+.category-tab {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  padding: 10px 0;
+  border-radius: 12px;
+  border: 1.5px solid #e2e8ee;
+  background: #f8f9fa;
+  color: #667;
+  font-size: 13px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: background 0.15s ease, border-color 0.15s ease, color 0.15s ease, box-shadow 0.15s ease;
+}
+
+.category-tab.active {
+  border-color: transparent;
+  color: white;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.18);
+}
+
+.category-tab-icon {
+  font-size: 15px;
+}
+
 .map-container {
   flex: 1;
   position: relative;

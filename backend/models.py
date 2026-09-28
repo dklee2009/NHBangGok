@@ -24,6 +24,7 @@ class Stamp(Base):
     sigungu_name = Column(String, nullable=False)
     branch_id = Column(String, nullable=False)
     branch_name = Column(String, nullable=False)
+    category = Column(String, nullable=False, default="bank")
     visited_at = Column(DateTime, default=datetime.utcnow)
 
     user = relationship("User", back_populates="stamps")

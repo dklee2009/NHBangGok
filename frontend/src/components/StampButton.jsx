@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import "./StampButton.css";
 
-export default function StampButton({ branch, canStamp, sidoName, onStamp, onStampEffect, alreadyStamped }) {
+export default function StampButton({ branch, canStamp, sidoName, onStamp, onStampEffect, alreadyStamped, categoryLabel = "농협은행" }) {
   const [stamping, setStamping] = useState(false);
 
   const handleStamp = async () => {
@@ -24,7 +24,7 @@ export default function StampButton({ branch, canStamp, sidoName, onStamp, onSta
     return (
       <div className="stamp-area inactive">
         <div className="stamp-btn disabled">
-          <span>1km 이내 농협은행 없음</span>
+          <span>1km 이내 {categoryLabel} 없음</span>
         </div>
         <p className="stamp-hint">지점 마커를 확인하고 가까이 다가가세요</p>
       </div>

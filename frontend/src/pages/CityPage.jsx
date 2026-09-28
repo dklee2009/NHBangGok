@@ -7,6 +7,7 @@ import { useStamps } from "../hooks/useStamps";
 import { useGeolocation } from "../hooks/useGeolocation";
 import { API_BASE } from "../config";
 import { shortSido } from "../utils/sido";
+import { CATEGORIES, CATEGORY_BY_KEY } from "../utils/categories";
 import "./CityPage.css";
 
 export default function CityPage() {
@@ -15,6 +16,7 @@ export default function CityPage() {
   const decodedSigungu = decodeURIComponent(sigunguName);
   const navigate = useNavigate();
 
+  const [category, setCategory] = useState("bank");
   const [branches, setBranches] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -25,9 +27,12 @@ export default function CityPage() {
   const { addStamp, hasSigunguVisited, getSigunguStampCount, visited } = useStamps();
   const { position, error: geoError, getNearbyBranch, getDistanceToBranch } = useGeolocation();
 
+  const categoryMeta = CATEGORY_BY_KEY[category];
   const STAMP_RADIUS_METERS = 1000;
   const nearbyBranch = getNearbyBranch(branches, STAMP_RADIUS_METERS);
-  const sigunguStamps = visited[decodedSido]?.[decodedSigungu] || [];
+  const sigunguStamps = (visited[decodedSido]?.[decodedSigungu] || []).filter(
+    (s) => s.category === category
+  );
 
   // 도장 패널은 실제 GPS 근접 지점이 아니라, 지도에서 클릭해 선택한 지점을 기준으로 표시한다.
   // 단, 실제 도장 찍기(위치 인증)는 선택한 지점이 실제로 GPS 반경 이내에 있을 때만 허용한다.
@@ -44,7 +49,7 @@ export default function CityPage() {
       setLoading(true);
       setError(null);
       try {
-        const url = `${API_BASE}/api/banks/${encodeURIComponent(decodedSido)}?sigungu=${encodeURIComponent(decodedSigungu)}`;
+        const url = `${API_BASE}/api/banks/${encodeURIComponent(decodedSido)}?sigungu=${encodeURIComponent(decodedSigungu)}&category=${category}`;
         const res = await fetch(url);
         if (!res.ok) throw new Error("지점 정보를 불러올 수 없습니다.");
         const data = await res.json();
@@ -56,14 +61,14 @@ export default function CityPage() {
       }
     }
     fetchBranches();
-  }, [decodedSido, decodedSigungu]);
+  }, [decodedSido, decodedSigungu, category]);
 
   const handleMarkerClick = useCallback((branch) => {
     setSelectedBranch(branch);
   }, []);
 
   const handleStamp = (sido, branchId, branchName) => {
-    return addStamp(sido, decodedSigungu, branchId, branchName);
+    return addStamp(sido, decodedSigungu, branchId, branchName, category);
   };
 
   const handleStampEffect = () => {
@@ -77,9 +82,10 @@ export default function CityPage() {
 
   const dismissTourPrompt = () => setShowTourPrompt(false);
 
-  const goTour = () => navigate(`/tour/${encodeURIComponent(decodedSido)}`);
+  const goTour = () =>
+    navigate(`/tour/${encodeURIComponent(decodedSido)}/${encodeURIComponent(decodedSigungu)}`);
 
-  const stampCount = getSigunguStampCount(decodedSido, decodedSigungu);
+  const stampCount = getSigunguStampCount(decodedSido, decodedSigungu, category);
 
   const openRecruitment = () => {
     const searchName = decodedSigungu.replace(/(시|군|구)$/, "");
@@ -99,13 +105,28 @@ export default function CityPage() {
         <div className="city-title-area">
           <h1 className="city-title">{decodedSigungu}</h1>
           <span className="city-count">
-            {loading ? "..." : `농협은행 ${branches.length}개`}
+            {loading ? "..." : `${categoryMeta.label} ${branches.length}개`}
           </span>
         </div>
         <div className="city-stamp-info">
           <span className="stamp-badge">{stampCount}개 완료</span>
         </div>
       </header>
+
+      <div className="category-tabs">
+        {CATEGORIES.map((c) => (
+          <button
+            key={c.key}
+            type="button"
+            className={`category-tab${category === c.key ? " active" : ""}`}
+            style={category === c.key ? { background: c.color } : undefined}
+            onClick={() => setCategory(c.key)}
+          >
+            <span className="category-tab-icon">{c.icon}</span>
+            <span>{c.label}</span>
+          </button>
+        ))}
+      </div>
 
       <div className="map-container">
         {showStampEffect && <StampSuccessEffect onComplete={handleStampEffectComplete} />}
@@ -130,6 +151,7 @@ export default function CityPage() {
             onMarkerClick={handleMarkerClick}
             selectedBranch={selectedBranch}
             nearbyBranch={nearbyBranch}
+            categoryColor={categoryMeta.color}
           />
         )}
       </div>
@@ -144,7 +166,7 @@ export default function CityPage() {
 
         {selectedBranch && (
           <div className="selected-branch-info">
-            <span className="branch-name">🏦 {selectedBranch.name}</span>
+            <span className="branch-name">{categoryMeta.icon} {selectedBranch.name}</span>
             <span className="branch-addr">{selectedBranch.address}</span>
           </div>
         )}
@@ -156,6 +178,7 @@ export default function CityPage() {
           onStamp={handleStamp}
           onStampEffect={handleStampEffect}
           alreadyStamped={alreadyStamped}
+          categoryLabel={categoryMeta.label}
         />
 
         <button className="recruit-cta-banner" onClick={openRecruitment}>
@@ -170,7 +193,7 @@ export default function CityPage() {
           <div className="tour-modal" onClick={(event) => event.stopPropagation()}>
             <div className="tour-modal-icon">🧳</div>
             <h2 className="tour-modal-title">
-              {shortSido(decodedSido)} 여행지를<br />추천해드릴까요?
+              {decodedSigungu} 여행지를<br />추천해드릴까요?
             </h2>
             <p className="tour-modal-desc">
               한국관광공사 데이터로 뽑은<br />이 지역 인기 여행지를 보여드려요

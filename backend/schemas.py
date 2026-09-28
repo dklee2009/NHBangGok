@@ -25,6 +25,7 @@ class StampCreate(BaseModel):
     sigungu_name: str
     branch_id: str
     branch_name: str
+    category: str = "bank"
 
 
 class StampOut(BaseModel):
@@ -33,5 +34,6 @@ class StampOut(BaseModel):
     sigungu_name: str
     branch_id: str
     branch_name: str
+    category: str
     visited_at: datetime
     model_config = {"from_attributes": True}

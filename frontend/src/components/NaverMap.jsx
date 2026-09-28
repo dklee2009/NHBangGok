@@ -16,8 +16,10 @@ function mascotFor(index) {
   return MASCOT_LIST[index % MASCOT_LIST.length];
 }
 
-function branchIconHtml(isSelected, isNearby, branchName, mascotSrc) {
-  const accent = isNearby ? "#e8a000" : "#008542";
+const NAME_PREFIX_RE = /^(NH농협은행|농협은행|NH농협\s*하나로마트|NH하나로마트|하나로마트|NH농협주유소|농협주유소)\s*/;
+
+function branchIconHtml(isSelected, isNearby, branchName, mascotSrc, categoryColor) {
+  const accent = isNearby ? "#e8a000" : categoryColor;
   const size = branchDotSize(isSelected, isNearby);
 
   const badge = `<div style="
@@ -35,9 +37,7 @@ function branchIconHtml(isSelected, isNearby, branchName, mascotSrc) {
 
   if (!isSelected) return badge;
 
-  const shortName = branchName
-    .replace("NH농협은행 ", "")
-    .replace("농협은행 ", "");
+  const shortName = branchName.replace(NAME_PREFIX_RE, "");
 
   return `
     <div style="display:flex;flex-direction:column;align-items:center;gap:4px;cursor:pointer;">
@@ -63,6 +63,7 @@ export default function NaverMap({
   onMarkerClick,
   selectedBranch,
   nearbyBranch,
+  categoryColor = "#008542",
 }) {
   const mapRef = useRef(null);
   const mapInstance = useRef(null);
@@ -114,7 +115,7 @@ export default function NaverMap({
         position: new naver.maps.LatLng(branch.lat, branch.lng),
         map: mapInstance.current,
         icon: {
-          content: branchIconHtml(isSelected, isNearby, branch.name, mascotFor(index)),
+          content: branchIconHtml(isSelected, isNearby, branch.name, mascotFor(index), categoryColor),
           anchor: new naver.maps.Point(dotSize / 2, dotSize / 2),
         },
         title: branch.name,
@@ -143,7 +144,7 @@ export default function NaverMap({
       );
       mapInstance.current.fitBounds(bounds, { padding: 60 });
     }
-  }, [branches, selectedBranch, nearbyBranch, onMarkerClick]);
+  }, [branches, selectedBranch, nearbyBranch, onMarkerClick, categoryColor]);
 
   // 사용자 현재 위치 마커
   useEffect(() => {

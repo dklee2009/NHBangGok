@@ -25,6 +25,7 @@ def get_stamps(
         sigungu.append({
             "branchId": s.branch_id,
             "branchName": s.branch_name,
+            "category": s.category,
             "visitedAt": s.visited_at.isoformat(),
         })
     return {"visited": result}
@@ -38,7 +39,11 @@ def add_stamp(
 ):
     existing = (
         db.query(models.Stamp)
-        .filter(models.Stamp.user_id == current_user.id, models.Stamp.branch_id == body.branch_id)
+        .filter(
+            models.Stamp.user_id == current_user.id,
+            models.Stamp.branch_id == body.branch_id,
+            models.Stamp.category == body.category,
+        )
         .first()
     )
     if existing:
@@ -50,6 +55,7 @@ def add_stamp(
         sigungu_name=body.sigungu_name,
         branch_id=body.branch_id,
         branch_name=body.branch_name,
+        category=body.category,
     )
     db.add(stamp)
     db.commit()

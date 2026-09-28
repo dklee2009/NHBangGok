@@ -11,6 +11,8 @@ from datetime import date
 
 import httpx
 
+from sigungu_codes import SIGUNGU_CODE
+
 BASE_URL = "http://apis.data.go.kr/B551011/LocgoHubTarService1/areaBasedList1"
 
 # 앱의 시/도 한글명 → 대표 시·군·구 [(areaCd, signguCd, 표시명)]
@@ -123,28 +125,14 @@ async def _resolve_base_ym(client: httpx.AsyncClient) -> str | None:
     return None
 
 
-async def get_recommendations(sido_name: str, limit: int = 24) -> dict:
-    """시/도 대표 시·군·구들의 허브 관광지를 모아 추천 목록으로 반환."""
-    targets = SIDO_SIGNGU.get(sido_name)
-    if not targets or not _service_key():
-        return {"sido": sido_name, "baseYm": None, "count": 0, "spots": [], "available": False}
-
-    async with httpx.AsyncClient() as client:
-        base_ym = await _resolve_base_ym(client)
-        if not base_ym:
-            return {"sido": sido_name, "baseYm": None, "count": 0, "spots": [], "available": False}
-
-        per = max(6, (limit * 2) // len(targets))
-        results = await asyncio.gather(
-            *[_fetch_one(client, a, s, base_ym, per) for a, s, _ in targets]
-        )
-
-    # 여행지 추천 성격상 쇼핑/숙박/음식은 뒤로 밀고 자연·문화·역사 관광을 우선
+def _build_spots(raw_lists: list[list[dict]], limit: int) -> list[dict]:
+    """허브 관광지 원본 응답들을 중복 제거 + 정렬된 추천 목록으로 변환.
+    여행지 추천 성격상 쇼핑/숙박/음식은 뒤로 밀고 자연·문화·역사 관광을 우선한다."""
     cat_penalty = {"쇼핑": 3, "숙박": 6, "음식": 2}
 
     seen: set[str] = set()
     spots: list[dict] = []
-    for raw_list in results:
+    for raw_list in raw_lists:
         for it in raw_list:
             name = (it.get("hubTatsNm") or "").strip()
             if not name or name in seen:
@@ -179,9 +167,60 @@ async def get_recommendations(sido_name: str, limit: int = 24) -> dict:
     spots.sort(key=lambda x: (x["_score"], x["rank"], x["name"]))
     for s in spots:
         s.pop("_score", None)
-    spots = spots[:limit]
+    return spots[:limit]
+
+
+async def get_recommendations(sido_name: str, limit: int = 24) -> dict:
+    """시/도 대표 시·군·구들의 허브 관광지를 모아 추천 목록으로 반환."""
+    targets = SIDO_SIGNGU.get(sido_name)
+    empty = {"sido": sido_name, "sigungu": None, "scope": "sido", "baseYm": None, "count": 0, "spots": [], "available": False}
+    if not targets or not _service_key():
+        return empty
+
+    async with httpx.AsyncClient() as client:
+        base_ym = await _resolve_base_ym(client)
+        if not base_ym:
+            return empty
+
+        per = max(6, (limit * 2) // len(targets))
+        results = await asyncio.gather(
+            *[_fetch_one(client, a, s, base_ym, per) for a, s, _ in targets]
+        )
+
+    spots = _build_spots(results, limit)
     return {
         "sido": sido_name,
+        "sigungu": None,
+        "scope": "sido",
+        "baseYm": base_ym,
+        "count": len(spots),
+        "spots": spots,
+        "available": True,
+    }
+
+
+async def get_signgu_recommendations(sido_name: str, sigungu_name: str, limit: int = 24) -> dict:
+    """특정 시/군/구 하나의 허브 관광지를 추천 목록으로 반환.
+    해당 시/군/구의 코드를 모르거나 결과가 비어 있으면 시/도 전체 추천으로 폴백한다."""
+    signgu_cd = SIGUNGU_CODE.get(sido_name, {}).get(sigungu_name)
+    if not signgu_cd or not _service_key():
+        return await get_recommendations(sido_name, limit)
+
+    area_cd = signgu_cd[:2]
+    async with httpx.AsyncClient() as client:
+        base_ym = await _resolve_base_ym(client)
+        if not base_ym:
+            return await get_recommendations(sido_name, limit)
+        raw = await _fetch_one(client, area_cd, signgu_cd, base_ym, max(limit, 12))
+
+    spots = _build_spots([raw], limit)
+    if not spots:
+        return await get_recommendations(sido_name, limit)
+
+    return {
+        "sido": sido_name,
+        "sigungu": sigungu_name,
+        "scope": "sigungu",
         "baseYm": base_ym,
         "count": len(spots),
         "spots": spots,

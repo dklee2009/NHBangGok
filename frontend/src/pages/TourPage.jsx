@@ -16,8 +16,9 @@ const CAT_ICON = {
 };
 
 export default function TourPage() {
-  const { sidoName } = useParams();
+  const { sidoName, sigunguName } = useParams();
   const decodedSido = decodeURIComponent(sidoName);
+  const decodedSigungu = sigunguName ? decodeURIComponent(sigunguName) : null;
   const navigate = useNavigate();
 
   const [state, setState] = useState({ loading: true, error: null, data: null });
@@ -25,7 +26,10 @@ export default function TourPage() {
   useEffect(() => {
     let cancelled = false;
     setState({ loading: true, error: null, data: null });
-    fetch(`${API_BASE}/api/tour/${encodeURIComponent(decodedSido)}`)
+    const path = decodedSigungu
+      ? `/api/tour/${encodeURIComponent(decodedSido)}/${encodeURIComponent(decodedSigungu)}`
+      : `/api/tour/${encodeURIComponent(decodedSido)}`;
+    fetch(`${API_BASE}${path}`)
       .then((r) => {
         if (!r.ok) throw new Error("추천 정보를 불러오지 못했어요.");
         return r.json();
@@ -39,10 +43,12 @@ export default function TourPage() {
     return () => {
       cancelled = true;
     };
-  }, [decodedSido]);
+  }, [decodedSido, decodedSigungu]);
 
   const { loading, error, data } = state;
   const spots = data?.spots || [];
+  const isSigunguScope = data?.scope === "sigungu";
+  const titleArea = isSigunguScope ? data.sigungu : shortSido(decodedSido);
 
   const openMap = (name) => {
     window.open(
@@ -62,12 +68,14 @@ export default function TourPage() {
           ← {shortSido(decodedSido)}
         </button>
         <div className="tour-title-area">
-          <h1 className="tour-title">{shortSido(decodedSido)} 추천 여행지</h1>
+          <h1 className="tour-title">{titleArea} 추천 여행지</h1>
           <span className="tour-subtitle">
             {loading
               ? "불러오는 중..."
               : data?.available
-              ? `한국관광공사 인기 여행지 ${spots.length}곳`
+              ? `한국관광공사 인기 여행지 ${spots.length}곳${
+                  decodedSigungu && !isSigunguScope ? ` · ${shortSido(decodedSido)} 전체 기준` : ""
+                }`
               : "추천 정보 준비 중"}
           </span>
         </div>
@@ -77,7 +85,7 @@ export default function TourPage() {
         {loading && (
           <div className="tour-status">
             <div className="loading-spinner" />
-            <p>{shortSido(decodedSido)} 여행지를 찾고 있어요...</p>
+            <p>{decodedSigungu || shortSido(decodedSido)} 여행지를 찾고 있어요...</p>
           </div>
         )}
 
