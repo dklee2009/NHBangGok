@@ -1,5 +1,6 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
+import TourMap from "../components/TourMap";
 import { API_BASE } from "../config";
 import { shortSido } from "../utils/sido";
 import "./TourPage.css";
@@ -22,10 +23,13 @@ export default function TourPage() {
   const navigate = useNavigate();
 
   const [state, setState] = useState({ loading: true, error: null, data: null });
+  const [selectedId, setSelectedId] = useState(null);
+  const cardRefs = useRef({});
 
   useEffect(() => {
     let cancelled = false;
     setState({ loading: true, error: null, data: null });
+    setSelectedId(null);
     const path = decodedSigungu
       ? `/api/tour/${encodeURIComponent(decodedSido)}/${encodeURIComponent(decodedSigungu)}`
       : `/api/tour/${encodeURIComponent(decodedSido)}`;
@@ -56,6 +60,20 @@ export default function TourPage() {
       "_blank",
       "noopener,noreferrer"
     );
+  };
+
+  const handleCardClick = (spotId) => {
+    setSelectedId(spotId);
+  };
+
+  const handleMarkerClick = (spotId) => {
+    setSelectedId(spotId);
+    cardRefs.current[spotId]?.scrollIntoView({ behavior: "smooth", block: "nearest" });
+  };
+
+  const handleOpenExternal = (e, name) => {
+    e.stopPropagation();
+    openMap(name);
   };
 
   return (
@@ -107,42 +125,59 @@ export default function TourPage() {
 
         {!loading && !error && spots.length > 0 && (
           <>
-            <p className="tour-hint">
-              카드를 누르면 네이버 지도에서 위치를 볼 수 있어요
-              {data?.baseYm ? ` · ${data.baseYm.slice(0, 4)}년 ${data.baseYm.slice(4)}월 기준` : ""}
-            </p>
-            <ul className="tour-list">
-              {spots.map((s, i) => (
-                <li key={s.id} className="tour-card" onClick={() => openMap(s.name)}>
-                  <div className={`tour-card-image tour-card-image-${s.categorySub || "default"}`}>
-                    <span className="tour-card-image-fallback" aria-hidden="true">
-                      {CAT_ICON[s.categorySub] || "📍"}
-                    </span>
-                    {s.image && (
-                      <img
-                        src={s.image}
-                        alt=""
-                        loading="lazy"
-                        onError={(e) => { e.currentTarget.style.display = "none"; }}
-                      />
-                    )}
-                  </div>
-                  <span className="tour-rank">{i + 1}</span>
-                  <div className="tour-card-body">
-                    <span className="tour-name">{s.name}</span>
-                    <div className="tour-meta">
-                      {s.sigungu && <span className="tour-sigungu">{s.sigungu}</span>}
-                      {s.categorySub && (
-                        <span className="tour-cat">
-                          {CAT_ICON[s.categorySub] || "📍"} {s.categorySub}
-                        </span>
+            <div className="tour-map-pane">
+              <TourMap spots={spots} selectedId={selectedId} onMarkerClick={handleMarkerClick} />
+            </div>
+            <div className="tour-list-pane">
+              <p className="tour-hint">
+                카드를 누르면 지도에서 위치를 확인할 수 있어요
+                {data?.baseYm ? ` · ${data.baseYm.slice(0, 4)}년 ${data.baseYm.slice(4)}월 기준` : ""}
+              </p>
+              <ul className="tour-list">
+                {spots.map((s, i) => (
+                  <li
+                    key={s.id}
+                    ref={(el) => { cardRefs.current[s.id] = el; }}
+                    className={`tour-card${selectedId === s.id ? " selected" : ""}`}
+                    onClick={() => handleCardClick(s.id)}
+                  >
+                    <div className={`tour-card-image tour-card-image-${s.categorySub || "default"}`}>
+                      <span className="tour-card-image-fallback" aria-hidden="true">
+                        {CAT_ICON[s.categorySub] || "📍"}
+                      </span>
+                      {s.image && (
+                        <img
+                          src={s.image}
+                          alt=""
+                          loading="lazy"
+                          onError={(e) => { e.currentTarget.style.display = "none"; }}
+                        />
                       )}
                     </div>
-                  </div>
-                  <span className="tour-go">›</span>
-                </li>
-              ))}
-            </ul>
+                    <span className="tour-rank">{i + 1}</span>
+                    <div className="tour-card-body">
+                      <span className="tour-name">{s.name}</span>
+                      <div className="tour-meta">
+                        {s.sigungu && <span className="tour-sigungu">{s.sigungu}</span>}
+                        {s.categorySub && (
+                          <span className="tour-cat">
+                            {CAT_ICON[s.categorySub] || "📍"} {s.categorySub}
+                          </span>
+                        )}
+                      </div>
+                    </div>
+                    <button
+                      type="button"
+                      className="tour-go"
+                      onClick={(e) => handleOpenExternal(e, s.name)}
+                      aria-label="네이버 지도에서 열기"
+                    >
+                      ›
+                    </button>
+                  </li>
+                ))}
+              </ul>
+            </div>
           </>
         )}
       </div>

@@ -1,7 +1,8 @@
 .tour-page {
-  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
   background: #f0f4f8;
-  padding-bottom: 40px;
 }
 
 .tour-header {
@@ -12,6 +13,7 @@
   align-items: center;
   gap: 12px;
   box-shadow: 0 2px 12px rgba(0, 60, 30, 0.25);
+  flex-shrink: 0;
 }
 
 .tour-header .back-btn {
@@ -48,15 +50,43 @@
 }
 
 .tour-body {
-  max-width: 560px;
-  margin: 0 auto;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
+}
+
+/* ── 지도 영역 (위 절반) ── */
+.tour-map-pane {
+  flex: 0 0 42%;
+  position: relative;
+  min-height: 0;
+  background: #e6efe9;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+}
+
+.tour-map-empty {
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #7c9a86;
+  font-size: 13px;
+}
+
+/* ── 목록 영역 (아래 절반, 스크롤) ── */
+.tour-list-pane {
+  flex: 1;
+  min-height: 0;
+  overflow-y: auto;
   padding: 16px;
 }
 
 .tour-hint {
+  max-width: 560px;
+  margin: 0 auto 12px;
   font-size: 12px;
   color: #7c9a86;
-  margin-bottom: 12px;
   text-align: center;
   letter-spacing: -0.2px;
 }
@@ -67,6 +97,8 @@
   display: flex;
   flex-direction: column;
   gap: 10px;
+  max-width: 560px;
+  margin: 0 auto;
 }
 
 .tour-card {
@@ -119,6 +151,10 @@
 }
 .tour-card:active {
   transform: translateY(0);
+}
+.tour-card.selected {
+  border-color: #00a651;
+  box-shadow: 0 0 0 2px rgba(0, 166, 81, 0.15), 0 6px 18px rgba(0, 100, 50, 0.12);
 }
 
 .tour-rank {
@@ -186,10 +222,18 @@
   font-size: 20px;
   color: #b7cdbf;
   font-weight: 700;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 4px 6px;
+}
+.tour-go:hover {
+  color: #7fae8f;
 }
 
 /* ── 상태 ── */
 .tour-status {
+  flex: 1;
   display: flex;
   flex-direction: column;
   align-items: center;
