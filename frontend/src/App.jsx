@@ -5,6 +5,7 @@ import MainPage from "./pages/MainPage";
 import SigunguPage from "./pages/SigunguPage";
 import CityPage from "./pages/CityPage";
 import TourPage from "./pages/TourPage";
+import DashboardPage from "./pages/DashboardPage";
 import LoginPage from "./pages/LoginPage";
 import StampTestPage from "./pages/StampTestPage";
 
@@ -20,6 +21,7 @@ function AppRoutes() {
       <Route path="/stamp-test" element={<StampTestPage />} />
       <Route path="/login" element={isLoggedIn ? <Navigate to="/" replace /> : <LoginPage />} />
       <Route path="/" element={<ProtectedRoute><MainPage /></ProtectedRoute>} />
+      <Route path="/dashboard" element={<ProtectedRoute><DashboardPage /></ProtectedRoute>} />
       <Route path="/sido/:sidoName" element={<ProtectedRoute><SigunguPage /></ProtectedRoute>} />
       <Route path="/tour/:sidoName" element={<ProtectedRoute><TourPage /></ProtectedRoute>} />
       <Route path="/tour/:sidoName/:sigunguName" element={<ProtectedRoute><TourPage /></ProtectedRoute>} />

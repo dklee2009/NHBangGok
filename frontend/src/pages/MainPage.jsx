@@ -212,29 +212,29 @@ export default function MainPage() {
       <div className="progress-card">
         <p className="progress-card-label">나의 스탬프 현황</p>
         <div className="progress-stats">
-          <div className="stat-item">
+          <button type="button" className="stat-item" onClick={() => navigate("/dashboard")}>
             <div className="stat-row">
               <span className="stat-num">{totalStamps}</span>
               <span className="stat-unit">개</span>
             </div>
             <span className="stat-desc">총 스탬프</span>
-          </div>
+          </button>
           <div className="stat-divider" />
-          <div className="stat-item">
+          <button type="button" className="stat-item" onClick={() => navigate("/dashboard")}>
             <div className="stat-row">
               <span className="stat-num">{visitedCount}</span>
               <span className="stat-unit">곳</span>
             </div>
             <span className="stat-desc">방문 지역</span>
-          </div>
+          </button>
           <div className="stat-divider" />
-          <div className="stat-item">
+          <button type="button" className="stat-item" onClick={() => navigate("/dashboard")}>
             <div className="stat-row">
               <span className="stat-num">{progressPct}</span>
               <span className="stat-unit">%</span>
             </div>
             <span className="stat-desc">달성률</span>
-          </div>
+          </button>
         </div>
         <div className="progress-bar-wrap">
           <div className="progress-bar-fill" style={{ width: `${Math.max(progressPct, 2)}%` }} />
