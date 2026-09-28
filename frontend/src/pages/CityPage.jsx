@@ -181,6 +181,14 @@ export default function CityPage() {
           categoryLabel={categoryMeta.label}
         />
 
+        <button className="tour-cta-banner" onClick={goTour}>
+          <span className="tour-cta-emoji">🧭</span>
+          <span className="tour-cta-text">
+            <b>{decodedSigungu}</b> 인기 여행지 추천받기
+          </span>
+          <span className="tour-cta-arrow">›</span>
+        </button>
+
         <button className="recruit-cta-banner" onClick={openRecruitment}>
           <span className="recruit-cta-emoji">🤝</span>
           <span className="recruit-cta-text">NH농협의 가족이 되어보시겠어요?</span>
