@@ -21,6 +21,8 @@ export default function CityPage() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [selectedBranch, setSelectedBranch] = useState(null);
+  // 바텀시트가 내려가는 동안에도 내용이 유지되도록 마지막으로 선택한 지점을 보관한다.
+  const [sheetBranch, setSheetBranch] = useState(null);
   const [showStampEffect, setShowStampEffect] = useState(false);
   const [showTourPrompt, setShowTourPrompt] = useState(false);
 
@@ -34,9 +36,9 @@ export default function CityPage() {
     (s) => s.category === category
   );
 
-  // 도장 패널은 실제 GPS 근접 지점이 아니라, 지도에서 클릭해 선택한 지점을 기준으로 표시한다.
+  // 도장 패널(바텀시트)은 지도에서 지점 마커를 클릭했을 때만 올라오며, 선택한 지점을 기준으로 표시한다.
   // 단, 실제 도장 찍기(위치 인증)는 선택한 지점이 실제로 GPS 반경 이내에 있을 때만 허용한다.
-  const displayBranch = selectedBranch || nearbyBranch;
+  const displayBranch = selectedBranch || sheetBranch;
   const displayDistance = getDistanceToBranch(displayBranch);
   const canStamp = displayDistance != null && displayDistance <= STAMP_RADIUS_METERS;
   const alreadyStamped = displayBranch
@@ -45,6 +47,7 @@ export default function CityPage() {
 
   useEffect(() => {
     setSelectedBranch(null);
+    setSheetBranch(null);
     async function fetchBranches() {
       setLoading(true);
       setError(null);
@@ -65,6 +68,7 @@ export default function CityPage() {
 
   const handleMarkerClick = useCallback((branch) => {
     setSelectedBranch(branch);
+    setSheetBranch(branch);
   }, []);
 
   const handleMapClick = useCallback(() => {
@@ -159,46 +163,57 @@ export default function CityPage() {
             categoryColor={categoryMeta.color}
           />
         )}
-      </div>
 
-      <div className="bottom-panel">
-        {geoError && <p className="geo-error">📍 위치 오류: {geoError}</p>}
-        {position && (
-          <p className="geo-status">
-            📍 위치 확인됨 (정확도 ±{Math.round(position.accuracy)}m)
-          </p>
-        )}
-
-        {selectedBranch && (
-          <div className="selected-branch-info">
-            <span className="branch-name">{categoryMeta.icon} {selectedBranch.name}</span>
-            <span className="branch-addr">{selectedBranch.address}</span>
+        {!loading && !error && !selectedBranch && (
+          <div className="map-floating-status">
+            {geoError ? (
+              <span className="geo-error">📍 위치 오류: {geoError}</span>
+            ) : position ? (
+              <span className="geo-status">
+                📍 위치 확인됨 (정확도 ±{Math.round(position.accuracy)}m)
+              </span>
+            ) : null}
+            <span className="map-floating-hint">지점 마커를 눌러 도장을 찍어보세요</span>
           </div>
         )}
 
-        <StampButton
-          branch={displayBranch}
-          canStamp={canStamp}
-          sidoName={decodedSido}
-          onStamp={handleStamp}
-          onStampEffect={handleStampEffect}
-          alreadyStamped={alreadyStamped}
-          categoryLabel={categoryMeta.label}
-        />
+        <div
+          className={`bottom-panel${selectedBranch ? " open" : ""}`}
+          aria-hidden={!selectedBranch}
+        >
+          <div className="bottom-panel-handle" />
 
-        <button className="city-tour-cta-banner" onClick={goTour}>
-          <span className="city-tour-cta-emoji">🧭</span>
-          <span className="city-tour-cta-text">
-            <b>{decodedSigungu}</b> 인기 여행지 추천받기
-          </span>
-          <span className="city-tour-cta-arrow">›</span>
-        </button>
+          {displayBranch && (
+            <div className="selected-branch-info">
+              <span className="branch-name">{categoryMeta.icon} {displayBranch.name}</span>
+              <span className="branch-addr">{displayBranch.address}</span>
+            </div>
+          )}
 
-        <button className="recruit-cta-banner" onClick={openRecruitment}>
-          <span className="recruit-cta-emoji">🤝</span>
-          <span className="recruit-cta-text">NH농협의 가족이 되어보시겠어요?</span>
-          <span className="recruit-cta-arrow">›</span>
-        </button>
+          <StampButton
+            branch={displayBranch}
+            canStamp={canStamp}
+            sidoName={decodedSido}
+            onStamp={handleStamp}
+            onStampEffect={handleStampEffect}
+            alreadyStamped={alreadyStamped}
+            categoryLabel={categoryMeta.label}
+          />
+
+          <button className="city-tour-cta-banner" onClick={goTour}>
+            <span className="city-tour-cta-emoji">🧭</span>
+            <span className="city-tour-cta-text">
+              <b>{decodedSigungu}</b> 인기 여행지 추천받기
+            </span>
+            <span className="city-tour-cta-arrow">›</span>
+          </button>
+
+          <button className="recruit-cta-banner" onClick={openRecruitment}>
+            <span className="recruit-cta-emoji">🤝</span>
+            <span className="recruit-cta-text">NH농협의 가족이 되어보시겠어요?</span>
+            <span className="recruit-cta-arrow">›</span>
+          </button>
+        </div>
       </div>
 
       {showTourPrompt && (
