@@ -23,8 +23,6 @@ export default function CityPage() {
   const [selectedBranch, setSelectedBranch] = useState(null);
   const [showStampEffect, setShowStampEffect] = useState(false);
   const [showTourPrompt, setShowTourPrompt] = useState(false);
-  // 지도를 누르면 탭·배너를 숨겨 지도를 크게 보여준다. 축소 버튼으로 원래 화면으로 돌아간다.
-  const [mapExpanded, setMapExpanded] = useState(false);
 
   const { addStamp, hasSigunguVisited, getSigunguStampCount, visited } = useStamps();
   const { position, error: geoError, getNearbyBranch, getDistanceToBranch } = useGeolocation();
@@ -67,12 +65,10 @@ export default function CityPage() {
 
   const handleMarkerClick = useCallback((branch) => {
     setSelectedBranch(branch);
-    setMapExpanded(true);
   }, []);
 
   const handleMapClick = useCallback(() => {
     setSelectedBranch(null);
-    setMapExpanded(true);
   }, []);
 
   const handleStamp = (sido, branchId, branchName) => {
@@ -121,22 +117,20 @@ export default function CityPage() {
         </div>
       </header>
 
-      {!mapExpanded && (
-        <div className="category-tabs">
-          {CATEGORIES.map((c) => (
-            <button
-              key={c.key}
-              type="button"
-              className={`category-tab${category === c.key ? " active" : ""}`}
-              style={category === c.key ? { background: c.color } : undefined}
-              onClick={() => setCategory(c.key)}
-            >
-              <span className="category-tab-icon">{c.icon}</span>
-              <span>{c.label}</span>
-            </button>
-          ))}
-        </div>
-      )}
+      <div className="category-tabs">
+        {CATEGORIES.map((c) => (
+          <button
+            key={c.key}
+            type="button"
+            className={`category-tab${category === c.key ? " active" : ""}`}
+            style={category === c.key ? { background: c.color } : undefined}
+            onClick={() => setCategory(c.key)}
+          >
+            <span className="category-tab-icon">{c.icon}</span>
+            <span>{c.label}</span>
+          </button>
+        ))}
+      </div>
 
       <div className="map-container">
         {showStampEffect && <StampSuccessEffect onComplete={handleStampEffectComplete} />}
@@ -165,20 +159,11 @@ export default function CityPage() {
             categoryColor={categoryMeta.color}
           />
         )}
-        {mapExpanded && (
-          <button
-            type="button"
-            className="map-shrink-btn"
-            onClick={() => setMapExpanded(false)}
-          >
-            ↙ 지도 축소
-          </button>
-        )}
       </div>
 
       <div className="bottom-panel">
         {geoError && <p className="geo-error">📍 위치 오류: {geoError}</p>}
-        {position && !mapExpanded && (
+        {position && (
           <p className="geo-status">
             📍 위치 확인됨 (정확도 ±{Math.round(position.accuracy)}m)
           </p>
@@ -201,23 +186,19 @@ export default function CityPage() {
           categoryLabel={categoryMeta.label}
         />
 
-        {!mapExpanded && (
-          <>
-            <button className="city-tour-cta-banner" onClick={goTour}>
-              <span className="city-tour-cta-emoji">🧭</span>
-              <span className="city-tour-cta-text">
-                <b>{decodedSigungu}</b> 인기 여행지 추천받기
-              </span>
-              <span className="city-tour-cta-arrow">›</span>
-            </button>
+        <button className="city-tour-cta-banner" onClick={goTour}>
+          <span className="city-tour-cta-emoji">🧭</span>
+          <span className="city-tour-cta-text">
+            <b>{decodedSigungu}</b> 인기 여행지 추천받기
+          </span>
+          <span className="city-tour-cta-arrow">›</span>
+        </button>
 
-            <button className="recruit-cta-banner" onClick={openRecruitment}>
-              <span className="recruit-cta-emoji">🤝</span>
-              <span className="recruit-cta-text">NH농협의 가족이 되어보시겠어요?</span>
-              <span className="recruit-cta-arrow">›</span>
-            </button>
-          </>
-        )}
+        <button className="recruit-cta-banner" onClick={openRecruitment}>
+          <span className="recruit-cta-emoji">🤝</span>
+          <span className="recruit-cta-text">NH농협의 가족이 되어보시겠어요?</span>
+          <span className="recruit-cta-arrow">›</span>
+        </button>
       </div>
 
       {showTourPrompt && (
