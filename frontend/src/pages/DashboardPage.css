@@ -264,3 +264,52 @@
   color: #b0c8b0;
   font-weight: 600;
 }
+
+/* ── 스탬프 카테고리 탭 ── */
+.dash-cat-tabs {
+  display: flex;
+  gap: 6px;
+  margin-bottom: 10px;
+}
+
+.dash-cat-tab {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  padding: 9px 4px;
+  border-radius: 12px;
+  border: 1.5px solid #e2e8ee;
+  background: #f8f9fa;
+  color: #667;
+  font-size: 12px;
+  font-weight: 700;
+  white-space: nowrap;
+  cursor: pointer;
+  transition: background 0.15s ease, border-color 0.15s ease, color 0.15s ease, box-shadow 0.15s ease;
+}
+
+.dash-cat-tab.active {
+  border-color: transparent;
+  color: white;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.18);
+}
+
+.dash-cat-tab-icon {
+  font-size: 14px;
+}
+
+.dash-cat-tab-count {
+  min-width: 18px;
+  padding: 0 5px;
+  border-radius: 9px;
+  background: rgba(0, 0, 0, 0.08);
+  font-size: 11px;
+  line-height: 18px;
+}
+
+.dash-cat-tab.active .dash-cat-tab-count {
+  background: rgba(255, 255, 255, 0.25);
+}

@@ -1,8 +1,8 @@
-import React from "react";
+import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useStamps } from "../hooks/useStamps";
 import { useAuth } from "../contexts/AuthContext";
-import { CATEGORY_BY_KEY } from "../utils/categories";
+import { CATEGORIES, CATEGORY_BY_KEY } from "../utils/categories";
 import "./DashboardPage.css";
 
 function formatDate(iso) {
@@ -14,6 +14,7 @@ function formatDate(iso) {
 export default function DashboardPage() {
   const navigate = useNavigate();
   const { user } = useAuth();
+  const [category, setCategory] = useState("bank");
   const {
     visited,
     getTotalStamps,
@@ -37,6 +38,14 @@ export default function DashboardPage() {
     });
   });
   allStamps.sort((a, b) => new Date(b.visitedAt) - new Date(a.visitedAt));
+
+  // category가 없는 옛 스탬프는 은행 조회 시절 데이터이므로 은행으로 분류한다.
+  const categoryOf = (s) => (CATEGORY_BY_KEY[s.category] ? s.category : "bank");
+  const categoryCounts = Object.fromEntries(
+    CATEGORIES.map((c) => [c.key, allStamps.filter((s) => categoryOf(s) === c.key).length])
+  );
+  const filteredStamps = allStamps.filter((s) => categoryOf(s) === category);
+  const activeCategory = CATEGORY_BY_KEY[category];
 
   return (
     <div className="dashboard-page">
@@ -109,12 +118,29 @@ export default function DashboardPage() {
 
         <section className="dash-section">
           <h2 className="dash-section-title">스탬프를 찍은 곳 ({allStamps.length})</h2>
-          {allStamps.length === 0 ? (
-            <p className="dash-empty">아직 찍은 스탬프가 없어요</p>
+          <div className="dash-cat-tabs" role="tablist">
+            {CATEGORIES.map((c) => (
+              <button
+                key={c.key}
+                type="button"
+                role="tab"
+                aria-selected={category === c.key}
+                className={`dash-cat-tab${category === c.key ? " active" : ""}`}
+                style={category === c.key ? { background: c.color } : undefined}
+                onClick={() => setCategory(c.key)}
+              >
+                <span className="dash-cat-tab-icon">{c.icon}</span>
+                <span>{c.label}</span>
+                <span className="dash-cat-tab-count">{categoryCounts[c.key]}</span>
+              </button>
+            ))}
+          </div>
+          {filteredStamps.length === 0 ? (
+            <p className="dash-empty">아직 {activeCategory.label} 스탬프가 없어요</p>
           ) : (
             <ul className="dash-stamp-list">
-              {allStamps.map((s) => {
-                const cat = CATEGORY_BY_KEY[s.category] || CATEGORY_BY_KEY.bank;
+              {filteredStamps.map((s) => {
+                const cat = CATEGORY_BY_KEY[categoryOf(s)];
                 return (
                   <li key={`${s.category}-${s.branchId}`} className="dash-stamp-item">
                     <span className="dash-stamp-icon" style={{ color: cat.color }}>
