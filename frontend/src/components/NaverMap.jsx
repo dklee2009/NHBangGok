@@ -61,6 +61,7 @@ export default function NaverMap({
   branches,
   userPosition,
   onMarkerClick,
+  onMapClick,
   selectedBranch,
   nearbyBranch,
   categoryColor = "#008542",
@@ -70,6 +71,9 @@ export default function NaverMap({
   const markersRef = useRef([]);
   const userMarkerRef = useRef(null);
   const infoWindowRef = useRef(null);
+  // 지도는 시군구 변경 시에만 재생성되므로, 최신 콜백을 ref로 참조한다.
+  const onMapClickRef = useRef(onMapClick);
+  onMapClickRef.current = onMapClick;
 
   // 지도 초기화 (시군구 변경 시 재생성)
   useEffect(() => {
@@ -90,6 +94,12 @@ export default function NaverMap({
     });
 
     infoWindowRef.current = new naver.maps.InfoWindow({ content: "" });
+
+    // 마커가 아닌 지도 빈 곳을 클릭하면 선택 해제
+    naver.maps.Event.addListener(mapInstance.current, "click", () => {
+      infoWindowRef.current?.close();
+      onMapClickRef.current?.();
+    });
 
     return () => {
       if (mapInstance.current) {

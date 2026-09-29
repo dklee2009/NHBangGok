@@ -67,6 +67,10 @@ export default function CityPage() {
     setSelectedBranch(branch);
   }, []);
 
+  const handleMapClick = useCallback(() => {
+    setSelectedBranch(null);
+  }, []);
+
   const handleStamp = (sido, branchId, branchName) => {
     return addStamp(sido, decodedSigungu, branchId, branchName, category);
   };
@@ -149,6 +153,7 @@ export default function CityPage() {
             branches={branches}
             userPosition={position}
             onMarkerClick={handleMarkerClick}
+            onMapClick={handleMapClick}
             selectedBranch={selectedBranch}
             nearbyBranch={nearbyBranch}
             categoryColor={categoryMeta.color}
