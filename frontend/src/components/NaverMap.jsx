@@ -109,6 +109,19 @@ export default function NaverMap({
     };
   }, [sigunguName]);
 
+  // 컨테이너 크기가 바뀌면(지도 확대/축소) 지도 크기를 다시 맞춘다
+  useEffect(() => {
+    if (!mapRef.current || !window.naver || typeof ResizeObserver === "undefined") return;
+    const observer = new ResizeObserver(([entry]) => {
+      const { width, height } = entry.contentRect;
+      if (mapInstance.current && width > 0 && height > 0) {
+        mapInstance.current.setSize(new naver.maps.Size(width, height));
+      }
+    });
+    observer.observe(mapRef.current);
+    return () => observer.disconnect();
+  }, []);
+
   // 은행 마커 갱신
   useEffect(() => {
     if (!mapInstance.current || !window.naver) return;
