@@ -11,7 +11,7 @@ html {
 }
 
 body {
-  font-family: "Pretendard", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  font-family: "Pretendard Variable", Pretendard, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
   background-color: #f0f4f8;
   color: #1a1a2e;
   /* 좁은 화면에서 한글이 "스탬/프"처럼 글자 중간에서 끊기지 않게 단어 단위로 줄바꿈 */

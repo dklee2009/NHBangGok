@@ -43,7 +43,7 @@
   background: transparent;
   font-size: 14px;
   font-weight: 700;
-  color: #b0c8b0;
+  color: #5a7462;
   cursor: pointer;
   transition: all 0.2s;
   border-bottom: 2.5px solid transparent;
@@ -92,7 +92,7 @@
 }
 
 .login-input::placeholder {
-  color: #b8d0b8;
+  color: #7a9585;
 }
 
 .login-error {

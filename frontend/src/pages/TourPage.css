@@ -92,7 +92,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  color: #7c9a86;
+  color: #5a7462;
   font-size: 13px;
 }
 
@@ -108,7 +108,7 @@
   max-width: 560px;
   margin: 0 auto 12px;
   font-size: 12px;
-  color: #7c9a86;
+  color: #5a7462;
   text-align: center;
   letter-spacing: -0.2px;
 }
@@ -147,14 +147,30 @@
   background: linear-gradient(135deg, #d8eee0, #b4d8c0);
 }
 
-.tour-card-image-nature { background: linear-gradient(135deg, #b8dfc4, #6fb28a); }
-.tour-card-image-문화관광 { background: linear-gradient(135deg, #d9c8ec, #9a79bd); }
-.tour-card-image-역사관광 { background: linear-gradient(135deg, #ead8b5, #bd8c54); }
-.tour-card-image-레저스포츠 { background: linear-gradient(135deg, #b8dff0, #4c9bc0); }
-.tour-card-image-체험관광 { background: linear-gradient(135deg, #f5d3a9, #df9665); }
+/* 사진이 없을 때 카테고리마다 다른 색 배경 + 아이콘으로 구분 */
+.tour-card-image-nature     { background: linear-gradient(135deg, #c9ead3, #6fb28a); }
+.tour-card-image-culture    { background: linear-gradient(135deg, #e3d6f2, #9a79bd); }
+.tour-card-image-history    { background: linear-gradient(135deg, #f0e2c4, #bd8c54); }
+.tour-card-image-leisure    { background: linear-gradient(135deg, #cdeaf6, #4c9bc0); }
+.tour-card-image-experience { background: linear-gradient(135deg, #f8e0c0, #df9665); }
+.tour-card-image-shopping   { background: linear-gradient(135deg, #fbd9e2, #e0809b); }
+.tour-card-image-food       { background: linear-gradient(135deg, #fde6c4, #e8a33d); }
+.tour-card-image-stay       { background: linear-gradient(135deg, #d7e0f5, #7186b4); }
+.tour-card-image-etc        { background: linear-gradient(135deg, #dcefe8, #6ea596); }
+
+/* 아이콘 뒤에 은은한 원을 깔아 그림처럼 보이게 */
+.tour-card-image::before {
+  content: "";
+  position: absolute;
+  width: 46px;
+  height: 46px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.45);
+}
 
 .tour-card-image-fallback {
-  font-size: 29px;
+  position: relative;
+  font-size: 26px;
   filter: drop-shadow(0 2px 3px rgba(0, 0, 0, 0.15));
 }
 
@@ -224,7 +240,7 @@
 .tour-sigungu {
   font-size: 11px;
   font-weight: 600;
-  color: #5f8b70;
+  color: #5a7462;
   background: #eef6f0;
   border-radius: 20px;
   padding: 3px 9px;
@@ -233,7 +249,7 @@
 .tour-cat {
   font-size: 11px;
   font-weight: 600;
-  color: #8a7a4a;
+  color: #7a6a3c;
   background: #fbf5e6;
   border-radius: 20px;
   padding: 3px 9px;
@@ -242,7 +258,7 @@
 .tour-go {
   flex-shrink: 0;
   font-size: 20px;
-  color: #b7cdbf;
+  color: #7a9585;
   font-weight: 700;
   background: none;
   border: none;
@@ -250,7 +266,7 @@
   padding: 4px 6px;
 }
 .tour-go:hover {
-  color: #7fae8f;
+  color: #5a7462;
 }
 
 /* ── 상태 ── */
@@ -262,14 +278,11 @@
   justify-content: center;
   gap: 12px;
   padding: 60px 20px;
-  color: #6b8a76;
+  color: #5a7462;
   font-size: 14px;
   text-align: center;
 }
 
-.tour-empty-emoji {
-  font-size: 40px;
-}
 
 .loading-spinner {
   width: 32px;

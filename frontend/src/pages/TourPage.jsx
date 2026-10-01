@@ -2,6 +2,7 @@ import React, { useEffect, useRef, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import HomeButton from "../components/HomeButton";
 import TourMap from "../components/TourMap";
+import EmptyState from "../components/EmptyState";
 import { API_BASE } from "../config";
 import { shortSido } from "../utils/sido";
 import "./TourPage.css";
@@ -15,6 +16,19 @@ const CAT_ICON = {
   쇼핑: "🛍️",
   숙박: "🏨",
   음식: "🍽️",
+  기타관광: "🧭",
+};
+
+const CAT_CLASS = {
+  자연관광: "nature",
+  문화관광: "culture",
+  역사관광: "history",
+  레저스포츠: "leisure",
+  체험관광: "experience",
+  쇼핑: "shopping",
+  숙박: "stay",
+  음식: "food",
+  기타관광: "etc",
 };
 
 export default function TourPage() {
@@ -120,8 +134,13 @@ export default function TourPage() {
 
         {!loading && !error && !spots.length && (
           <div className="tour-status">
-            <p className="tour-empty-emoji">🧭</p>
-            <p>이 지역의 추천 여행지 정보를 준비 중이에요.</p>
+            <EmptyState
+              image="/chars/단지한복.webp"
+              title="추천 여행지를 준비 중이에요"
+              description="이 지역은 아직 관광 데이터가 없어요. 다른 지역의 인기 여행지를 둘러보세요."
+              actionLabel={`${shortSido(decodedSido)} 지역 둘러보기`}
+              onAction={() => navigate(`/sido/${encodeURIComponent(decodedSido)}`)}
+            />
           </div>
         )}
 
@@ -143,7 +162,7 @@ export default function TourPage() {
                     className={`tour-card${selectedId === s.id ? " selected" : ""}`}
                     onClick={() => handleCardClick(s.id)}
                   >
-                    <div className={`tour-card-image tour-card-image-${s.categorySub || "default"}`}>
+                    <div className={`tour-card-image tour-card-image-${CAT_CLASS[s.categorySub] || "default"}`}>
                       <span className="tour-card-image-fallback" aria-hidden="true">
                         {CAT_ICON[s.categorySub] || "📍"}
                       </span>

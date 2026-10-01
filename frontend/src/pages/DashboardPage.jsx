@@ -3,7 +3,15 @@ import { useNavigate } from "react-router-dom";
 import { useStamps } from "../hooks/useStamps";
 import { useAuth } from "../contexts/AuthContext";
 import { CATEGORIES, CATEGORY_BY_KEY } from "../utils/categories";
+import EmptyState from "../components/EmptyState";
 import "./DashboardPage.css";
+
+// 카테고리별 빈 화면에 보여 줄 마스코트
+const EMPTY_CATEGORY_IMAGE = {
+  bank: "/chars/mascots/dog.webp",
+  mart: "/chars/mascots/pig.webp",
+  gas: "/chars/mascots/elephant.webp",
+};
 
 function formatDate(iso) {
   const d = new Date(iso);
@@ -86,7 +94,13 @@ export default function DashboardPage() {
         <section className="dash-section">
           <h2 className="dash-section-title">방문 지역</h2>
           {visitedSidos.length === 0 ? (
-            <p className="dash-empty">아직 방문한 지역이 없어요</p>
+            <EmptyState
+              image="/chars/올리한복.webp"
+              title="아직 방문한 지역이 없어요"
+              description="지도에서 가까운 지역을 골라 첫 스탬프를 찍어보세요."
+              actionLabel="여행 시작하기"
+              onAction={() => navigate("/")}
+            />
           ) : (
             <div className="dash-region-list">
               {visitedSidos.map((sido) => {
@@ -136,7 +150,14 @@ export default function DashboardPage() {
             ))}
           </div>
           {filteredStamps.length === 0 ? (
-            <p className="dash-empty">아직 {activeCategory.label} 스탬프가 없어요</p>
+            <EmptyState
+              compact
+              image={EMPTY_CATEGORY_IMAGE[activeCategory.key]}
+              title={`아직 ${activeCategory.label} 스탬프가 없어요`}
+              description={`가까운 ${activeCategory.label}에 들러 도장을 찍어보세요.`}
+              actionLabel="지도에서 찾기"
+              onAction={() => navigate("/")}
+            />
           ) : (
             <ul className="dash-stamp-list">
               {filteredStamps.map((s) => {

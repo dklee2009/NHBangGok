@@ -90,7 +90,7 @@
 
 .dash-stat-desc {
   font-size: 11px;
-  color: #b0c8b0;
+  color: #5a7462;
   font-weight: 600;
 }
 
@@ -116,7 +116,7 @@
 
 .dash-progress-label {
   font-size: 12px;
-  color: #b0c8b0;
+  color: #5a7462;
   font-weight: 500;
   margin-top: 8px;
   text-align: center;
@@ -131,12 +131,6 @@
   letter-spacing: -0.3px;
 }
 
-.dash-empty {
-  font-size: 13px;
-  color: #8aa090;
-  text-align: center;
-  padding: 24px 0;
-}
 
 /* ── 방문 지역 ── */
 .dash-region-list {
@@ -203,7 +197,7 @@
 .dash-region-sub {
   display: block;
   font-size: 11px;
-  color: #8aa090;
+  color: #5a7462;
   margin-top: 6px;
 }
 
@@ -255,14 +249,14 @@
 
 .dash-stamp-region {
   font-size: 11px;
-  color: #8aa090;
+  color: #5a7462;
   margin-top: 2px;
 }
 
 .dash-stamp-date {
   flex-shrink: 0;
   font-size: 11px;
-  color: #b0c8b0;
+  color: #5a7462;
   font-weight: 600;
 }
 
