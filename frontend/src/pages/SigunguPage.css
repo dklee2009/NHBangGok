@@ -1,7 +1,11 @@
 .sigungu-page {
   min-height: 100vh;
+  min-height: 100dvh;
   background: #f0f4f8;
   padding-bottom: 32px;
+  /* 모바일 기준 레이아웃이라 태블릿·PC에서 화면 끝까지 늘어나지 않게 폭을 제한 */
+  max-width: 720px;
+  margin: 0 auto;
 }
 
 /* 헤더 */

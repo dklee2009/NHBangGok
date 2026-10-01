@@ -1,5 +1,6 @@
 .dashboard-page {
   min-height: 100vh;
+  min-height: 100dvh;
   background: #f0f4f8;
   padding-bottom: 40px;
 }

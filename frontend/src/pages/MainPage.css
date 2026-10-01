@@ -1,7 +1,11 @@
 .main-page {
   min-height: 100vh;
+  min-height: 100dvh;
   background: #f4f8f4;
   padding-bottom: 40px;
+  /* 모바일 기준 레이아웃이라 태블릿·PC에서 카드가 화면 끝까지 늘어나지 않게 폭을 제한 */
+  max-width: 720px;
+  margin: 0 auto;
 }
 
 /* ── NH농협은행 배너 ── */
@@ -112,6 +116,10 @@
   display: flex;
   align-items: center;
   gap: 8px;
+  /* 배경 그림 위에서도 이름/로그아웃이 읽히도록 반투명 바탕을 깔아 줌 */
+  background: rgba(255, 255, 255, 0.85);
+  border-radius: 20px;
+  padding: 3px 4px 3px 10px;
 }
 
 .hero-username {

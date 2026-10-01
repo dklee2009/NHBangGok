@@ -1,5 +1,6 @@
 .login-page {
   min-height: 100vh;
+  min-height: 100dvh;
   background: url("/login-bg-full.webp") center top / cover no-repeat, #076341;
   display: flex;
   justify-content: center;
@@ -16,6 +17,7 @@
 
 .login-card {
   margin-top: 44vh;
+  margin-top: 44svh;
   background: white;
   border: 6px solid #ffffff;
   border-radius: 28px;
@@ -77,7 +79,7 @@
   border: 1.5px solid #d8ead8;
   border-radius: 12px;
   padding: 12px 14px;
-  font-size: 15px;
+  font-size: 16px; /* 16px 미만이면 iOS Safari가 입력 시 화면을 확대함 */
   color: #1a2e1a;
   outline: none;
   transition: border-color 0.2s;

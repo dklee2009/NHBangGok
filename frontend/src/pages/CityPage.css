@@ -2,6 +2,7 @@
   display: flex;
   flex-direction: column;
   height: 100vh;
+  height: 100dvh;
   background: #f0f4f8;
 }
 
@@ -90,6 +91,17 @@
 
 .category-tab-icon {
   font-size: 15px;
+}
+
+/* 폴드 접힘 화면처럼 아주 좁은 폭에서는 아이콘을 글자 위로 올려 탭이 넘치지 않게 함 */
+@media (max-width: 320px) {
+  .category-tab {
+    min-width: 0;
+    flex-direction: column;
+    gap: 2px;
+    padding: 8px 0;
+    font-size: 12px;
+  }
 }
 
 .map-container {

@@ -1,5 +1,6 @@
 .stamp-test-page {
   min-height: 100vh;
+  min-height: 100dvh;
   padding: 40px 20px 56px;
   background:
     radial-gradient(circle at top, rgba(177, 243, 210, 0.52), transparent 32%),
