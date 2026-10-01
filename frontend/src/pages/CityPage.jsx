@@ -5,6 +5,8 @@ import StampButton from "../components/StampButton";
 import StampSuccessEffect from "../components/StampSuccessEffect";
 import { useStamps } from "../hooks/useStamps";
 import { useGeolocation } from "../hooks/useGeolocation";
+import { useAuth } from "../contexts/AuthContext";
+import { isSuperUser } from "../utils/superUser";
 import { API_BASE } from "../config";
 import { shortSido } from "../utils/sido";
 import { CATEGORIES, CATEGORY_BY_KEY } from "../utils/categories";
@@ -28,6 +30,7 @@ export default function CityPage() {
 
   const { addStamp, hasSigunguVisited, getSigunguStampCount, visited } = useStamps();
   const { position, error: geoError, getNearbyBranch, getDistanceToBranch } = useGeolocation();
+  const { user } = useAuth();
 
   const categoryMeta = CATEGORY_BY_KEY[category];
   const STAMP_RADIUS_METERS = 1000;
@@ -40,7 +43,9 @@ export default function CityPage() {
   // 단, 실제 도장 찍기(위치 인증)는 선택한 지점이 실제로 GPS 반경 이내에 있을 때만 허용한다.
   const displayBranch = selectedBranch || sheetBranch;
   const displayDistance = getDistanceToBranch(displayBranch);
-  const canStamp = displayDistance != null && displayDistance <= STAMP_RADIUS_METERS;
+  // 슈퍼 계정(시연용)은 거리와 상관없이 선택한 지점에 도장을 찍을 수 있다.
+  const canStamp = isSuperUser(user?.username)
+    || (displayDistance != null && displayDistance <= STAMP_RADIUS_METERS);
   const alreadyStamped = displayBranch
     ? sigunguStamps.some((s) => s.branchId === displayBranch.id)
     : false;
