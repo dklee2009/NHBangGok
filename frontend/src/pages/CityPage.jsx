@@ -1,5 +1,6 @@
 import React, { useEffect, useState, useCallback } from "react";
 import { useParams, useNavigate } from "react-router-dom";
+import HomeButton from "../components/HomeButton";
 import NaverMap from "../components/NaverMap";
 import StampButton from "../components/StampButton";
 import StampSuccessEffect from "../components/StampSuccessEffect";
@@ -115,6 +116,7 @@ export default function CityPage() {
         >
           ← {shortSido(decodedSido)}
         </button>
+        <HomeButton />
         <div className="city-title-area">
           <h1 className="city-title">{decodedSigungu}</h1>
           <span className="city-count">

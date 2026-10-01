@@ -1,0 +1,22 @@
+.home-btn {
+  flex-shrink: 0;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  margin-left: -4px; /* 헤더 gap(12px)보다 뒤로가기 버튼에 붙여 한 묶음으로 보이게 */
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.2);
+  color: #fff;
+  transition: background 0.2s;
+}
+
+.home-btn:hover {
+  background: rgba(255, 255, 255, 0.35);
+}
+
+.home-btn:focus-visible {
+  outline: 2px solid #ffd54f;
+  outline-offset: 2px;
+}

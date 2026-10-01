@@ -1,5 +1,6 @@
 import React, { useEffect, useRef, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
+import HomeButton from "../components/HomeButton";
 import TourMap from "../components/TourMap";
 import { API_BASE } from "../config";
 import { shortSido } from "../utils/sido";
@@ -85,6 +86,7 @@ export default function TourPage() {
         >
           ← {shortSido(decodedSido)}
         </button>
+        <HomeButton />
         <div className="tour-title-area">
           <h1 className="tour-title">{titleArea} 추천 여행지</h1>
           <span className="tour-subtitle">

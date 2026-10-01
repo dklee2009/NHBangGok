@@ -36,6 +36,7 @@
 
 .city-title-area {
   flex: 1;
+  min-width: 0; /* 좁은 화면에서 헤더 버튼들이 밀려나지 않게 제목이 줄어들도록 */
 }
 
 .city-title {
@@ -95,6 +96,28 @@
 
 /* 폴드 접힘 화면처럼 아주 좁은 폭에서는 아이콘을 글자 위로 올려 탭이 넘치지 않게 함 */
 @media (max-width: 320px) {
+  /* 뒤로가기·홈·완료 배지가 함께 있어도 시/군/구 이름이 한 줄에 들어가도록 헤더를 촘촘하게 */
+  .city-header {
+    gap: 8px;
+    padding: 12px;
+  }
+  .city-header .back-btn {
+    padding: 7px 9px;
+    font-size: 13px;
+  }
+  .city-header .home-btn {
+    width: 32px;
+    height: 32px;
+    margin-left: 0;
+  }
+  .city-title {
+    font-size: 16px;
+  }
+  .city-header .stamp-badge {
+    padding: 3px 8px;
+    font-size: 11px;
+  }
+
   .category-tab {
     min-width: 0;
     flex-direction: column;

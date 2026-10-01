@@ -35,12 +35,33 @@
 
 .tour-title-area {
   flex: 1;
+  min-width: 0; /* 좁은 화면에서 헤더 버튼들이 밀려나지 않게 제목이 줄어들도록 */
 }
 
 .tour-title {
   font-size: 18px;
   font-weight: 800;
   letter-spacing: -0.4px;
+}
+
+/* 폴드 접힘 화면처럼 아주 좁은 폭에서는 헤더를 촘촘하게 */
+@media (max-width: 320px) {
+  .tour-header {
+    gap: 8px;
+    padding: 12px;
+  }
+  .tour-header .back-btn {
+    padding: 7px 9px;
+    font-size: 13px;
+  }
+  .tour-header .home-btn {
+    width: 32px;
+    height: 32px;
+    margin-left: 0;
+  }
+  .tour-title {
+    font-size: 16px;
+  }
 }
 
 .tour-subtitle {
