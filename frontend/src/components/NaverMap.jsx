@@ -1,5 +1,6 @@
 import React, { useEffect, useRef } from "react";
 import { MASCOT_LIST } from "../utils/koreaSigungu";
+import { escapeHtml } from "../utils/escapeHtml";
 
 function getMapCenter(branches) {
   if (!branches.length) return { lat: 36.5, lng: 127.5, zoom: 13 };
@@ -51,7 +52,7 @@ function branchIconHtml(isSelected, isNearby, branchName, mascotSrc, categoryCol
         border-radius:6px;
         white-space:nowrap;
         box-shadow:0 1px 3px rgba(0,0,0,0.15);
-      ">${shortName}</div>
+      ">${escapeHtml(shortName)}</div>
     </div>
   `;
 }
@@ -136,8 +137,8 @@ export default function NaverMap({
         onMarkerClick(branch);
         infoWindowRef.current.setContent(
           `<div style="padding:10px 14px;font-size:13px;line-height:1.6;min-width:160px;">
-            <b style="font-size:14px;">${branch.name}</b><br/>
-            <span style="color:#555;">${branch.address}</span>
+            <b style="font-size:14px;">${escapeHtml(branch.name)}</b><br/>
+            <span style="color:#555;">${escapeHtml(branch.address)}</span>
           </div>`
         );
         infoWindowRef.current.open(mapInstance.current, marker);

@@ -1,4 +1,5 @@
 import React, { useEffect, useRef } from "react";
+import { escapeHtml } from "../utils/escapeHtml";
 
 function toLatLng(spot) {
   return { lat: Number(spot.mapY), lng: Number(spot.mapX) };
@@ -77,7 +78,7 @@ export default function TourMap({ spots, selectedId, onMarkerClick }) {
       naver.maps.Event.addListener(marker, "click", () => {
         onMarkerClick?.(spot.id);
         infoWindowRef.current.setContent(
-          `<div style="padding:8px 12px;font-size:13px;font-weight:700;max-width:200px;">${spot.name}</div>`
+          `<div style="padding:8px 12px;font-size:13px;font-weight:700;max-width:200px;">${escapeHtml(spot.name)}</div>`
         );
         infoWindowRef.current.open(mapInstance.current, marker);
       });

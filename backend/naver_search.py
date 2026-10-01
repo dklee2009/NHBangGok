@@ -4,6 +4,7 @@ NCP API Hub 지역검색 API를 이용한 NH농협 관련 장소(은행/하나�
 헤더: X-NCP-APIGW-API-KEY-ID / X-NCP-APIGW-API-KEY
 """
 import asyncio
+import html
 import os
 import httpx
 
@@ -48,7 +49,8 @@ def parse_coord(value: str) -> float:
     return round(v, 7)         # 이미 소수 형식
 
 def clean_html(text: str) -> str:
-    return text.replace("<b>", "").replace("</b>", "")
+    # 검색어 강조 태그를 지운 뒤, "충주시청&lt;출&gt;"·"&amp;" 같은 HTML 엔티티를 원래 문자로 되돌린다
+    return html.unescape(text.replace("<b>", "").replace("</b>", ""))
 
 async def search_nh_places(sigungu: str, sido: str, category: str = "bank") -> list:
     """
@@ -107,8 +109,8 @@ async def search_nh_places(sigungu: str, sido: str, category: str = "bank") -> l
                 branches.append({
                     "id":          f"naver-{category}-{mapx}-{mapy}",
                     "name":        title,
-                    "address":     item.get("address", ""),
-                    "roadAddress": item.get("roadAddress", ""),
+                    "address":     clean_html(item.get("address", "")),
+                    "roadAddress": clean_html(item.get("roadAddress", "")),
                     "lat":         lat,
                     "lng":         lng,
                     "phone":       item.get("telephone", ""),

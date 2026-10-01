@@ -1,3 +1,5 @@
+import html
+
 from fastapi import APIRouter, Depends, HTTPException
 from sqlalchemy.orm import Session
 from typing import Dict, List, Any
@@ -24,7 +26,8 @@ def get_stamps(
         sigungu = sido.setdefault(s.sigungu_name, [])
         sigungu.append({
             "branchId": s.branch_id,
-            "branchName": s.branch_name,
+            # 엔티티를 풀기 전(예: "&lt;출&gt;")에 저장된 기존 스탬프도 원래 이름으로 보이게 한다
+            "branchName": html.unescape(s.branch_name),
             "category": s.category,
             "visitedAt": s.visited_at.isoformat(),
         })
@@ -54,7 +57,7 @@ def add_stamp(
         sido_name=body.sido_name,
         sigungu_name=body.sigungu_name,
         branch_id=body.branch_id,
-        branch_name=body.branch_name,
+        branch_name=html.unescape(body.branch_name),
         category=body.category,
     )
     db.add(stamp)

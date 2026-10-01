@@ -5,6 +5,7 @@
 API 문서: https://www.data.go.kr/data/15128559/openapi.do
 """
 import asyncio
+import html
 import os
 import time
 import urllib.parse
@@ -166,7 +167,8 @@ def _build_spots(raw_lists: list[list[dict]], limit: int) -> list[dict]:
     spots: list[dict] = []
     for raw_list in raw_lists:
         for it in raw_list:
-            name = (it.get("hubTatsNm") or "").strip()
+            # 공공데이터 응답에도 "&amp;" 같은 HTML 엔티티가 섞여 올 수 있어 원래 문자로 되돌린다
+            name = html.unescape(it.get("hubTatsNm") or "").strip()
             if not name or name in seen:
                 continue
             seen.add(name)
