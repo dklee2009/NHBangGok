@@ -40,7 +40,7 @@ export default function LoginPage() {
       <div className="login-wrap">
         <div className="login-card">
         {/* 헤더 */}
-        <img src="/login-header-banner.jpg" alt="NH 스탬프 투어 - 전국 농협은행을 방문하고 스탬프를 모아보세요" className="login-header-img" />
+        <img src="/login-header-banner.webp" alt="NH 스탬프 투어 - 전국 농협은행을 방문하고 스탬프를 모아보세요" className="login-header-img" />
 
         {/* 탭 */}
         <div className="login-tabs">

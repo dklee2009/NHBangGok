@@ -41,8 +41,8 @@ const NH_CHARACTERS = [
   {
     key: "olly",
     name: "올리",
-    image: "/chars/character1.png",
-    hanbokImage: "/chars/올리한복.png",
+    image: "/chars/character1.webp",
+    hanbokImage: "/chars/올리한복.webp",
     accent: "#8ca900",
     title: "귀여운 아기공룡 올리",
     meaning: "올(All)+리(이로운, 利) 모두에게 이로움을 주다. 모바일 뱅크의 효익 상징",
@@ -51,8 +51,8 @@ const NH_CHARACTERS = [
   {
     key: "woni",
     name: "원이",
-    image: "/chars/character2.png",
-    hanbokImage: "/chars/원이한복.png",
+    image: "/chars/character2.webp",
+    hanbokImage: "/chars/원이한복.webp",
     accent: "#d99c00",
     title: "오리인 듯 아닌 듯 새 원이",
     meaning: "원(One)+이(이동할, 移) 금융 서비스를 하나로! 모바일 뱅크의 간편함 상징",
@@ -61,8 +61,8 @@ const NH_CHARACTERS = [
   {
     key: "danji",
     name: "단지",
-    image: "/chars/character3.png",
-    hanbokImage: "/chars/단지한복.png",
+    image: "/chars/character3.webp",
+    hanbokImage: "/chars/단지한복.webp",
     accent: "#c85b78",
     title: "단지 널 사랑해 단지",
     meaning: "수줍음 많지만 재테크에는 누구보다 진심인 단지",
@@ -71,8 +71,8 @@ const NH_CHARACTERS = [
   {
     key: "dalli",
     name: "달리",
-    image: "/chars/character4.png",
-    hanbokImage: "/chars/달리한복.png",
+    image: "/chars/character4.webp",
+    hanbokImage: "/chars/달리한복.webp",
     accent: "#a76628",
     title: "5늘도 내일도 달리고 달리는 달리",
     meaning: "여행과 도전을 좋아하는 NH 5인방의 에너지 담당",
@@ -81,8 +81,8 @@ const NH_CHARACTERS = [
   {
     key: "kori",
     name: "코리",
-    image: "/chars/character5.png",
-    hanbokImage: "/chars/코리한복.png",
+    image: "/chars/character5.webp",
+    hanbokImage: "/chars/코리한복.webp",
     accent: "#3d82a8",
     title: "1+1 놀라운 암산능력 코리",
     meaning: "친구들의 이야기를 잘 듣고 마을을 지키는 든든한 코리",
@@ -95,7 +95,7 @@ const COMPANION_OPTIONS = [
   {
     key: "all",
     name: "NH 5인방",
-    image: "/chars/단체한복.png",
+    image: "/chars/단체한복.webp",
     accent: "#008542",
   },
 ];
@@ -365,7 +365,7 @@ export default function MainPage() {
           <div className="char-banner">
             <div className="char-banner-imgs">
               <img
-                src="/chars/character_all.png"
+                src="/chars/character_all.webp"
                 alt="NH 5인방"
                 className="banner-group-img"
                 onError={(e) => { e.target.style.display = "none"; }}
@@ -454,14 +454,14 @@ export default function MainPage() {
         target="_blank"
         rel="noopener noreferrer"
       >
-        <img src="/nh-main-banner.png" alt="사랑받는 일등 민족은행 - NH농협은행" />
+        <img src="/nh-main-banner.webp" alt="사랑받는 일등 민족은행 - NH농협은행" />
       </a>
 
       {traveling && (
         <div className="travel-transition" role="status" aria-live="polite">
           <div className="travel-transition-track">
             <span className="travel-transition-label">여행을 시작해요</span>
-            <img src="/chars/단체한복.png" alt="NH 5인방이 여행을 시작하는 모습" />
+            <img src="/chars/단체한복.webp" alt="NH 5인방이 여행을 시작하는 모습" />
           </div>
         </div>
       )}

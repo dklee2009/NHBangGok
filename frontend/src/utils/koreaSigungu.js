@@ -8,11 +8,11 @@ export const SIDO_CODE = {
 
 // 서울 구 목록과 전국 지도 마커에서 순서대로 번갈아 쓰는 한복 컨셉 마스코트
 export const MASCOT_LIST = [
-  "/chars/mascots/dino.png",
-  "/chars/mascots/duck.png",
-  "/chars/mascots/dog.png",
-  "/chars/mascots/pig.png",
-  "/chars/mascots/elephant.png",
+  "/chars/mascots/dino.webp",
+  "/chars/mascots/duck.webp",
+  "/chars/mascots/dog.webp",
+  "/chars/mascots/pig.webp",
+  "/chars/mascots/elephant.webp",
 ];
 
 let cachedSigunguData = null;

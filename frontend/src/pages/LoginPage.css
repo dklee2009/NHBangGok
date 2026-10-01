@@ -1,6 +1,6 @@
 .login-page {
   min-height: 100vh;
-  background: url("/login-bg-full.jpg") center top / cover no-repeat, #076341;
+  background: url("/login-bg-full.webp") center top / cover no-repeat, #076341;
   display: flex;
   justify-content: center;
   padding: 0 16px 32px;

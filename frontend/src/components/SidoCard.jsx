@@ -5,7 +5,7 @@ export default function SidoCard({ sido, isVisited, stampCount, onClick }) {
   const { short, name } = sido;
   const [err, setErr] = useState(false);
   const initial = (short || name).slice(0, 1);
-  const bannerSrc = `/chars/sido-banners/${short}.jpg`;
+  const bannerSrc = `/chars/sido-banners/${short}.webp`;
 
   return (
     <button

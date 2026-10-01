@@ -59,7 +59,7 @@ export default function RewardRoad({ rewards, totalStamps, onGoCollect }) {
         <div className="rw-mascot">
           <div className="rw-bubble">{bubble}</div>
           <img
-            src="/chars/nari.png"
+            src="/chars/nari.webp"
             alt=""
             className="rw-mascot-img"
             onError={(e) => {
