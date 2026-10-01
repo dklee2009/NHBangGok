@@ -1,0 +1,141 @@
+.tutorial-root {
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
+}
+
+/* 화면 전체를 어둡게 하되, 강조 영역만 뚫어 보이게 한다 */
+.tutorial-spot {
+  position: fixed;
+  border-radius: 18px;
+  box-shadow: 0 0 0 9999px rgba(10, 30, 20, 0.62);
+  outline: 3px solid #ffd54f;
+  outline-offset: 0;
+  transition: top 0.25s ease, left 0.25s ease, width 0.25s ease, height 0.25s ease;
+  pointer-events: none;
+}
+
+.tutorial-dim {
+  position: fixed;
+  inset: 0;
+  background: rgba(10, 30, 20, 0.62);
+}
+
+.tutorial-card {
+  position: fixed;
+  left: 50%;
+  transform: translateX(-50%);
+  width: min(340px, calc(100vw - 32px));
+  background: #fff;
+  border-radius: 18px;
+  padding: 18px 18px 14px;
+  box-shadow: 0 12px 36px rgba(0, 0, 0, 0.25);
+  animation: tutorial-pop 0.2s ease;
+}
+
+.tutorial-card-center {
+  top: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+}
+
+@keyframes tutorial-pop {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+.tutorial-card-image {
+  display: block;
+  width: 96px;
+  height: 96px;
+  object-fit: contain;
+  margin: 0 auto 8px;
+}
+
+.tutorial-step-count {
+  font-size: 11px;
+  font-weight: 700;
+  color: #8fb39a;
+  margin-bottom: 4px;
+}
+
+.tutorial-title {
+  font-size: 17px;
+  font-weight: 800;
+  color: #1a2e1a;
+  margin-bottom: 6px;
+}
+
+.tutorial-body {
+  font-size: 14px;
+  line-height: 1.55;
+  color: #4a5a4e;
+  word-break: keep-all;
+}
+
+.tutorial-dots {
+  display: flex;
+  justify-content: center;
+  gap: 5px;
+  margin: 14px 0 12px;
+}
+
+.tutorial-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: #d8e6dc;
+  transition: width 0.2s ease, background 0.2s ease;
+}
+
+.tutorial-dot.active {
+  width: 16px;
+  border-radius: 3px;
+  background: #008542;
+}
+
+.tutorial-actions {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+}
+
+.tutorial-nav {
+  display: flex;
+  gap: 6px;
+  margin-left: auto;
+}
+
+.tutorial-skip {
+  background: none;
+  color: #8a9a8e;
+  font-size: 13px;
+  font-weight: 600;
+  padding: 8px 4px;
+}
+
+.tutorial-prev,
+.tutorial-next {
+  font-size: 14px;
+  font-weight: 700;
+  border-radius: 10px;
+  padding: 9px 16px;
+}
+
+.tutorial-prev {
+  background: #eef5f0;
+  color: #3d6b4c;
+}
+
+.tutorial-next {
+  background: #008542;
+  color: #fff;
+}
+
+.tutorial-next:focus-visible,
+.tutorial-prev:focus-visible,
+.tutorial-skip:focus-visible {
+  outline: 2px solid #ffd54f;
+  outline-offset: 2px;
+}

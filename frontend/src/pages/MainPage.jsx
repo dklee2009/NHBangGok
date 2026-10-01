@@ -4,10 +4,76 @@ import * as d3 from "d3";
 import KoreaMap from "../components/KoreaMap";
 import SidoCard from "../components/SidoCard";
 import RewardRoad from "../components/RewardRoad";
+import Tutorial from "../components/Tutorial";
 import { useStamps } from "../hooks/useStamps";
 import { useRewards } from "../hooks/useRewards";
 import { useAuth } from "../contexts/AuthContext";
 import "./MainPage.css";
+
+// 처음 로그인한 사용자에게 보여 줄 메인 화면 튜토리얼 단계
+const TUTORIAL_STEPS = [
+   {
+     title: "NH 방방곡곡에 오신 걸 환영해요!",
+     body: "전국의 농협은행·하나로마트·농협주유소를 직접 방문하고 스탬프를 모으는 여행 서비스예요. 어떻게 쓰는지 하나씩 알려드릴게요.",
+     image: "/chars/올리한복.webp",
+   },
+   {
+     target: ".progress-card",
+     title: "나의 스탬프 현황",
+     body: "지금까지 모은 스탬프 수, 방문한 지역, 전국 달성률을 보여줘요. 숫자를 누르면 방문 기록 대시보드로 이동해요.",
+   },
+   {
+     target: ".companion-card",
+     title: "오늘의 여행 메이트",
+     body: "NH 5인방 캐릭터가 여행을 함께해요. 버튼을 누르면 다음에 할 일로 바로 안내해 줘요.",
+   },
+   {
+     target: ".reward-teaser",
+     title: "스탬프 보상",
+     body: "스탬프를 모을수록 보상이 열려요. 다음 보상까지 몇 개 남았는지 여기서 확인하세요.",
+   },
+   {
+     target: ".main-view-toggle",
+     title: "지도 · 목록 · 보상",
+     body: "지도로 보거나, 시/도 목록으로 보거나, 받을 수 있는 보상을 한눈에 볼 수 있어요.",
+   },
+   {
+     target: ".map-section",
+     title: "지역을 골라 여행을 시작해요",
+     body: "시/도를 누르면 시/군/구 지도가 나오고, 시/군/구를 누르면 근처 지점이 지도에 표시돼요. 많이 방문한 지역일수록 색이 진해져요.",
+   },
+   {
+     target: ".locate-me-btn",
+     title: "나의 위치 찾기",
+     body: "지금 있는 곳의 시/군/구로 바로 이동해요. 위치 권한을 허용해 주세요.",
+   },
+   {
+     title: "지점 근처에서 도장 쾅!",
+     body: "지점 지도에서 마커를 누르고, 지점에서 1km 이내에 있으면 도장을 찍을 수 있어요. 이 안내는 상단의 ? 버튼으로 언제든 다시 볼 수 있어요.",
+     image: "/stamp-mission-complete.webp",
+   },
+ ];
+
+function tutorialStorageKey(username) {
+  return `nh_tutorial_done_${username}`;
+}
+
+function hasSeenTutorial(username) {
+  try {
+    return localStorage.getItem(tutorialStorageKey(username)) === "1";
+  } catch {
+    // 저장소를 쓸 수 없는 환경(사파리 개인정보 보호 모드 등)에서는 매번 띄우지 않는다
+    return true;
+  }
+}
+
+function markTutorialSeen(username) {
+  try {
+    localStorage.setItem(tutorialStorageKey(username), "1");
+  } catch {
+    // 저장 실패는 무시 (다음 접속 때 한 번 더 보일 뿐)
+  }
+}
 
 let sigunguGeoPromise = null;
 function loadSigunguGeo() {
@@ -115,6 +181,19 @@ export default function MainPage() {
   const [traveling, setTraveling] = useState(false);
   const navigate = useNavigate();
   const { user, logout } = useAuth();
+  const [showTutorial, setShowTutorial] = useState(() => !!user?.username && !hasSeenTutorial(user.username));
+
+  const openTutorial = () => {
+    // 지도 단계가 있으므로 튜토리얼은 항상 지도 화면에서 진행한다
+    setView("map");
+    setShowTutorial(true);
+  };
+
+  const closeTutorial = () => {
+    if (user?.username) markTutorialSeen(user.username);
+    setShowTutorial(false);
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  };
   const {
     hasSidoVisited,
     getSidoStampCount,
@@ -203,6 +282,7 @@ export default function MainPage() {
         <div className="hero-brand">
           <div className="hero-user">
             <span className="hero-username">{user?.username}</span>
+            <button className="hero-help" onClick={openTutorial} aria-label="사용 방법 다시 보기" title="사용 방법">?</button>
             <button className="hero-logout" onClick={logout}>로그아웃</button>
           </div>
         </div>
@@ -464,6 +544,10 @@ export default function MainPage() {
             <img src="/chars/단체한복.webp" alt="NH 5인방이 여행을 시작하는 모습" />
           </div>
         </div>
+      )}
+
+      {showTutorial && view === "map" && (
+        <Tutorial steps={TUTORIAL_STEPS} onClose={closeTutorial} />
       )}
     </div>
   );
