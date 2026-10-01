@@ -6,6 +6,7 @@ API 문서: https://www.data.go.kr/data/15128559/openapi.do
 """
 import asyncio
 import os
+import time
 import urllib.parse
 from datetime import date
 
@@ -62,8 +63,36 @@ def _service_key() -> str:
     raw = os.getenv("TOUR_API_KEY", "")
     return urllib.parse.unquote(raw) if "%" in raw else raw
 
-# 데이터가 존재하는 것으로 확인된 기준월 캐시
-_base_ym_cache: str | None = None
+# 공공데이터포털 응답이 느리고 허브 관광지 통계는 월 단위로만 바뀌므로 결과를 캐시한다.
+# 실패/빈 결과는 일시적 장애일 수 있어 짧게만 캐시해 금방 재시도되게 한다.
+_OK_TTL = 24 * 60 * 60  # 24시간
+_FAIL_TTL = 10 * 60  # 10분
+_REQUEST_TIMEOUT = 5
+
+# 데이터가 존재하는 것으로 확인된 기준월 캐시: (만료 시각, 기준월 또는 None)
+_base_ym_cache: tuple[float, str | None] | None = None
+_base_ym_lock = asyncio.Lock()
+
+# (scope, 시/도, 시/군/구, limit) → (만료 시각, 응답)
+_resp_cache: dict[tuple, tuple[float, dict]] = {}
+# 같은 키의 동시 요청이 API를 중복 호출하지 않도록 진행 중인 조회를 공유한다.
+_inflight: dict[tuple, asyncio.Task] = {}
+
+
+async def _cached(key: tuple, factory) -> dict:
+    hit = _resp_cache.get(key)
+    if hit and hit[0] > time.monotonic():
+        return hit[1]
+    task = _inflight.get(key)
+    if task is None:
+        task = asyncio.create_task(factory())
+        _inflight[key] = task
+        task.add_done_callback(lambda _t: _inflight.pop(key, None))
+    # 요청 하나가 끊겨도 다른 대기자가 쓰는 조회는 취소되지 않도록 shield
+    result = await asyncio.shield(task)
+    ttl = _OK_TTL if result.get("available") and result.get("count") else _FAIL_TTL
+    _resp_cache[key] = (time.monotonic() + ttl, result)
+    return result
 
 
 def _candidate_base_yms() -> list[str]:
@@ -97,7 +126,7 @@ async def _fetch_one(client: httpx.AsyncClient, area_cd: str, signgu_cd: str, ba
         "signguCd": signgu_cd,
     }
     try:
-        r = await client.get(BASE_URL, params=params, timeout=10)
+        r = await client.get(BASE_URL, params=params, timeout=_REQUEST_TIMEOUT)
         r.raise_for_status()
         data = r.json()
     except (httpx.HTTPError, ValueError):
@@ -114,15 +143,18 @@ async def _fetch_one(client: httpx.AsyncClient, area_cd: str, signgu_cd: str, ba
 
 async def _resolve_base_ym(client: httpx.AsyncClient) -> str | None:
     global _base_ym_cache
-    if _base_ym_cache:
-        return _base_ym_cache
-    # 서울 중구로 데이터 존재 여부만 빠르게 확인
-    for ym in _candidate_base_yms():
-        rows = await _fetch_one(client, "11", "11140", ym, 1)
-        if rows:
-            _base_ym_cache = ym
-            return ym
-    return None
+    async with _base_ym_lock:
+        if _base_ym_cache and _base_ym_cache[0] > time.monotonic():
+            return _base_ym_cache[1]
+        # 서울 중구로 후보 기준월을 동시에 확인하고, 데이터가 있는 가장 최근 월을 고른다.
+        candidates = _candidate_base_yms()
+        results = await asyncio.gather(
+            *[_fetch_one(client, "11", "11140", ym, 1) for ym in candidates]
+        )
+        base_ym = next((ym for ym, rows in zip(candidates, results) if rows), None)
+        ttl = _OK_TTL if base_ym else _FAIL_TTL
+        _base_ym_cache = (time.monotonic() + ttl, base_ym)
+        return base_ym
 
 
 def _build_spots(raw_lists: list[list[dict]], limit: int) -> list[dict]:
@@ -172,6 +204,12 @@ def _build_spots(raw_lists: list[list[dict]], limit: int) -> list[dict]:
 
 async def get_recommendations(sido_name: str, limit: int = 24) -> dict:
     """시/도 대표 시·군·구들의 허브 관광지를 모아 추천 목록으로 반환."""
+    if sido_name not in SIDO_SIGNGU:
+        return await _fetch_recommendations(sido_name, limit)
+    return await _cached(("sido", sido_name, None, limit), lambda: _fetch_recommendations(sido_name, limit))
+
+
+async def _fetch_recommendations(sido_name: str, limit: int) -> dict:
     targets = SIDO_SIGNGU.get(sido_name)
     empty = {"sido": sido_name, "sigungu": None, "scope": "sido", "baseYm": None, "count": 0, "spots": [], "available": False}
     if not targets or not _service_key():
@@ -205,7 +243,14 @@ async def get_signgu_recommendations(sido_name: str, sigungu_name: str, limit: i
     signgu_cd = SIGUNGU_CODE.get(sido_name, {}).get(sigungu_name)
     if not signgu_cd or not _service_key():
         return await get_recommendations(sido_name, limit)
+    # 코드가 확인된 시/군/구만 캐시 키로 쓰므로 임의 문자열로 캐시가 무한히 커지지 않는다.
+    return await _cached(
+        ("sigungu", sido_name, sigungu_name, limit),
+        lambda: _fetch_signgu_recommendations(sido_name, sigungu_name, signgu_cd, limit),
+    )
 
+
+async def _fetch_signgu_recommendations(sido_name: str, sigungu_name: str, signgu_cd: str, limit: int) -> dict:
     area_cd = signgu_cd[:2]
     async with httpx.AsyncClient() as client:
         base_ym = await _resolve_base_ym(client)
